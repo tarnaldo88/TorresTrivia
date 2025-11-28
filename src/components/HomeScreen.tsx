@@ -74,14 +74,14 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
     >
     <View style={styles.content}>
         <View style={styles.buttonGroup}>
-        <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Head's Up</Text>
+        <TouchableOpacity style={styles.button}>            
+            <Image source={require('../assets/headsup.png')} style={styles.buttonImage} resizeMode="cover"/>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Trivia Questions</Text>
+            <Image source={require('../assets/trivia.png')} style={styles.buttonImage} resizeMode="cover"/>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Jeopardy</Text>
+            <Image source={require('../assets/jeopardy.png')} style={styles.buttonImage} resizeMode="cover"/>
         </TouchableOpacity>
         </View>
     </View>
@@ -102,16 +102,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  topText: {
-    marginTop: 60,
-    color: "#fff",
-    fontSize: 28,
-    fontWeight: "bold",
-  },
-
   buttonGroup: {
     position: "absolute",
-    bottom: "28%",   // bottom third of screen
+    bottom: "20%",   // bottom third of screen
     left: 0,
     right: 0,
     alignItems: "center",
@@ -119,15 +112,18 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: "#b909ff",
-    paddingVertical: 14,
-    paddingHorizontal: 30,
-    borderRadius: 10,
+    width: 250,             // set the size of the button
+    height: 120,
+    borderRadius: 20,        // rounded edges for the button
+    overflow: "hidden",      // REQUIRED: clips image to rounded edges
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#0002" // optional background during loading
   },
 
-  buttonText: {
-    color: "#fff",
-    fontSize: 22,
-    textAlign: "center",
-  },
+    buttonImage: {
+        width: "100%",
+        height: "100%",
+        borderRadius: 20,        // match parent radius (optional but helps Android)
+    },
 });
