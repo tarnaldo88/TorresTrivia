@@ -184,7 +184,9 @@
   - Implement feedback timing coordination
   - _Requirements: 2.4, 3.4_
 
-- [-] 7. Implement GameScreen component
+- [ ] 7. Implement GameScreen component
+
+
 
 
 
@@ -228,22 +230,31 @@
   - **Feature: heads-up-game, Property 16: Upright orientation displays items**
   - **Validates: Requirements 6.2**
 
-- [ ] 7.6 Write property test for score display during round
+- [x] 7.6 Write property test for score display during round
+
 
   - **Feature: heads-up-game, Property 11: Score displays during active round**
   - **Validates: Requirements 5.1**
+- [x] 8. Checkpoint - Ensure all tests pass
+
+
 
 - [ ] 8. Checkpoint - Ensure all tests pass
+
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 9. Create game initialization and round management
+- [-] 9. Create game initialization and round management
+
+
+
   - Implement game initialization logic
   - Implement round start/end lifecycle
   - Implement score reset between rounds
   - Wire all components together for complete game flow
   - _Requirements: 1.1, 4.1, 4.2, 4.3, 5.4_
 
-- [ ] 9.1 Write integration tests for complete game flow
+- [-] 9.1 Write integration tests for complete game flow
+
 
   - Test full round lifecycle from start to end
   - Test multiple rounds with score reset

@@ -201,4 +201,207 @@ describe('GameScreen Integration Tests', () => {
       );
     });
   });
+
+  describe('Complete Game Flow Integration Tests', () => {
+    describe('Full round lifecycle from start to end', () => {
+      it('should complete a full round lifecycle', async () => {
+        const freshGameState = new GameState();
+        const freshTimerManager = new TimerManager();
+
+        // Start round
+        const round = freshGameState.startRound(5); // 5 second round
+        expect(round.isActive).toBe(true);
+        expect(freshGameState.isRoundActive()).toBe(true);
+
+        // Simulate actions during round
+        freshGameState.registerCorrectGuess('item1');
+        freshGameState.registerSkip('item2');
+        freshGameState.registerCorrectGuess('item3');
+
+        const scoreBeforeEnd = freshGameState.getCurrentScore();
+        expect(scoreBeforeEnd).toBe(2);
+
+        // End round
+        freshGameState.endRound();
+        expect(freshGameState.isRoundActive()).toBe(false);
+
+        const finalRound = freshGameState.getCurrentRound();
+        expect(finalRound?.isActive).toBe(false);
+        expect(freshGameState.getCurrentScore()).toBe(scoreBeforeEnd);
+      });
+
+      it('should prevent actions after round ends', () => {
+        const freshGameState = new GameState();
+        freshGameState.startRound();
+        freshGameState.registerCorrectGuess('item1');
+
+        const scoreBeforeEnd = freshGameState.getCurrentScore();
+        freshGameState.endRound();
+
+        // Try to register action after round ends
+        const result = freshGameState.registerCorrectGuess('item2');
+        expect(result).toBeNull();
+        expect(freshGameState.getCurrentScore()).toBe(scoreBeforeEnd);
+      });
+    });
+
+    describe('Multiple rounds with score reset', () => {
+      it('should reset score between consecutive rounds', async () => {
+        await fc.assert(
+          fc.asyncProperty(
+            fc.tuple(
+              fc.integer({ min: 1, max: 20 }),
+              fc.integer({ min: 1, max: 20 })
+            ),
+            async ([firstRoundGuesses, secondRoundGuesses]) => {
+              const freshGameState = new GameState();
+
+              // First round
+              freshGameState.startRound();
+              for (let i = 0; i < firstRoundGuesses; i++) {
+                freshGameState.registerCorrectGuess(`item${i}`);
+              }
+              const firstRoundScore = freshGameState.getCurrentScore();
+              expect(firstRoundScore).toBe(firstRoundGuesses);
+
+              // End first round
+              freshGameState.endRound();
+              expect(freshGameState.isRoundActive()).toBe(false);
+
+              // Start second round
+              freshGameState.reset();
+              freshGameState.startRound();
+              expect(freshGameState.getCurrentScore()).toBe(0);
+
+              // Play second round
+              for (let i = 0; i < secondRoundGuesses; i++) {
+                freshGameState.registerCorrectGuess(`item${i + 100}`);
+              }
+              const secondRoundScore = freshGameState.getCurrentScore();
+              expect(secondRoundScore).toBe(secondRoundGuesses);
+            }
+          ),
+          { numRuns: 100 }
+        );
+      });
+
+      it('should maintain separate item tracking across rounds', async () => {
+        const freshGameState = new GameState();
+
+        // First round
+        freshGameState.startRound();
+        freshGameState.registerCorrectGuess('item1');
+        freshGameState.registerCorrectGuess('item2');
+        const firstRoundItems = freshGameState.getItemsUsed();
+        expect(firstRoundItems).toContain('item1');
+        expect(firstRoundItems).toContain('item2');
+
+        // Reset and start second round
+        freshGameState.reset();
+        freshGameState.startRound();
+        const secondRoundItems = freshGameState.getItemsUsed();
+        expect(secondRoundItems.length).toBe(0);
+
+        // Register different items in second round
+        freshGameState.registerCorrectGuess('item3');
+        const updatedSecondRoundItems = freshGameState.getItemsUsed();
+        expect(updatedSecondRoundItems).toContain('item3');
+        expect(updatedSecondRoundItems).not.toContain('item1');
+      });
+    });
+
+    describe('Item progression through a complete round', () => {
+      it('should track item progression through actions', async () => {
+        await fc.assert(
+          fc.asyncProperty(
+            fc.array(fc.constantFrom('CORRECT', 'SKIP'), {
+              minLength: 1,
+              maxLength: 15,
+            }),
+            async (actions) => {
+              const freshGameState = new GameState();
+              freshGameState.startRound();
+
+              const itemIds: string[] = [];
+              for (let i = 0; i < actions.length; i++) {
+                itemIds.push(`item${i}`);
+              }
+
+              // Perform actions and track items
+              for (let i = 0; i < actions.length; i++) {
+                if (actions[i] === 'CORRECT') {
+                  freshGameState.registerCorrectGuess(itemIds[i]);
+                } else {
+                  freshGameState.registerSkip(itemIds[i]);
+                }
+              }
+
+              // Verify all items were tracked
+              const usedItems = freshGameState.getItemsUsed();
+              expect(usedItems.length).toBe(actions.length);
+              for (let i = 0; i < actions.length; i++) {
+                expect(usedItems).toContain(itemIds[i]);
+              }
+            }
+          ),
+          { numRuns: 100 }
+        );
+      });
+
+      it('should maintain correct score during item progression', async () => {
+        await fc.assert(
+          fc.asyncProperty(
+            fc.array(fc.constantFrom('CORRECT', 'SKIP'), {
+              minLength: 1,
+              maxLength: 20,
+            }),
+            async (actions) => {
+              const freshGameState = new GameState();
+              freshGameState.startRound();
+
+              let expectedScore = 0;
+              for (let i = 0; i < actions.length; i++) {
+                if (actions[i] === 'CORRECT') {
+                  freshGameState.registerCorrectGuess(`item${i}`);
+                  expectedScore += 1;
+                } else {
+                  freshGameState.registerSkip(`item${i}`);
+                }
+
+                const currentScore = freshGameState.getCurrentScore();
+                expect(currentScore).toBe(expectedScore);
+              }
+            }
+          ),
+          { numRuns: 100 }
+        );
+      });
+
+      it('should handle mixed actions and maintain state consistency', async () => {
+        const freshGameState = new GameState();
+        freshGameState.startRound();
+
+        // Perform mixed actions
+        freshGameState.registerCorrectGuess('item1');
+        expect(freshGameState.getCurrentScore()).toBe(1);
+
+        freshGameState.registerSkip('item2');
+        expect(freshGameState.getCurrentScore()).toBe(1);
+
+        freshGameState.registerCorrectGuess('item3');
+        expect(freshGameState.getCurrentScore()).toBe(2);
+
+        freshGameState.registerSkip('item4');
+        expect(freshGameState.getCurrentScore()).toBe(2);
+
+        freshGameState.registerCorrectGuess('item5');
+        expect(freshGameState.getCurrentScore()).toBe(3);
+
+        // Verify all items were tracked
+        const usedItems = freshGameState.getItemsUsed();
+        expect(usedItems.length).toBe(5);
+        expect(usedItems).toEqual(['item1', 'item2', 'item3', 'item4', 'item5']);
+      });
+    });
+  });
 });
