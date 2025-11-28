@@ -263,6 +263,10 @@
   - Test multiple rounds with score reset
   - Test item progression through a complete round
 
-- [ ] 10. Final Checkpoint - Ensure all tests pass
+- [x] 10. Final Checkpoint - Ensure all tests pass
+
+
+
+
   - Ensure all tests pass, ask the user if questions arise.
 
