@@ -103,7 +103,8 @@
   - **Feature: heads-up-game, Property 14: Score resets on new round**
   - **Validates: Requirements 5.4**
 
-- [-] 4. Implement OrientationDetector
+- [x] 4. Implement OrientationDetector
+
 
 
 
@@ -114,18 +115,22 @@
   - Implement orientation change callbacks
   - _Requirements: 2.1, 3.1, 6.1, 6.3, 6.4_
 
-- [-] 4.1 Write property test for downward rotation detection
+- [x] 4.1 Write property test for downward rotation detection
+
 
 
   - **Feature: heads-up-game, Property 4: Downward rotation registers correct guess**
   - **Validates: Requirements 2.1**
 
+
 - [ ] 4.2 Write property test for upward rotation detection
 
   - **Feature: heads-up-game, Property 6: Upward rotation registers skip**
+
   - **Validates: Requirements 3.1**
 
 - [ ] 4.3 Write property test for orientation detection latency
+
 
   - **Feature: heads-up-game, Property 15: Orientation detection latency**
   - **Validates: Requirements 6.1**
