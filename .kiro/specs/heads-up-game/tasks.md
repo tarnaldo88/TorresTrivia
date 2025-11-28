@@ -22,22 +22,29 @@
   - Implement database seeding with default word/phrase collection
   - _Requirements: 7.1, 7.2_
 
-- [ ] 2. Implement ItemDatabase and item management
+- [x] 2. Implement ItemDatabase and item management
+
+
+
+
   - Create ItemDatabase class with SQLite connection
   - Implement random item selection logic using SQL queries
   - Implement item deduplication within a round
   - Implement item cycling when collection is exhausted
   - _Requirements: 7.1, 7.2, 7.3, 7.4_
 
-- [ ] 2.1 Write property test for item selection
+- [x] 2.1 Write property test for item selection
+
 
   - **Feature: heads-up-game, Property 1: Round displays items**
   - **Validates: Requirements 1.1, 7.1, 7.2**
+
 
 - [ ] 2.2 Write property test for item deduplication
 
   - **Feature: heads-up-game, Property 18: No item repetition within round**
   - **Validates: Requirements 7.3**
+
 
 - [ ] 2.3 Write property test for item cycling
 
