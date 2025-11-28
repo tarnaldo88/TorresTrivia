@@ -12,7 +12,10 @@
   - Set up testing framework (Jest with fast-check for property-based testing)
   - _Requirements: 1.1, 2.1, 3.1, 4.1, 5.1, 6.1, 7.1_
 
-- [ ] 1.1 Set up SQLite database and initialize schema
+- [x] 1.1 Set up SQLite database and initialize schema
+
+
+
   - Install react-native-sqlite-storage or expo-sqlite
   - Create database initialization utility
   - Create items table schema with id, text, and category columns
