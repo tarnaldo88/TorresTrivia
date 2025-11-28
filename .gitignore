@@ -1,72 +1,43 @@
-# Node
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
 
-# Metro bundler
+# Expo
 .expo/
-.expo-shared/
-.expo-cli/
-.expo/packager-info.json
-.expo/metro-cache/
-.expo/web/
-.expo/packager-info.json
-
-# React Native cache
-.android/
-.ios/
-.gradle/
-build/
 dist/
-tmp/
-temp/
-*.log
-*.tmp
+web-build/
+expo-env.d.ts
 
-# TypeScript
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
 *.tsbuildinfo
 
-# Bundler / Watchman
-.expo/web-build/
-.expo/web-dist/
-.watchman/
-.watchmanconfig
+app-example
 
-# macOS / Linux
-.DS_Store
-.env.local
-.env.*.local
-.idea/
-.vscode/
-
-# Android
-android/.gradle/
-android/.idea/
-android/local.properties
-android/app/build/
-android/app/release/
-android/app/debug/
-android/captures/
-
-# iOS
-ios/build/
-ios/Pods/
-ios/Podfile.lock
-ios/DerivedData/
-xcuserdata/
-*.xcworkspace
-*.xcuserstate
-
-# Expo (if not using Expo, remove these)
-.expo/
-web-build/
-web-dist/
-
-# Misc
-coverage/
-*.iml
-*.swp
-*.swo
-*.orig
+# generated native folders
+/ios
+/android
