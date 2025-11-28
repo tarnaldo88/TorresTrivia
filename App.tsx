@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { GameScreen } from './src/components/GameScreen';
 import { Database } from './src/services/database';
 import { seedDatabase } from './src/services/databaseSeeder';
+import { HomeScreen } from './src/components/HomeScreen';
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
@@ -33,7 +33,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <GameScreen />
+      <HomeScreen />
     </SafeAreaView>
   );
 }
