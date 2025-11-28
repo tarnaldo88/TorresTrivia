@@ -40,45 +40,65 @@
   - **Validates: Requirements 1.1, 7.1, 7.2**
 
 
-- [ ] 2.2 Write property test for item deduplication
+- [x] 2.2 Write property test for item deduplication
+
+
+
+
 
   - **Feature: heads-up-game, Property 18: No item repetition within round**
   - **Validates: Requirements 7.3**
 
 
-- [ ] 2.3 Write property test for item cycling
+- [x] 2.3 Write property test for item cycling
+
+
+
+
+
 
   - **Feature: heads-up-game, Property 19: Item cycling on exhaustion**
   - **Validates: Requirements 7.4**
 
-- [ ] 3. Implement GameState manager
+- [x] 3. Implement GameState manager
+
+
+
+
+
   - Create GameState class to manage round state (active, paused, ended)
   - Implement score tracking and increment logic
   - Implement round duration configuration with 60-second default
   - Implement state transition logic
   - _Requirements: 2.2, 3.3, 4.1, 4.2, 4.3, 5.1, 5.4_
 
-- [ ] 3.1 Write property test for score increment
+
+- [x] 3.1 Write property test for score increment
+
 
   - **Feature: heads-up-game, Property 5: Correct guess increments score**
   - **Validates: Requirements 2.2**
 
-- [ ] 3.2 Write property test for skip preserves score
+- [x] 3.2 Write property test for skip preserves score
+
 
   - **Feature: heads-up-game, Property 7: Skip preserves score**
   - **Validates: Requirements 3.3**
 
-- [ ] 3.3 Write property test for custom duration
+- [x] 3.3 Write property test for custom duration
+
 
   - **Feature: heads-up-game, Property 8: Custom duration is used**
   - **Validates: Requirements 4.2**
 
-- [ ] 3.4 Write property test for default duration
+- [x] 3.4 Write property test for default duration
+
 
   - **Feature: heads-up-game, Property 9: Default duration is 60 seconds**
   - **Validates: Requirements 4.3**
 
-- [ ] 3.5 Write property test for score reset
+- [x] 3.5 Write property test for score reset
+
 
   - **Feature: heads-up-game, Property 14: Score resets on new round**
   - **Validates: Requirements 5.4**
