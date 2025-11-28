@@ -12,9 +12,16 @@
   - Set up testing framework (Jest with fast-check for property-based testing)
   - _Requirements: 1.1, 2.1, 3.1, 4.1, 5.1, 6.1, 7.1_
 
+- [ ] 1.1 Set up SQLite database and initialize schema
+  - Install react-native-sqlite-storage or expo-sqlite
+  - Create database initialization utility
+  - Create items table schema with id, text, and category columns
+  - Implement database seeding with default word/phrase collection
+  - _Requirements: 7.1, 7.2_
+
 - [ ] 2. Implement ItemDatabase and item management
-  - Create ItemDatabase class with word/phrase collection
-  - Implement random item selection logic
+  - Create ItemDatabase class with SQLite connection
+  - Implement random item selection logic using SQL queries
   - Implement item deduplication within a round
   - Implement item cycling when collection is exhausted
   - _Requirements: 7.1, 7.2, 7.3, 7.4_

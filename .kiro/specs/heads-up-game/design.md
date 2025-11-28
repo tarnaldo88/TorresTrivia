@@ -11,7 +11,7 @@ The application follows a layered architecture:
 - **Presentation Layer**: React Native components for UI rendering, including the game screen, score display, timer, and feedback animations
 - **Game Logic Layer**: Core game state management, score tracking, round management, and item sequencing
 - **Sensor Layer**: Device orientation detection and gesture recognition
-- **Data Layer**: Word/phrase database management and item selection
+- **Data Layer**: SQLite database for word/phrase storage and item selection, AsyncStorage for game state persistence
 - **Utilities Layer**: Timer management, feedback generation, and configuration handling
 
 ## Components and Interfaces
@@ -36,10 +36,11 @@ The application follows a layered architecture:
 - Provides orientation change callbacks
 
 ### ItemDatabase
-- Stores collection of words/phrases
-- Provides random item selection
+- SQLite database for persistent word/phrase storage
+- Provides random item selection queries
 - Tracks used items within a round
 - Prevents repetition within a round
+- Supports offline-first operation with no internet required
 
 ### TimerManager
 - Tracks elapsed time in current round
@@ -177,7 +178,8 @@ The application follows a layered architecture:
 ## Error Handling
 
 - **Invalid Round Duration**: If duration is not a positive number, default to 60 seconds
-- **Empty Item Database**: If no items are available, provide a default set or error message
+- **Empty Item Database**: If SQLite database is empty or uninitialized, provide a default set of items or error message
+- **Database Connection Failure**: If SQLite connection fails, display error and attempt to reinitialize
 - **Orientation Detection Failure**: If device orientation cannot be detected, display a warning and allow manual button controls as fallback
 - **Timer Expiration**: When round time expires, immediately end the round and display final score
 - **Rapid Orientation Changes**: Debounce orientation events to prevent accidental double-triggers
@@ -190,10 +192,25 @@ The application follows a layered architecture:
 - Test timer countdown calculations
 - Test orientation threshold detection
 - Test round state transitions
+- Test SQLite database operations (insert, query, random selection)
 
 ### Property-Based Testing
 - Use a property-based testing framework (e.g., fast-check for JavaScript/TypeScript)
 - Configure tests to run minimum 100 iterations
 - Each property test will be tagged with the corresponding correctness property from the design
 - Test universal properties across randomized inputs
+- Test database consistency and item selection properties
+
+## Database Schema
+
+### Items Table
+```sql
+CREATE TABLE items (
+  id TEXT PRIMARY KEY,
+  text TEXT NOT NULL,
+  category TEXT
+);
+```
+
+The SQLite database is stored locally on the device with no internet connection required. All game data persists between sessions.
 
