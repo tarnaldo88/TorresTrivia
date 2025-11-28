@@ -67,58 +67,67 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   };
 
   return (    
-    <ImageBackground source={require('../assets/torresTrivia.png')} resizeMode='cover' style={styles.background}>
-    <ScrollView style={styles.scrollContent}>   
-        <Text style={styles.text}>test</Text>
-        <View style={styles.buttonGroup}>        
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.text}>Head's Up</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.text}>Trivia Questions</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.text}>Jeopardy</Text>
-            </TouchableOpacity>
+    <ImageBackground 
+    source={require('../assets/torresTrivia.png')} 
+    resizeMode='cover' 
+    style={styles.background}
+    >
+    <View style={styles.content}>
+        <View style={styles.buttonGroup}>
+        <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Head's Up</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Trivia Questions</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Jeopardy</Text>
+        </TouchableOpacity>
         </View>
-    </ScrollView>
+    </View>
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
     background: {
-        flex: 1,
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    text: {
-        justifyContent: 'center',
-        color:"#fff",
-        fontSize:25,
-    },
-    image: {
-        flex: 1,
-        justifyContent: 'center',
-    },
-    scrollContent: {
-        flex: 1,
-        // padding: 20,
-        // backgroundColor: "#221e27",
-    },
-    button: {
-        borderRadius: 10,
-        backgroundColor:"#0957ffff",
-        width:'60%',
-    },
-    buttonGroup: {
-        position: "absolute",
-        bottom: "33%",       // bottom third of screen
-        left: 0,
-        right: 0,
-        alignItems: "center", // center horizontally
-        gap: 16,              // space between buttons (RN 0.71+)
-    },
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
+
+  content: {
+    flex: 1,
+    justifyContent: "flex-start", 
+    alignItems: "center",
+  },
+
+  topText: {
+    marginTop: 60,
+    color: "#fff",
+    fontSize: 28,
+    fontWeight: "bold",
+  },
+
+  buttonGroup: {
+    position: "absolute",
+    bottom: "28%",   // bottom third of screen
+    left: 0,
+    right: 0,
+    alignItems: "center",
+    gap: 16,
+  },
+
+  button: {
+    backgroundColor: "#b909ff",
+    paddingVertical: 14,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+  },
+
+  buttonText: {
+    color: "#fff",
+    fontSize: 22,
+    textAlign: "center",
+  },
 });
