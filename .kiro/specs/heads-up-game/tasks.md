@@ -108,6 +108,7 @@
 
 
 
+
   - Create OrientationDetector class to monitor device accelerometer/gyroscope
   - Implement downward rotation detection logic
   - Implement upward rotation detection logic
@@ -123,43 +124,70 @@
   - **Validates: Requirements 2.1**
 
 
-- [ ] 4.2 Write property test for upward rotation detection
+- [x] 4.2 Write property test for upward rotation detection
+
+
+
+
+
 
   - **Feature: heads-up-game, Property 6: Upward rotation registers skip**
 
   - **Validates: Requirements 3.1**
 
-- [ ] 4.3 Write property test for orientation detection latency
+- [x] 4.3 Write property test for orientation detection latency
+
+
+
+
+
 
 
   - **Feature: heads-up-game, Property 15: Orientation detection latency**
   - **Validates: Requirements 6.1**
+-
 
-- [ ] 4.4 Write property test for ready after action
+- [x] 4.4 Write property test for ready after action
+
+
+
+
 
   - **Feature: heads-up-game, Property 17: Ready for next action after completion**
   - **Validates: Requirements 6.4**
 
-- [ ] 5. Implement TimerManager
+- [x] 5. Implement dTimerManager
+
+
+
+
   - Create TimerManager class to track elapsed time
   - Implement countdown calculation logic
   - Implement round end trigger when time expires
   - Implement timer display update callbacks
   - _Requirements: 4.4, 5.1, 5.3_
 
-- [ ] 5.1 Write property test for timer display
+- [x] 5.1 Write property test for timer display
+
 
   - **Feature: heads-up-game, Property 10: Timer displays during active round**
   - **Validates: Requirements 4.4**
 
-- [ ] 6. Implement FeedbackManager
+- [x] 6. Implement FeedbackManager
+
+
+
+
   - Create FeedbackManager class for visual and audio feedback
   - Implement feedback generation for correct guess actions
   - Implement feedback generation for skip actions
   - Implement feedback timing coordination
   - _Requirements: 2.4, 3.4_
 
-- [ ] 7. Implement GameScreen component
+- [-] 7. Implement GameScreen component
+
+
+
   - Create GameScreen React Native component
   - Implement word/phrase display with large, readable text
   - Integrate score display
@@ -169,27 +197,33 @@
   - Wire GameState, OrientationDetector, TimerManager, and FeedbackManager together
   - _Requirements: 1.1, 1.2, 2.1, 2.2, 3.1, 3.3, 4.4, 5.1, 5.2, 6.2_
 
-- [ ] 7.1 Write property test for item advancement
+- [x] 7.1 Write property test for item advancement
+
+
 
   - **Feature: heads-up-game, Property 2: Item advancement on action**
   - **Validates: Requirements 1.3, 2.3, 3.2**
 
-- [ ] 7.2 Write property test for round end stops items
+- [x] 7.2 Write property test for round end stops items
+
 
   - **Feature: heads-up-game, Property 3: Round end stops items**
   - **Validates: Requirements 1.4**
 
-- [ ] 7.3 Write property test for score display update
+- [x] 7.3 Write property test for score display update
+
 
   - **Feature: heads-up-game, Property 12: Score updates immediately**
   - **Validates: Requirements 5.2**
 
-- [ ] 7.4 Write property test for final score display
+- [x] 7.4 Write property test for final score display
+
 
   - **Feature: heads-up-game, Property 13: Final score displays on round end**
   - **Validates: Requirements 5.3**
 
-- [ ] 7.5 Write property test for upright orientation display
+- [x] 7.5 Write property test for upright orientation display
+
 
   - **Feature: heads-up-game, Property 16: Upright orientation displays items**
   - **Validates: Requirements 6.2**
