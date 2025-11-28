@@ -108,14 +108,21 @@ export const GameScreen: React.FC<GameScreenProps> = ({
       return;
     }
 
+    const actionType = action === 'CORRECT' ? 'CORRECT' : 'SKIP';
+
     if (action === 'CORRECT') {
       gameState.registerCorrectGuess(currentItem.id);
       setScore(gameState.getCurrentScore());
-      feedbackManager.provideFeedback('correct');
     } else if (action === 'SKIP') {
       gameState.registerSkip(currentItem.id);
-      feedbackManager.provideFeedback('skip');
     }
+
+    // Generate feedback
+    feedbackManager.generateFeedback({
+      type: actionType,
+      timestamp: Date.now(),
+      itemId: currentItem.id,
+    });
 
     // Display next item
     try {

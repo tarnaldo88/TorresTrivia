@@ -243,7 +243,9 @@
 
   - Ensure all tests pass, ask the user if questions arise.
 
-- [-] 9. Create game initialization and round management
+- [x] 9. Create game initialization and round management
+
+
 
 
 
@@ -253,7 +255,8 @@
   - Wire all components together for complete game flow
   - _Requirements: 1.1, 4.1, 4.2, 4.3, 5.4_
 
-- [-] 9.1 Write integration tests for complete game flow
+- [x] 9.1 Write integration tests for complete game flow
+
 
 
   - Test full round lifecycle from start to end
