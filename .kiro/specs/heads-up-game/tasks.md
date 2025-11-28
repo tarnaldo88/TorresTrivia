@@ -103,7 +103,10 @@
   - **Feature: heads-up-game, Property 14: Score resets on new round**
   - **Validates: Requirements 5.4**
 
-- [ ] 4. Implement OrientationDetector
+- [-] 4. Implement OrientationDetector
+
+
+
   - Create OrientationDetector class to monitor device accelerometer/gyroscope
   - Implement downward rotation detection logic
   - Implement upward rotation detection logic
@@ -111,7 +114,8 @@
   - Implement orientation change callbacks
   - _Requirements: 2.1, 3.1, 6.1, 6.3, 6.4_
 
-- [ ] 4.1 Write property test for downward rotation detection
+- [-] 4.1 Write property test for downward rotation detection
+
 
   - **Feature: heads-up-game, Property 4: Downward rotation registers correct guess**
   - **Validates: Requirements 2.1**
