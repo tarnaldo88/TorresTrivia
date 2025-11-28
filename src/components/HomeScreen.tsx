@@ -66,36 +66,23 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
     // }
   };
 
-  return (
-    
+  return (    
     <ImageBackground source={require('../assets/torresTrivia.png')} resizeMode='cover' style={styles.background}>
-    <ScrollView style={styles.scrollContent}>    
-      {/* Score Display */}
-      <View style={styles.scoreContainer}>
-        <Text style={styles.scoreLabel}>Last Round's Score : </Text>
-        <Text style={styles.scoreValue}>{score}</Text>
-      </View>
-
-      {/* Item Display */}
-      <View style={styles.itemContainer}>        
-        <TouchableOpacity>
-            <Text>Head's Up</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Timer Display */}
-      <View style={styles.timerContainer}>
-        <Text style={styles.timerLabel}>Time</Text>
-        <Text style={styles.timerValue}>
-          {Math.ceil(remainingTime / 1000)}s
-        </Text>
-      </View>
-      </ScrollView>
+    <ScrollView style={styles.scrollContent}>   
+        <Text style={styles.text}>test</Text>
+        <View style={styles.buttonGroup}>        
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.text}>Head's Up</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.text}>Trivia Questions</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.text}>Jeopardy</Text>
+            </TouchableOpacity>
+        </View>
+    </ScrollView>
     </ImageBackground>
-    
-    
-    
-    
   );
 };
 
@@ -107,55 +94,31 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    text: {
+        justifyContent: 'center',
+        color:"#fff",
+        fontSize:25,
+    },
     image: {
         flex: 1,
         justifyContent: 'center',
     },
-  scrollContent: {
-    flexGrow: 1,
-    justify: "center",
-    padding: 20,
-    // backgroundColor: "#221e27",
-  },
-  button: {
-    borderRadius: 10,
-    backgroundColor:"#fff",
-  },
-  
-  scoreContainer: {
-    alignItems: 'center',
-  },
-  scoreLabel: {
-    marginTop:20,
-    fontSize: 26,
-    color: '#20e00eff',
-  },
-  scoreValue: {
-    fontSize: 48,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  itemContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  itemText: {
-    fontSize: 48,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#000',
-  },
-  timerContainer: {
-    alignItems: 'center',
-  },
-  timerLabel: {
-    fontSize: 16,
-    color: '#666',
-  },
-  timerValue: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#000',
-  },
+    scrollContent: {
+        flex: 1,
+        // padding: 20,
+        // backgroundColor: "#221e27",
+    },
+    button: {
+        borderRadius: 10,
+        backgroundColor:"#0957ffff",
+        width:'60%',
+    },
+    buttonGroup: {
+        position: "absolute",
+        bottom: "33%",       // bottom third of screen
+        left: 0,
+        right: 0,
+        alignItems: "center", // center horizontally
+        gap: 16,              // space between buttons (RN 0.71+)
+    },
 });
