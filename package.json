@@ -4,7 +4,7 @@
   "description": "Mobile Heads Up Game built with React Native",
   "main": "index.js",
   "scripts": {
-    "test": "jest --run",
+    "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },

@@ -15,6 +15,6 @@ describe('Testing Framework Setup', () => {
       }),
       { numRuns: 10 }
     );
-    expect(result.isFailure()).toBe(false);
+    expect(result.failed).toBe(false);
   });
 });

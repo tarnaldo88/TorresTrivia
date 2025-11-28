@@ -1,10 +1,13 @@
 module.exports = {
-  preset: 'react-native',
   testEnvironment: 'node',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   testMatch: ['**/__tests__/**/*.test.ts', '**/?(*.)+(spec|test).ts'],
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.tsx?$': ['ts-jest', {
+      tsconfig: {
+        jsx: 'react',
+      },
+    }],
   },
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
