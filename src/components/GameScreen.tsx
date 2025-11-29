@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import { GameState } from '../services/gameState';
 import { OrientationDetector } from '../services/orientationDetector';
 import { TimerManager } from '../services/timerManager';
@@ -36,6 +37,32 @@ export const GameScreen: React.FC<GameScreenProps> = ({
   const timerManagerRef = useRef<TimerManager>(new TimerManager());
   const feedbackManagerRef = useRef<FeedbackManager>(new FeedbackManager());
   const itemDatabaseRef = useRef<ItemDatabase>(new ItemDatabase());
+  const currentItemRef = useRef<GameItem | null>(null);
+
+  // Lock to landscape orientation when screen is focused
+  useFocusEffect(
+    React.useCallback(() => {
+      const lockOrientation = async () => {
+        try {
+          console.log('Locking to landscape');
+          await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT);
+        } catch (error) {
+          console.error('Failed to lock orientation:', error);
+        }
+      };
+
+      lockOrientation();
+
+      return () => {
+        // Lock back to portrait when leaving
+        try {
+          ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT).catch(console.error);
+        } catch (error) {
+          console.error('Failed to unlock orientation:', error);
+        }
+      };
+    }, [])
+  );
 
   // Initialize game on mount
   useEffect(() => {
@@ -103,36 +130,48 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     setScore(0);
   };
 
+  // Update ref whenever currentItem changes
+  useEffect(() => {
+    currentItemRef.current = currentItem;
+  }, [currentItem]);
+
   // Handle correct guess or skip action
   const handleAction = async (action: string) => {
     const gameState = gameStateRef.current;
     const itemDatabase = itemDatabaseRef.current;
     const feedbackManager = feedbackManagerRef.current;
+    const item = currentItemRef.current;
 
-    if (!currentItem) {
+    console.log('GameScreen: handleAction called with action =', action, 'item =', item?.text);
+
+    if (!item) {
+      console.log('GameScreen: No current item');
       return;
     }
 
     const actionType = action === 'CORRECT' ? 'CORRECT' : 'SKIP';
 
     if (action === 'CORRECT') {
-      gameState.registerCorrectGuess(currentItem.id);
+      gameState.registerCorrectGuess(item.id);
       setScore(gameState.getCurrentScore());
+      console.log('GameScreen: Correct guess registered, new score =', gameState.getCurrentScore());
     } else if (action === 'SKIP') {
-      gameState.registerSkip(currentItem.id);
+      gameState.registerSkip(item.id);
+      console.log('GameScreen: Skip registered');
     }
 
     // Generate feedback
     feedbackManager.generateFeedback({
       type: actionType,
       timestamp: Date.now(),
-      itemId: currentItem.id,
+      itemId: item.id,
     });
 
     // Display next item
     try {
       const nextItem = await itemDatabase.getRandomItem();
       setCurrentItem(nextItem);
+      console.log('GameScreen: Next item displayed:', nextItem.text);
     } catch (error) {
       console.error('Failed to get next item:', error);
     }
@@ -192,44 +231,51 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    padding: 20,
+    backgroundColor: '#1a1a1a',
+    paddingHorizontal: 30,
+    paddingVertical: 20,
   },
   scoreContainer: {
     alignItems: 'center',
+    minWidth: 100,
   },
   scoreLabel: {
-    fontSize: 16,
-    color: '#666',
+    fontSize: 14,
+    color: '#999',
+    marginBottom: 8,
   },
   scoreValue: {
-    fontSize: 48,
+    fontSize: 56,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#4CAF50',
   },
   itemContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginHorizontal: 20,
   },
   itemText: {
-    fontSize: 48,
+    fontSize: 72,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#000',
+    color: '#fff',
   },
   timerContainer: {
     alignItems: 'center',
+    minWidth: 100,
   },
   timerLabel: {
-    fontSize: 16,
-    color: '#666',
+    fontSize: 14,
+    color: '#999',
+    marginBottom: 8,
   },
   timerValue: {
-    fontSize: 36,
+    fontSize: 48,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#FF6B6B',
   },
 });

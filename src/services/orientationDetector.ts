@@ -1,3 +1,4 @@
+import { Accelerometer } from 'expo-sensors';
 import { DeviceOrientation } from '../types/index';
 
 /**
@@ -6,22 +7,23 @@ import { DeviceOrientation } from '../types/index';
 export type OrientationCallback = (action: 'CORRECT' | 'SKIP') => void;
 
 /**
- * OrientationDetector monitors device accelerometer/gyroscope data
+ * OrientationDetector monitors device accelerometer data
  * and detects downward/upward rotations to register game actions
  */
 export class OrientationDetector {
   private isListening: boolean = false;
   private callbacks: OrientationCallback[] = [];
   private lastActionTime: number = 0;
-  private debounceMs: number = 300; // debounce window in milliseconds
-  private downwardThreshold: number = -0.5; // pitch threshold for downward rotation
-  private upwardThreshold: number = 0.5; // pitch threshold for upward rotation
+  private debounceMs: number = 200; // debounce window in milliseconds
+  private downwardThreshold: number = 5; // acceleration threshold for downward rotation
+  private upwardThreshold: number = -5; // acceleration threshold for upward rotation
   private detectionLatencyMs: number = 100; // max latency for detection
   private lastDetectionTime: number = 0;
+  private subscription: any = null;
+  private lastZ: number = 0;
 
   /**
-   * Start listening to device orientation changes
-   * In a real React Native app, this would use react-native-sensors or similar
+   * Start listening to device orientation changes using accelerometer
    */
   startListening(): void {
     if (this.isListening) {
@@ -30,6 +32,26 @@ export class OrientationDetector {
     this.isListening = true;
     this.lastActionTime = 0;
     this.lastDetectionTime = 0;
+
+    try {
+      // Set update interval to 100ms for responsive detection
+      Accelerometer.setUpdateInterval(100);
+
+      // Subscribe to accelerometer updates
+      this.subscription = Accelerometer.addListener((data) => {
+        this.processOrientation({
+          x: data.x,
+          y: data.y,
+          z: data.z,
+          timestamp: Date.now(),
+        });
+      });
+
+      console.log('OrientationDetector: Accelerometer listener started');
+    } catch (error) {
+      console.error('OrientationDetector: Failed to start accelerometer:', error);
+      this.isListening = false;
+    }
   }
 
   /**
@@ -37,6 +59,10 @@ export class OrientationDetector {
    */
   stopListening(): void {
     this.isListening = false;
+    if (this.subscription) {
+      this.subscription.remove();
+      this.subscription = null;
+    }
   }
 
   /**
@@ -57,7 +83,6 @@ export class OrientationDetector {
 
   /**
    * Process device orientation data and detect actions
-   * This method would be called by the sensor listener in a real app
    * @param orientation - Current device orientation data
    */
   processOrientation(orientation: DeviceOrientation): void {
@@ -73,15 +98,23 @@ export class OrientationDetector {
       return;
     }
 
-    // Detect downward rotation (pitch <= threshold) = CORRECT guess
-    if (orientation.x <= this.downwardThreshold) {
+    // Calculate change in z-axis (acceleration)
+    const zChange = orientation.z - this.lastZ;
+    this.lastZ = orientation.z;
+
+    console.log('OrientationDetector: z =', orientation.z.toFixed(2), 'zChange =', zChange.toFixed(2), 'lastActionTime ago =', currentTime - this.lastActionTime);
+
+    // Detect downward tilt (positive z acceleration) = CORRECT guess
+    if (zChange > 1.5) {
+      console.log('OrientationDetector: CORRECT detected (downward tilt), zChange =', zChange.toFixed(2));
       this.lastActionTime = currentTime;
       this.triggerCallbacks('CORRECT');
       return;
     }
 
-    // Detect upward rotation (pitch >= threshold) = SKIP
-    if (orientation.x >= this.upwardThreshold) {
+    // Detect upward tilt (negative z acceleration) = SKIP
+    if (zChange < -1.5) {
+      console.log('OrientationDetector: SKIP detected (upward tilt), zChange =', zChange.toFixed(2));
       this.lastActionTime = currentTime;
       this.triggerCallbacks('SKIP');
       return;

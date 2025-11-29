@@ -1,5 +1,6 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as ScreenOrientation from 'expo-screen-orientation';
 import { HomeScreen } from "../components/HomeScreen";
 import { GameScreen } from "../components/GameScreen";
 import { TriviaScreen } from "../components/TriviaScreen";
@@ -22,10 +23,25 @@ export const MainNavigator = () => {
       }}
       initialRouteName="Home"
     >
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="HeadsUp" component={GameScreen} />
-      <Stack.Screen name="Trivia" component={TriviaScreen} />
-      <Stack.Screen name="Jeopardy" component={NotJeopardyScreen} />
+      <Stack.Screen 
+        name="Home" 
+        component={HomeScreen}
+        options={{
+          gestureEnabled: false,
+        }}
+      />
+      <Stack.Screen 
+        name="HeadsUp" 
+        component={GameScreen}
+      />
+      <Stack.Screen 
+        name="Trivia" 
+        component={TriviaScreen}
+      />
+      <Stack.Screen 
+        name="Jeopardy" 
+        component={NotJeopardyScreen}
+      />
     </Stack.Navigator>
   );
 };
