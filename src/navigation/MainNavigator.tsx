@@ -1,17 +1,31 @@
 import React from "react";
-import { Text, Platform } from "react-native";
-import { createNativeStackNavigator  } from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeScreen } from "../components/HomeScreen";
 import { GameScreen } from "../components/GameScreen";
 import { TriviaScreen } from "../components/TriviaScreen";
 import { NotJeopardyScreen } from "../components/NotJeopardyScreen";
 
-const RootStack = createNativeStackNavigator({
-    initialRouteName:'Home',
-    screens: {
-        Home: HomeScreen,
-        HeadsUp: GameScreen,
-        Trivia: TriviaScreen,
-        Jeopardy: NotJeopardyScreen,
-    }
-});
+export type RootStackParamList = {
+  Home: undefined;
+  HeadsUp: undefined;
+  Trivia: undefined;
+  Jeopardy: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+export const MainNavigator = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="Home"
+    >
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="HeadsUp" component={GameScreen} />
+      <Stack.Screen name="Trivia" component={TriviaScreen} />
+      <Stack.Screen name="Jeopardy" component={NotJeopardyScreen} />
+    </Stack.Navigator>
+  );
+};

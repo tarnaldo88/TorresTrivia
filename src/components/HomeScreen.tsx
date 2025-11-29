@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';  
+import {useState} from 'react';  
+import React from 'react';
 import { 
     View, 
     Text, 
@@ -7,28 +8,26 @@ import {
     Image,
     ImageBackground, 
 } from 'react-native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ScoreManager } from '../services/scoreManager';
+import { RootStackParamList } from '../navigation/MainNavigator';
 
-interface HomeScreenProps {
-  onPlayHeadsUp?: () => void;
-  onPlayTrivia?: () => void;
-  onPlayJeopardy?: () => void;
-}
+type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 /**
  * HomeScreen component - Main menu with score display
  */
-export const HomeScreen: React.FC<HomeScreenProps> = ({
-  onPlayHeadsUp,
-  onPlayTrivia,
-  onPlayJeopardy,
-}) => {
+export const HomeScreen: React.FC = () => {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
   const [lastScore, setLastScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
 
-  useEffect(() => {
-    loadScores();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      loadScores();
+    }, [])
+  );
 
   const loadScores = async () => {
     try {
@@ -60,13 +59,22 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         </View>
 
         <View style={styles.buttonGroup}>
-          <TouchableOpacity style={styles.button} onPress={onPlayHeadsUp}>            
+          <TouchableOpacity 
+            style={styles.button} 
+            onPress={() => navigation.navigate('HeadsUp')}
+          >            
             <Image source={require('../assets/headsup.png')} style={styles.buttonImage} resizeMode="cover"/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={onPlayTrivia}>
+          <TouchableOpacity 
+            style={styles.button} 
+            onPress={() => navigation.navigate('Trivia')}
+          >
             <Image source={require('../assets/trivia.png')} style={styles.buttonImage} resizeMode="cover"/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={onPlayJeopardy}>
+          <TouchableOpacity 
+            style={styles.button} 
+            onPress={() => navigation.navigate('Jeopardy')}
+          >
             <Image source={require('../assets/jeopardy.png')} style={styles.buttonImage} resizeMode="cover"/>
           </TouchableOpacity>
         </View>

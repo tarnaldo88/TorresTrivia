@@ -1,15 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { GameState } from '../services/gameState';
 import { OrientationDetector } from '../services/orientationDetector';
 import { TimerManager } from '../services/timerManager';
 import { FeedbackManager } from '../services/feedbackManager';
 import { ItemDatabase } from '../services/itemDatabase';
+import { ScoreManager } from '../services/scoreManager';
 import { GameItem } from '../types/index';
+import { RootStackParamList } from '../navigation/MainNavigator';
+
+type GameScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'HeadsUp'>;
 
 interface GameScreenProps {
   roundDuration?: number;
-  onRoundEnd?: (finalScore: number) => void;
 }
 
 /**
@@ -17,8 +22,8 @@ interface GameScreenProps {
  */
 export const GameScreen: React.FC<GameScreenProps> = ({
   roundDuration = 60,
-  onRoundEnd,
 }) => {
+  const navigation = useNavigation<GameScreenNavigationProp>();
   const [currentItem, setCurrentItem] = useState<GameItem | null>(null);
   const [score, setScore] = useState(0);
   const [remainingTime, setRemainingTime] = useState(roundDuration * 1000);
@@ -134,7 +139,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
   };
 
   // End the round
-  const endRound = () => {
+  const endRound = async () => {
     const gameState = gameStateRef.current;
     const timerManager = timerManagerRef.current;
     const orientationDetector = orientationDetectorRef.current;
@@ -145,9 +150,15 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     setIsRoundActive(false);
 
     const finalScore = gameState.getCurrentScore();
-    if (onRoundEnd) {
-      onRoundEnd(finalScore);
+    
+    try {
+      await ScoreManager.saveScore(finalScore);
+    } catch (error) {
+      console.error('Failed to save score:', error);
     }
+
+    // Navigate back to home
+    navigation.navigate('Home');
   };
 
   return (

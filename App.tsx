@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { Database } from './src/services/database';
 import { seedDatabase } from './src/services/databaseSeeder';
 import { ScoreManager } from './src/services/scoreManager';
-import { HomeScreen } from './src/components/HomeScreen';
-import { GameScreen } from './src/components/GameScreen';
-
-type Screen = 'home' | 'game';
+import { MainNavigator } from './src/navigation/MainNavigator';
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
-  const [currentScreen, setCurrentScreen] = useState<Screen>('home');
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -29,16 +26,6 @@ export default function App() {
     initializeApp();
   }, []);
 
-  const handleGameEnd = async (finalScore: number) => {
-    try {
-      await ScoreManager.saveScore(finalScore);
-      setCurrentScreen('home');
-    } catch (error) {
-      console.error('Failed to save score:', error);
-      setCurrentScreen('home');
-    }
-  };
-
   if (!isReady) {
     return (
       <SafeAreaView style={styles.container}>
@@ -48,17 +35,9 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      {currentScreen === 'home' ? (
-        <HomeScreen 
-          onPlayHeadsUp={() => setCurrentScreen('game')}
-          onPlayTrivia={() => setCurrentScreen('game')}
-          onPlayJeopardy={() => setCurrentScreen('game')}
-        />
-      ) : (
-        <GameScreen onRoundEnd={handleGameEnd} />
-      )}
-    </SafeAreaView>
+    <NavigationContainer>
+      <MainNavigator />
+    </NavigationContainer>
   );
 }
 
