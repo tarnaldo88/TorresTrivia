@@ -29,6 +29,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
   const [score, setScore] = useState(0);
   const [remainingTime, setRemainingTime] = useState(roundDuration * 1000);
   const [isRoundActive, setIsRoundActive] = useState(false);
+  const [countdown, setCountdown] = useState<number | null>(3); // 3, 2, 1, then null to start
 
   const gameStateRef = useRef<GameState>(new GameState());
   const orientationDetectorRef = useRef<OrientationDetector>(
@@ -38,6 +39,8 @@ export const GameScreen: React.FC<GameScreenProps> = ({
   const feedbackManagerRef = useRef<FeedbackManager>(new FeedbackManager());
   const itemDatabaseRef = useRef<ItemDatabase>(new ItemDatabase());
   const currentItemRef = useRef<GameItem | null>(null);
+  const gameStartedRef = useRef(false);
+  const lastActionTimeRef = useRef(0);
 
   // Lock to landscape orientation when screen is focused
   useFocusEffect(
@@ -78,17 +81,62 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     initializeGame();
 
     return () => {
+      console.log('GameScreen: Cleaning up - stopping listeners');
       orientationDetectorRef.current.stopListening();
       timerManagerRef.current.stop();
     };
   }, []);
 
-  // Start a new round
-  const startRound = async () => {
+  // Stop listening when screen loses focus
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log('GameScreen: Focused - starting game');
+      return () => {
+        console.log('GameScreen: Lost focus - stopping listeners');
+        orientationDetectorRef.current.stopListening();
+        timerManagerRef.current.stop();
+      };
+    }, [])
+  );
+
+  // Start countdown before game
+  useEffect(() => {
+    if (countdown === null) {
+      // Countdown finished, start the actual game
+      startGame();
+      return;
+    }
+
+    if (countdown > 0) {
+      const timer = setTimeout(() => {
+        setCountdown(countdown - 1);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    } else if (countdown === 0) {
+      // When countdown reaches 0, set to null to trigger startGame
+      const timer = setTimeout(() => {
+        setCountdown(null);
+      }, 500); // Show "Go!" for 500ms then start
+
+      return () => clearTimeout(timer);
+    }
+  }, [countdown]);
+
+  // Start the actual game (after countdown)
+  const startGame = async () => {
+    if (gameStartedRef.current) {
+      console.log('GameScreen: Game already started, skipping');
+      return;
+    }
+    gameStartedRef.current = true;
+
     const gameState = gameStateRef.current;
     const timerManager = timerManagerRef.current;
     const orientationDetector = orientationDetectorRef.current;
     const itemDatabase = itemDatabaseRef.current;
+
+    console.log('GameScreen: Starting game');
 
     // Initialize game state
     gameState.startRound(roundDuration);
@@ -105,7 +153,8 @@ export const GameScreen: React.FC<GameScreenProps> = ({
       endRound();
     });
 
-    // Set up orientation detection
+    // Clear old callbacks and set up orientation detection
+    orientationDetector.clearCallbacks();
     orientationDetector.onOrientationChange((action) => {
       if (!gameState.isRoundActive()) {
         return;
@@ -120,6 +169,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     try {
       const item = await itemDatabase.getRandomItem();
       setCurrentItem(item);
+      console.log('GameScreen: First item displayed:', item.text);
     } catch (error) {
       console.error('Failed to get first item:', error);
     }
@@ -130,6 +180,11 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     setScore(0);
   };
 
+  // Start a new round (initialize countdown)
+  const startRound = async () => {
+    setCountdown(3);
+  };
+
   // Update ref whenever currentItem changes
   useEffect(() => {
     currentItemRef.current = currentItem;
@@ -137,32 +192,45 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 
   // Handle correct guess or skip action
   const handleAction = async (action: string) => {
+    const now = Date.now();
+    
+    // Debounce: ignore if action was triggered less than 1 second ago
+    if (now - lastActionTimeRef.current < 1000) {
+      console.log('GameScreen: Action debounced, too soon after last action');
+      return;
+    }
+    lastActionTimeRef.current = now;
+
     const gameState = gameStateRef.current;
     const itemDatabase = itemDatabaseRef.current;
     const feedbackManager = feedbackManagerRef.current;
     const item = currentItemRef.current;
 
-    console.log('GameScreen: handleAction called with action =', action, 'item =', item?.text);
+    console.log('GameScreen: handleAction called with action =', action, 'type =', typeof action, 'item =', item?.text);
 
     if (!item) {
       console.log('GameScreen: No current item');
       return;
     }
 
-    const actionType = action === 'CORRECT' ? 'CORRECT' : 'SKIP';
+    const actionType = action?.toUpperCase?.() || action;
+    console.log('GameScreen: actionType =', actionType);
 
-    if (action === 'CORRECT') {
+    if (actionType === 'CORRECT') {
       gameState.registerCorrectGuess(item.id);
-      setScore(gameState.getCurrentScore());
-      console.log('GameScreen: Correct guess registered, new score =', gameState.getCurrentScore());
-    } else if (action === 'SKIP') {
+      const newScore = gameState.getCurrentScore();
+      setScore(newScore);
+      console.log('GameScreen: Correct guess registered, new score =', newScore);
+    } else if (actionType === 'SKIP') {
       gameState.registerSkip(item.id);
       console.log('GameScreen: Skip registered');
+    } else {
+      console.log('GameScreen: Unknown action type:', actionType);
     }
 
     // Generate feedback
     feedbackManager.generateFeedback({
-      type: actionType,
+      type: actionType as 'CORRECT' | 'SKIP',
       timestamp: Date.now(),
       itemId: item.id,
     });
@@ -183,15 +251,18 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     const timerManager = timerManagerRef.current;
     const orientationDetector = orientationDetectorRef.current;
 
+    console.log('GameScreen: Ending round');
     gameState.endRound();
     timerManager.stop();
     orientationDetector.stopListening();
     setIsRoundActive(false);
 
     const finalScore = gameState.getCurrentScore();
+    console.log('GameScreen: Final score =', finalScore);
     
     try {
       await ScoreManager.saveScore(finalScore);
+      console.log('GameScreen: Score saved successfully');
     } catch (error) {
       console.error('Failed to save score:', error);
     }
@@ -210,7 +281,11 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 
       {/* Item Display */}
       <View style={styles.itemContainer}>
-        {currentItem && isRoundActive ? (
+        {countdown !== null ? (
+          <Text style={styles.countdownText}>
+            {countdown > 0 ? countdown : 'Go!'}
+          </Text>
+        ) : currentItem && isRoundActive ? (
           <Text style={styles.itemText}>{currentItem.text}</Text>
         ) : (
           <Text style={styles.itemText}>Ready?</Text>
@@ -263,6 +338,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#fff',
+  },
+  countdownText: {
+    fontSize: 120,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#4CAF50',
   },
   timerContainer: {
     alignItems: 'center',

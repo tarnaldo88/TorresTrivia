@@ -14,7 +14,7 @@ export class OrientationDetector {
   private isListening: boolean = false;
   private callbacks: OrientationCallback[] = [];
   private lastActionTime: number = 0;
-  private debounceMs: number = 200; // debounce window in milliseconds
+  private debounceMs: number = 800; // debounce window in milliseconds
   private downwardThreshold: number = 5; // acceleration threshold for downward rotation
   private upwardThreshold: number = -5; // acceleration threshold for upward rotation
   private detectionLatencyMs: number = 100; // max latency for detection
@@ -70,6 +70,8 @@ export class OrientationDetector {
    * @param callback - Function to call with 'CORRECT' or 'SKIP' action
    */
   onOrientationChange(callback: OrientationCallback): void {
+    // Clear old callbacks to prevent duplicates
+    this.callbacks = [];
     this.callbacks.push(callback);
   }
 
@@ -79,6 +81,13 @@ export class OrientationDetector {
    */
   removeCallback(callback: OrientationCallback): void {
     this.callbacks = this.callbacks.filter((cb) => cb !== callback);
+  }
+
+  /**
+   * Clear all callbacks
+   */
+  clearCallbacks(): void {
+    this.callbacks = [];
   }
 
   /**
