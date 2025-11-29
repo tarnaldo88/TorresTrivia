@@ -1,96 +1,82 @@
-import React, { useState, useEffect, useRef } from 'react';  
+import React, { useState, useEffect } from 'react';  
 import { 
     View, 
     Text, 
     StyleSheet, 
-    ScrollView, 
     TouchableOpacity, 
     Image,
     ImageBackground, 
 } from 'react-native';
-import { GameState } from '../services/gameState';
-import { OrientationDetector } from '../services/orientationDetector';
-import { TimerManager } from '../services/timerManager';
-import { FeedbackManager } from '../services/feedbackManager';
-import { ItemDatabase } from '../services/itemDatabase';
-import { GameItem } from '../types/index';
-import { GameScreen } from './GameScreen';
+import { ScoreManager } from '../services/scoreManager';
 
 interface HomeScreenProps {
-  roundDuration?: number;
-  onRoundEnd?: (finalScore: number) => void;
+  onPlayHeadsUp?: () => void;
+  onPlayTrivia?: () => void;
+  onPlayJeopardy?: () => void;
 }
 
 /**
- * GameScreen component - Main game interface displaying items, score, and timer
+ * HomeScreen component - Main menu with score display
  */
 export const HomeScreen: React.FC<HomeScreenProps> = ({
-  roundDuration = 60,
-  onRoundEnd,
+  onPlayHeadsUp,
+  onPlayTrivia,
+  onPlayJeopardy,
 }) => {
-  const [currentItem, setCurrentItem] = useState<GameItem | null>(null);
-  const [score, setScore] = useState(0);
-  const [remainingTime, setRemainingTime] = useState(roundDuration * 1000);
-  const [isRoundActive, setIsRoundActive] = useState(false);
-  const timerManagerRef = useRef<TimerManager>(new TimerManager());
-  const itemDatabaseRef = useRef<ItemDatabase>(new ItemDatabase());
+  const [lastScore, setLastScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
 
-  // Initialize game on mount
-//   useEffect(() => {
-//     const initializeGame = async () => {
-//       try {
-//         await itemDatabaseRef.current.initialize();
-        
-//       } catch (error) {
-//         console.error('Failed to initialize game:', error);
-//       }
-//     };
+  useEffect(() => {
+    loadScores();
+  }, []);
 
-//     initializeGame();
-
-//     return () => {
-//     //   orientationDetectorRef.current.stopListening();
-//       timerManagerRef.current.stop();
-//     };
-//   }, []);
-
-  // End the round
-  const endRound = () => {
-    // const gameState = gameStateRef.current;
-    const timerManager = timerManagerRef.current;
-    
-
-    // const finalScore = gameState.getCurrentScore();
-    // if (onRoundEnd) {
-    //   onRoundEnd(finalScore);
-    // }
+  const loadScores = async () => {
+    try {
+      const last = await ScoreManager.getLastScore();
+      const high = await ScoreManager.getHighScore();
+      setLastScore(last);
+      setHighScore(high);
+    } catch (error) {
+      console.error('Failed to load scores:', error);
+    }
   };
 
   return (    
     <ImageBackground 
-    source={require('../assets/torresTrivia.png')} 
-    resizeMode='cover' 
-    style={styles.background}
+      source={require('../assets/torresTrivia.png')} 
+      resizeMode='cover' 
+      style={styles.background}
     >
-    <View style={styles.content}>
-        <View style={styles.buttonGroup}>
-        <TouchableOpacity style={styles.button}>            
-            <Image source={require('../assets/headsup.png')} style={styles.buttonImage} resizeMode="cover"/>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-            <Image source={require('../assets/trivia.png')} style={styles.buttonImage} resizeMode="cover"/>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-            <Image source={require('../assets/jeopardy.png')} style={styles.buttonImage} resizeMode="cover"/>
-        </TouchableOpacity>
+      <View style={styles.content}>
+        <View style={styles.scoreContainer}>
+          <View style={styles.scoreBox}>
+            <Text style={styles.scoreLabel}>Last Score</Text>
+            <Text style={styles.scoreValue}>{lastScore}</Text>
+          </View>
+          <View style={styles.scoreBox}>
+            <Text style={styles.scoreLabel}>High Score</Text>
+            <Text style={styles.scoreValue}>{highScore}</Text>
+          </View>
         </View>
-    </View>
+
+        <View style={styles.buttonGroup}>
+          <TouchableOpacity style={styles.button} onPress={onPlayHeadsUp}>            
+            <Image source={require('../assets/headsup.png')} style={styles.buttonImage} resizeMode="cover"/>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={onPlayTrivia}>
+            <Image source={require('../assets/trivia.png')} style={styles.buttonImage} resizeMode="cover"/>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={onPlayJeopardy}>
+            <Image source={require('../assets/jeopardy.png')} style={styles.buttonImage} resizeMode="cover"/>
+          </TouchableOpacity>
+        </View>
+      </View>
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-    background: {
+  background: {
     flex: 1,
     width: "100%",
     height: "100%",
@@ -102,9 +88,40 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
+  scoreContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+    paddingTop: 40,
+    paddingHorizontal: 20,
+    gap: 20,
+  },
+
+  scoreBox: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    borderRadius: 12,
+    padding: 16,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  scoreLabel: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "600",
+    marginBottom: 8,
+  },
+
+  scoreValue: {
+    color: "#4CAF50",
+    fontSize: 32,
+    fontWeight: "bold",
+  },
+
   buttonGroup: {
     position: "absolute",
-    bottom: "20%",   // bottom third of screen
+    bottom: "20%",
     left: 0,
     right: 0,
     alignItems: "center",
@@ -112,18 +129,18 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    width: 250,             // set the size of the button
+    width: 250,
     height: 120,
-    borderRadius: 20,        // rounded edges for the button
-    overflow: "hidden",      // REQUIRED: clips image to rounded edges
+    borderRadius: 20,
+    overflow: "hidden",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#0002" // optional background during loading
+    backgroundColor: "#0002"
   },
 
-    buttonImage: {
-        width: "100%",
-        height: "100%",
-        borderRadius: 20,        // match parent radius (optional but helps Android)
-    },
+  buttonImage: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 20,
+  },
 });
