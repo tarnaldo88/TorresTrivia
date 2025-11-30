@@ -48,6 +48,22 @@ export class Database {
         `CREATE INDEX IF NOT EXISTS idx_items_category ON items(category);`
       );
 
+      // Create trivia questions table
+      await this.instance.execAsync(
+        `CREATE TABLE IF NOT EXISTS trivia_questions (
+          id TEXT PRIMARY KEY,
+          question TEXT NOT NULL,
+          answer TEXT NOT NULL,
+          category TEXT,
+          difficulty TEXT
+        );`
+      );
+
+      // Create index for trivia questions
+      await this.instance.execAsync(
+        `CREATE INDEX IF NOT EXISTS idx_trivia_category ON trivia_questions(category);`
+      );
+
       console.log('Database schema created successfully');
     } catch (error) {
       console.error('Schema creation failed:', error);
@@ -90,7 +106,7 @@ export class Database {
   ): Promise<any> {
     const db = this.getInstance();
     try {
-      const result = await db.getAsync(sql, params);
+      const result = await db.getFirstAsync(sql, params);
       return result;
     } catch (error) {
       console.error('SQL execution failed:', error, { sql, params });

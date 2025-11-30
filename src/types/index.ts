@@ -37,3 +37,14 @@ export interface GameAction {
   timestamp: number;
   itemId: string;
 }
+
+/**
+ * TriviaQuestion represents a trivia question with answer
+ */
+export interface TriviaQuestion {
+  id: string;
+  question: string;
+  answer: string;
+  category?: string;
+  difficulty?: string;
+}
