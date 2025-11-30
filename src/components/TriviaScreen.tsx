@@ -84,12 +84,10 @@ export const TriviaScreen: React.FC<TriviaScreenProps> = ({
             style={styles.background}
         >
             <View style={styles.container}>
-                <View style={styles.headerSection}>
-                    <Text style={styles.questionCounter}>Question {questionsAnswered + 1}</Text>
-                    <Text style={styles.categoryText}>{currentQuestion.category}</Text>
-                </View>
 
                 <View style={styles.questionSection}>
+                    <Text style={styles.questionCounter}>Question {questionsAnswered + 1}</Text>
+                    <Text style={styles.categoryText}>{currentQuestion.category}</Text>
                     <Text style={styles.questionText}>{currentQuestion.question}</Text>
                 </View>
 
@@ -139,12 +137,12 @@ const styles = StyleSheet.create({
     questionCounter: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#fdfdfdff',
         marginBottom: 8,
     },
     categoryText: {
         fontSize: 14,
-        color: '#666',
+        color: '#f7f0f0ff',
         fontStyle: 'italic',
     },
     questionSection: {
@@ -157,7 +155,7 @@ const styles = StyleSheet.create({
     questionText: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#000',
+        color: '#ffffffff',
         textAlign: 'center',
         lineHeight: 32,
     },
