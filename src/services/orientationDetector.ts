@@ -113,17 +113,17 @@ export class OrientationDetector {
 
     console.log('OrientationDetector: z =', orientation.z.toFixed(2), 'zChange =', zChange.toFixed(2), 'lastActionTime ago =', currentTime - this.lastActionTime);
 
-    // Detect downward tilt (positive z acceleration) = CORRECT guess
-    if (zChange > 1.5) {
-      console.log('OrientationDetector: CORRECT detected (downward tilt), zChange =', zChange.toFixed(2));
+    // Detect upward tilt (negative z acceleration) = CORRECT guess
+    if (zChange < -1.5) {
+      console.log('OrientationDetector: CORRECT detected (upward tilt), zChange =', zChange.toFixed(2));
       this.lastActionTime = currentTime;
       this.triggerCallbacks('CORRECT');
       return;
     }
 
-    // Detect upward tilt (negative z acceleration) = SKIP
-    if (zChange < -1.5) {
-      console.log('OrientationDetector: SKIP detected (upward tilt), zChange =', zChange.toFixed(2));
+    // Detect downward tilt (positive z acceleration) = SKIP
+    if (zChange > 1.5) {
+      console.log('OrientationDetector: SKIP detected (downward tilt), zChange =', zChange.toFixed(2));
       this.lastActionTime = currentTime;
       this.triggerCallbacks('SKIP');
       return;
