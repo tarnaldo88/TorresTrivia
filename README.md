@@ -32,12 +32,12 @@ A mobile party game application built with React Native and Expo that replicates
 - Food & Drinks (15)
 - Countries (15)
 
-**Trivia Questions (75 total):**
-- Science (15)
-- History (15)
-- Geography (15)
-- Literature (15)
-- Sports (15)
+**Trivia Questions (150 total):**
+- Science (30)
+- History (30)
+- Geography (30)
+- Literature (30)
+- Sports (30)
 
 ## Getting Started
 
