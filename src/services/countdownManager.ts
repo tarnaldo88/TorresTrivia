@@ -7,28 +7,111 @@ export type CountdownCallback = (count: number | 'GO') => void;
 
 /**
  * Available countdown audio clips
- * These files should be placed in assets/audio/ directory
- * If files don't exist, audio will be skipped gracefully
+ * Loads only audio files that actually exist in assets/audio/ directory
+ * Supports both MP3 and WAV formats
  */
-const COUNTDOWN_AUDIO_CLIPS: any[] = [];
+let COUNTDOWN_AUDIO_CLIPS: any[] = [];
+let audioClipsInitialized = false;
 
-// Try to load audio clips if they exist
-try {
-  COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown1.mp3'));
-} catch (e) {
-  console.warn('countdown1.mp3 not found');
-}
+/**
+ * Initialize audio clips by trying to load files that exist
+ */
+function initializeAudioClips(): void {
+  if (audioClipsInitialized) {
+    return;
+  }
 
-try {
-  COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown2.mp3'));
-} catch (e) {
-  console.warn('countdown2.mp3 not found');
-}
+  COUNTDOWN_AUDIO_CLIPS = [];
 
-try {
-  COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown3.mp3'));
-} catch (e) {
-  console.warn('countdown3.mp3 not found');
+  console.log('CountdownManager: Initializing audio clips...');
+
+  // Try to load audio files - only add those that exist
+  // Using explicit require statements for bundler compatibility
+  // Supports both .mp3 and .wav formats
+
+  // Try AmayaKai files (MP3 and WAV)
+  try {
+    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/AmayaKai.mp3'));
+    console.log(`CountdownManager: ✓ Loaded AmayaKai.mp3`);
+  } catch (e) {
+    console.log(`CountdownManager: ✗ AmayaKai.mp3 not found`);
+  }
+
+  try {
+    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/AmayaKai123.wav'));
+    console.log(`CountdownManager: ✓ Loaded AmayaKai123.wav`);
+  } catch (e) {
+    console.log(`CountdownManager: ✗ AmayaKai123.wav not found`);
+  }
+
+  // Try countdown2 files
+  try {
+    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown2.mp3'));
+    console.log(`CountdownManager: ✓ Loaded countdown2.mp3`);
+  } catch (e) {
+    console.log(`CountdownManager: ✗ countdown2.mp3 not found`);
+  }
+
+  try {
+    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/Emilio123.wav'));
+    console.log(`CountdownManager: ✓ Loaded Emilio123.wav`);
+  } catch (e) {
+    console.log(`CountdownManager: ✗ Emilio123.wav not found`);
+  }
+
+  // Try countdown3 files
+  try {
+    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown3.mp3'));
+    console.log(`CountdownManager: ✓ Loaded countdown3.mp3`);
+  } catch (e) {
+    console.log(`CountdownManager: ✗ countdown3.mp3 not found`);
+  }
+
+  try {
+    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown3.wav'));
+    console.log(`CountdownManager: ✓ Loaded countdown3.wav`);
+  } catch (e) {
+    console.log(`CountdownManager: ✗ countdown3.wav not found`);
+  }
+
+  // Try countdown4 files
+  try {
+    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown4.mp3'));
+    console.log(`CountdownManager: ✓ Loaded countdown4.mp3`);
+  } catch (e) {
+    console.log(`CountdownManager: ✗ countdown4.mp3 not found`);
+  }
+
+  try {
+    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown4.wav'));
+    console.log(`CountdownManager: ✓ Loaded countdown4.wav`);
+  } catch (e) {
+    console.log(`CountdownManager: ✗ countdown4.wav not found`);
+  }
+
+  // Try countdown5 files
+  try {
+    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown5.mp3'));
+    console.log(`CountdownManager: ✓ Loaded countdown5.mp3`);
+  } catch (e) {
+    console.log(`CountdownManager: ✗ countdown5.mp3 not found`);
+  }
+
+  try {
+    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown5.wav'));
+    console.log(`CountdownManager: ✓ Loaded countdown5.wav`);
+  } catch (e) {
+    console.log(`CountdownManager: ✗ countdown5.wav not found`);
+  }
+
+  audioClipsInitialized = true;
+
+  if (COUNTDOWN_AUDIO_CLIPS.length > 0) {
+    console.log(`CountdownManager: ✓ Successfully loaded ${COUNTDOWN_AUDIO_CLIPS.length} audio clip(s)`);
+  } else {
+    console.warn('CountdownManager: ✗ No audio clips found in assets/audio/');
+    console.warn('CountdownManager: Please add audio files to assets/audio/ directory');
+  }
 }
 
 /**
@@ -43,16 +126,22 @@ export class CountdownManager {
   private isPlaying: boolean = false;
 
   constructor() {
-    this.selectRandomAudioClip();
+    // Initialize audio clips on first use
+    initializeAudioClips();
   }
 
   /**
    * Select a random audio clip from available options
    */
   private selectRandomAudioClip(): void {
+    if (COUNTDOWN_AUDIO_CLIPS.length === 0) {
+      console.warn('CountdownManager: No audio clips available');
+      return;
+    }
+
     const randomIndex = Math.floor(Math.random() * COUNTDOWN_AUDIO_CLIPS.length);
     this.selectedAudioClip = COUNTDOWN_AUDIO_CLIPS[randomIndex];
-    console.log(`CountdownManager: Selected audio clip ${randomIndex + 1}`);
+    console.log(`CountdownManager: Selected audio clip ${randomIndex + 1} of ${COUNTDOWN_AUDIO_CLIPS.length}`);
   }
 
   /**
@@ -75,7 +164,7 @@ export class CountdownManager {
   async startCountdown(): Promise<void> {
     // Reset state
     this.currentCount = 3;
-    
+
     // Only select and play audio if clips are available
     if (COUNTDOWN_AUDIO_CLIPS.length > 0) {
       this.selectRandomAudioClip();
@@ -102,18 +191,34 @@ export class CountdownManager {
    */
   private async playAudio(): Promise<void> {
     try {
+      // Clean up previous sound if exists
       if (this.soundObject) {
-        await this.soundObject.unloadAsync();
+        try {
+          await this.soundObject.unloadAsync();
+        } catch (e) {
+          console.warn('CountdownManager: Error unloading previous audio');
+        }
       }
 
+      // Create new sound object
       this.soundObject = new Audio.Sound();
+
+      // Load the audio file
+      console.log('CountdownManager: Loading audio...');
       await this.soundObject.loadAsync(this.selectedAudioClip);
+
+      // Set volume to maximum
+      await this.soundObject.setVolumeAsync(1.0);
+
+      // Play the audio
+      console.log('CountdownManager: Playing audio...');
       await this.soundObject.playAsync();
       this.isPlaying = true;
 
-      console.log('CountdownManager: Audio playing');
+      console.log('CountdownManager: Audio started playing');
     } catch (error) {
       console.error('CountdownManager: Failed to play audio:', error);
+      this.isPlaying = false;
     }
   }
 
