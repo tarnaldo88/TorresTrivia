@@ -275,8 +275,8 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     <View style={styles.container}>
       {/* Score Display */}
       <View style={styles.scoreContainer}>
-      <TouchableOpacity onPress={() => {handleAction("SKIP")}}>
-        <Text style={styles.scoreLabel}>Skip</Text>
+      <TouchableOpacity onPress={() => {handleAction("SKIP")}} style={styles.skipBtn}>
+        <Text style={styles.skipTxt}>Skip</Text>
       </TouchableOpacity>
         <Text style={styles.scoreLabel}>Score</Text>
         <Text style={styles.scoreValue}>{score}</Text>
@@ -316,6 +316,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingVertical: 20,
   },
+  skipBtn: {
+    backgroundColor:'rgba(245, 7, 67, 0.67)',
+    width:200,
+    height:250,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  skipTxt:{
+    justifyContent:'center',
+    color:"#ffff",
+    alignItems:'center',
+    fontSize: 40,
+  },
+  correctBtn: {},
   scoreContainer: {
     alignItems: 'center',
     minWidth: 100,
