@@ -1,50 +1,277 @@
-# Welcome to your Expo app 👋
+# Torres Trivia 🎮
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile party game application built with React Native and Expo that replicates the popular "Heads Up!" game. Players hold their phone to their forehead with the screen facing the audience and guess words, phrases, or answer trivia questions based on clues from other players.
 
-## Get started
+## Features
 
-1. Install dependencies
+### Game Modes
 
+- **Heads Up Game**: Classic word/phrase guessing game with 155+ items across 9 categories
+- **Trivia Mode**: Answer 75+ trivia questions across 5 difficulty levels and categories
+- **Gesture Controls**: Intuitive accelerometer-based tilt detection for natural gameplay
+
+### Game Mechanics
+
+- **Downward Tilt** → Mark as Correct ✓
+- **Upward Tilt** → Skip to Next Item ⊘
+- **Real-time Score Tracking**: Live score updates during gameplay
+- **Customizable Round Duration**: Default 60 seconds, adjustable per game
+- **Debounced Gesture Detection**: 800ms debounce prevents accidental triggers
+- **Offline-First**: All data stored locally with SQLite, no internet required
+
+### Content
+
+**Heads Up Game Items (155 total):**
+- Movies (20)
+- TV Shows (20)
+- Animals (20)
+- Sports (20)
+- Professions (20)
+- Common Phrases (20)
+- Celebrities (15)
+- Food & Drinks (15)
+- Countries (15)
+
+**Trivia Questions (75 total):**
+- Science (15)
+- History (15)
+- Geography (15)
+- Literature (15)
+- Sports (15)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- Expo CLI: `npm install -g expo-cli`
+- iOS Simulator or Android Emulator (or Expo Go app on physical device)
+
+### Installation
+
+1. Clone the repository
+   ```bash
+   git clone <repository-url>
+   cd TorresTrivia
+   ```
+
+2. Install dependencies
    ```bash
    npm install
    ```
 
-2. Start the app
-
+3. Start the development server
    ```bash
-   npx expo start
+   npm start
    ```
 
-In the output, you'll find options to open the app in a
+4. Open in your preferred environment:
+   - Press `i` for iOS Simulator
+   - Press `a` for Android Emulator
+   - Scan QR code with Expo Go app on physical device
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Project Structure
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+src/
+├── components/
+│   ├── GameScreen.tsx          # Main Heads Up game screen
+│   ├── TriviaScreen.tsx        # Trivia question screen
+│   ├── HomeScreen.tsx          # Game mode selection
+│   └── NotJeopardyScreen.tsx   # Additional game mode
+├── services/
+│   ├── database.ts             # SQLite database initialization
+│   ├── databaseSeeder.ts       # Database seeding with default content
+│   ├── itemDatabase.ts         # Item selection and deduplication
+│   ├── triviaDatabase.ts       # Trivia question management
+│   ├── orientationDetector.ts  # Accelerometer gesture detection
+│   ├── gameState.ts            # Game state management
+│   ├── timerManager.ts         # Round timer management
+│   └── feedbackManager.ts      # Visual/audio feedback
+├── types/
+│   └── index.ts                # TypeScript interfaces
+└── navigation/
+    └── MainNavigator.tsx       # Navigation setup
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## How to Play
 
-## Learn more
+### Heads Up Game
 
-To learn more about developing your project with Expo, look at the following resources:
+1. Select "Heads Up Game" from the home screen
+2. One player holds the phone to their forehead with screen facing the audience
+3. The audience gives clues about the displayed word/phrase
+4. Player tilts phone **downward** when they guess correctly
+5. Player tilts phone **upward** to skip to the next item
+6. Score increases with each correct guess
+7. Game ends when time runs out
+8. Final score is displayed
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Trivia Mode
 
-## Join the community
+1. Select "Trivia" from the home screen
+2. Read the trivia question displayed on screen
+3. Tap "Show Answer" to reveal the answer
+4. Tap "Next Question" to move to the next question
+5. Questions are randomly selected without repetition within a round
 
-Join our community of developers creating universal apps.
+## Architecture
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Core Components
+
+**OrientationDetector**
+- Monitors device accelerometer data
+- Detects upward/downward tilts using z-axis acceleration
+- Implements debouncing to prevent false triggers
+- Configurable thresholds and debounce windows
+
+**ItemDatabase**
+- Manages word/phrase selection
+- Prevents item repetition within a round
+- Cycles through collection when exhausted
+- Supports category-based filtering
+
+**TriviaDatabase**
+- Manages trivia question selection
+- Prevents question repetition within a round
+- Supports filtering by category and difficulty
+- Cycles through questions when exhausted
+
+**GameState**
+- Tracks current score
+- Manages round state (active, paused, ended)
+- Handles score increment logic
+- Manages round duration configuration
+
+**Database**
+- SQLite-based local storage
+- Persistent data between sessions
+- Indexed queries for performance
+- Transaction support for data integrity
+
+## Testing
+
+The project includes comprehensive property-based tests using fast-check:
+
+```bash
+npx jest --run
+```
+
+Test coverage includes:
+- Gesture detection accuracy
+- Score increment logic
+- Item deduplication
+- Round state transitions
+- Database operations
+
+## Configuration
+
+### Gesture Sensitivity
+
+Adjust accelerometer thresholds in `OrientationDetector`:
+
+```typescript
+setDownwardThreshold(threshold: number)  // Default: 5
+setUpwardThreshold(threshold: number)    // Default: -5
+setDebounceMs(ms: number)                // Default: 800ms
+```
+
+### Round Duration
+
+Set custom duration when starting a game:
+
+```typescript
+const gameState = new GameState(120); // 120 seconds
+```
+
+### Update Interval
+
+Accelerometer update frequency (in `OrientationDetector`):
+
+```typescript
+Accelerometer.setUpdateInterval(100); // 100ms
+```
+
+## Dependencies
+
+### Core
+- `react-native`: Mobile app framework
+- `expo`: Development platform
+- `@react-navigation`: Navigation library
+- `expo-sqlite`: Local database
+- `expo-sensors`: Accelerometer access
+
+### Development
+- `typescript`: Type safety
+- `jest`: Testing framework
+- `fast-check`: Property-based testing
+- `ts-jest`: TypeScript support for Jest
+
+## Performance Considerations
+
+- **Debouncing**: 800ms debounce prevents rapid false triggers
+- **Database Indexing**: Indexed queries for fast item/question retrieval
+- **Lazy Loading**: Items and questions loaded on-demand
+- **Memory Efficient**: Used items tracked in Set for O(1) lookup
+
+## Known Limitations
+
+- Accelerometer accuracy varies by device
+- Gesture detection requires sufficient motion
+- SQLite database limited to device storage
+- No cloud sync or multiplayer features
+
+## Future Enhancements
+
+- Custom content creation and sharing
+- Multiplayer support with score tracking
+- Additional game modes
+- Sound effects and haptic feedback
+- Leaderboards and statistics
+- Theme customization
+- Difficulty levels for Heads Up game
+
+## Troubleshooting
+
+### Gestures Not Detecting
+
+1. Ensure accelerometer permissions are granted
+2. Increase debounce window if getting false triggers
+3. Adjust thresholds if device is too sensitive
+4. Check that phone is in landscape orientation
+
+### Database Issues
+
+1. Clear app cache and reinstall
+2. Check device storage space
+3. Verify database permissions
+
+### Performance Issues
+
+1. Reduce accelerometer update interval
+2. Clear unused items from database
+3. Restart the app
+
+## Contributing
+
+Contributions are welcome! Please follow these guidelines:
+
+1. Create a feature branch
+2. Make your changes
+3. Add tests for new functionality
+4. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License - see LICENSE file for details.
+
+## Support
+
+For issues, questions, or suggestions, please open an issue on the project repository.
+
+## Acknowledgments
+
+- Built with [Expo](https://expo.dev)
+- Inspired by the popular "Heads Up!" party game
+- Uses [fast-check](https://github.com/dubzzz/fast-check) for property-based testing
