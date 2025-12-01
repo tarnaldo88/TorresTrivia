@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import * as ScreenOrientation from 'expo-screen-orientation';
@@ -275,6 +275,9 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     <View style={styles.container}>
       {/* Score Display */}
       <View style={styles.scoreContainer}>
+      <TouchableOpacity onPress={() => {handleAction("SKIP")}}>
+        <Text style={styles.scoreLabel}>Skip</Text>
+      </TouchableOpacity>
         <Text style={styles.scoreLabel}>Score</Text>
         <Text style={styles.scoreValue}>{score}</Text>
       </View>

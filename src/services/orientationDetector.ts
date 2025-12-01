@@ -111,7 +111,7 @@ export class OrientationDetector {
     const zChange = orientation.z - this.lastZ;
     this.lastZ = orientation.z;
 
-    console.log('OrientationDetector: z =', orientation.z.toFixed(2), 'zChange =', zChange.toFixed(2), 'lastActionTime ago =', currentTime - this.lastActionTime);
+    // console.log('OrientationDetector: z =', orientation.z.toFixed(2), 'zChange =', zChange.toFixed(2), 'lastActionTime ago =', currentTime - this.lastActionTime);
 
     // Detect upward tilt (negative z acceleration) = CORRECT guess
     if (zChange < -1.5) {
