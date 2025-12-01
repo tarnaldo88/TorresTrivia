@@ -47,7 +47,8 @@ export const HomeScreen: React.FC = () => {
       style={styles.background}
     >
       <View style={styles.content}>
-        <View style={styles.scoreContainer}>
+        <View style={styles.buttonGroup}>
+          <View style={styles.scoreContainer}>
           <View style={styles.scoreBox}>
             <Text style={styles.scoreLabel}>Last Score</Text>
             <Text style={styles.scoreValue}>{lastScore}</Text>
@@ -57,8 +58,6 @@ export const HomeScreen: React.FC = () => {
             <Text style={styles.scoreValue}>{highScore}</Text>
           </View>
         </View>
-
-        <View style={styles.buttonGroup}>
           <TouchableOpacity 
             style={styles.button} 
             onPress={() => navigation.navigate('HeadsUp')}
