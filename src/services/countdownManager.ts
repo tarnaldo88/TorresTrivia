@@ -30,12 +30,12 @@ function initializeAudioClips(): void {
   // Supports both .mp3 and .wav formats
 
   // Try AmayaKai files (MP3 and WAV)
-  try {
-    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/AmayaKai.mp3'));
-    console.log(`CountdownManager: ✓ Loaded AmayaKai.mp3`);
-  } catch (e) {
-    console.log(`CountdownManager: ✗ AmayaKai.mp3 not found`);
-  }
+  // try {
+  //   COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/AmayaKai.mp3'));
+  //   console.log(`CountdownManager: ✓ Loaded AmayaKai.mp3`);
+  // } catch (e) {
+  //   console.log(`CountdownManager: ✗ AmayaKai.mp3 not found`);
+  // }
 
   try {
     COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/AmayaKai123.wav'));
@@ -44,13 +44,13 @@ function initializeAudioClips(): void {
     console.log(`CountdownManager: ✗ AmayaKai123.wav not found`);
   }
 
-  // Try countdown2 files
-  try {
-    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown2.mp3'));
-    console.log(`CountdownManager: ✓ Loaded countdown2.mp3`);
-  } catch (e) {
-    console.log(`CountdownManager: ✗ countdown2.mp3 not found`);
-  }
+  // // Try countdown2 files
+  // try {
+  //   COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown2.mp3'));
+  //   console.log(`CountdownManager: ✓ Loaded countdown2.mp3`);
+  // } catch (e) {
+  //   console.log(`CountdownManager: ✗ countdown2.mp3 not found`);
+  // }
 
   try {
     COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/Emilio123.wav'));
@@ -59,50 +59,50 @@ function initializeAudioClips(): void {
     console.log(`CountdownManager: ✗ Emilio123.wav not found`);
   }
 
-  // Try countdown3 files
-  try {
-    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown3.mp3'));
-    console.log(`CountdownManager: ✓ Loaded countdown3.mp3`);
-  } catch (e) {
-    console.log(`CountdownManager: ✗ countdown3.mp3 not found`);
-  }
+  // // Try countdown3 files
+  // try {
+  //   COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown3.mp3'));
+  //   console.log(`CountdownManager: ✓ Loaded countdown3.mp3`);
+  // } catch (e) {
+  //   console.log(`CountdownManager: ✗ countdown3.mp3 not found`);
+  // }
 
-  try {
-    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown3.wav'));
-    console.log(`CountdownManager: ✓ Loaded countdown3.wav`);
-  } catch (e) {
-    console.log(`CountdownManager: ✗ countdown3.wav not found`);
-  }
+  // try {
+  //   COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown3.wav'));
+  //   console.log(`CountdownManager: ✓ Loaded countdown3.wav`);
+  // } catch (e) {
+  //   console.log(`CountdownManager: ✗ countdown3.wav not found`);
+  // }
 
-  // Try countdown4 files
-  try {
-    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown4.mp3'));
-    console.log(`CountdownManager: ✓ Loaded countdown4.mp3`);
-  } catch (e) {
-    console.log(`CountdownManager: ✗ countdown4.mp3 not found`);
-  }
+  // // Try countdown4 files
+  // try {
+  //   COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown4.mp3'));
+  //   console.log(`CountdownManager: ✓ Loaded countdown4.mp3`);
+  // } catch (e) {
+  //   console.log(`CountdownManager: ✗ countdown4.mp3 not found`);
+  // }
 
-  try {
-    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown4.wav'));
-    console.log(`CountdownManager: ✓ Loaded countdown4.wav`);
-  } catch (e) {
-    console.log(`CountdownManager: ✗ countdown4.wav not found`);
-  }
+  // try {
+  //   COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown4.wav'));
+  //   console.log(`CountdownManager: ✓ Loaded countdown4.wav`);
+  // } catch (e) {
+  //   console.log(`CountdownManager: ✗ countdown4.wav not found`);
+  // }
 
-  // Try countdown5 files
-  try {
-    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown5.mp3'));
-    console.log(`CountdownManager: ✓ Loaded countdown5.mp3`);
-  } catch (e) {
-    console.log(`CountdownManager: ✗ countdown5.mp3 not found`);
-  }
+  // // Try countdown5 files
+  // try {
+  //   COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown5.mp3'));
+  //   console.log(`CountdownManager: ✓ Loaded countdown5.mp3`);
+  // } catch (e) {
+  //   console.log(`CountdownManager: ✗ countdown5.mp3 not found`);
+  // }
 
-  try {
-    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown5.wav'));
-    console.log(`CountdownManager: ✓ Loaded countdown5.wav`);
-  } catch (e) {
-    console.log(`CountdownManager: ✗ countdown5.wav not found`);
-  }
+  // try {
+  //   COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown5.wav'));
+  //   console.log(`CountdownManager: ✓ Loaded countdown5.wav`);
+  // } catch (e) {
+  //   console.log(`CountdownManager: ✗ countdown5.wav not found`);
+  // }
 
   audioClipsInitialized = true;
 
