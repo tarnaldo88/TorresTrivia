@@ -7,12 +7,29 @@ export type CountdownCallback = (count: number | 'GO') => void;
 
 /**
  * Available countdown audio clips
+ * These files should be placed in assets/audio/ directory
+ * If files don't exist, audio will be skipped gracefully
  */
-const COUNTDOWN_AUDIO_CLIPS = [
-  require('../assets/audio/countdown1.mp3'),
-  require('../assets/audio/countdown2.mp3'),
-  require('../assets/audio/countdown3.mp3'),
-];
+const COUNTDOWN_AUDIO_CLIPS: any[] = [];
+
+// Try to load audio clips if they exist
+try {
+  COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown1.mp3'));
+} catch (e) {
+  console.warn('countdown1.mp3 not found');
+}
+
+try {
+  COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown2.mp3'));
+} catch (e) {
+  console.warn('countdown2.mp3 not found');
+}
+
+try {
+  COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/countdown3.mp3'));
+} catch (e) {
+  console.warn('countdown3.mp3 not found');
+}
 
 /**
  * CountdownManager handles the 3-2-1-GO countdown with audio
@@ -58,10 +75,14 @@ export class CountdownManager {
   async startCountdown(): Promise<void> {
     // Reset state
     this.currentCount = 3;
-    this.selectRandomAudioClip();
-
-    // Play the selected audio clip
-    await this.playAudio();
+    
+    // Only select and play audio if clips are available
+    if (COUNTDOWN_AUDIO_CLIPS.length > 0) {
+      this.selectRandomAudioClip();
+      await this.playAudio();
+    } else {
+      console.warn('CountdownManager: No audio clips available. Countdown will proceed without audio.');
+    }
 
     // Start countdown interval
     this.countdownInterval = setInterval(() => {
