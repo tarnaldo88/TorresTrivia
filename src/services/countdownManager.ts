@@ -1,5 +1,9 @@
 import { Audio } from 'expo-av';
 
+// Import audio files directly
+import AmayaKai123 from '../assets/audio/AmayaKai123.wav';
+import Emilio123 from '../assets/audio/Emilio123.wav';
+
 /**
  * Callback type for countdown events
  */
@@ -7,48 +11,8 @@ export type CountdownCallback = (count: number | 'GO') => void;
 
 /**
  * Available countdown audio clips
- * Loads only audio files that actually exist in assets/audio/ directory
  */
-let COUNTDOWN_AUDIO_CLIPS: any[] = [];
-let audioClipsInitialized = false;
-
-/**
- * Initialize audio clips by trying to load files that exist
- */
-function initializeAudioClips(): void {
-  if (audioClipsInitialized) {
-    return;
-  }
-
-  COUNTDOWN_AUDIO_CLIPS = [];
-
-  console.log('CountdownManager: Initializing audio clips...');
-
-  // Load AmayaKai123.wav
-  try {
-    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/AmayaKai123.wav'));
-    console.log(`CountdownManager: ✓ Loaded AmayaKai123.wav`);
-  } catch (e) {
-    console.log(`CountdownManager: ✗ AmayaKai123.wav not found`);
-  }
-
-  // Load Emilio123.wav
-  try {
-    COUNTDOWN_AUDIO_CLIPS.push(require('../assets/audio/Emilio123.wav'));
-    console.log(`CountdownManager: ✓ Loaded Emilio123.wav`);
-  } catch (e) {
-    console.log(`CountdownManager: ✗ Emilio123.wav not found`);
-  }
-
-  audioClipsInitialized = true;
-
-  if (COUNTDOWN_AUDIO_CLIPS.length > 0) {
-    console.log(`CountdownManager: ✓ Successfully loaded ${COUNTDOWN_AUDIO_CLIPS.length} audio clip(s)`);
-  } else {
-    console.warn('CountdownManager: ✗ No audio clips found in assets/audio/');
-    console.warn('CountdownManager: Please add audio files to assets/audio/ directory');
-  }
-}
+const COUNTDOWN_AUDIO_CLIPS = [AmayaKai123, Emilio123];
 
 /**
  * CountdownManager handles the 3-2-1-GO countdown with audio
@@ -62,8 +26,7 @@ export class CountdownManager {
   private isPlaying: boolean = false;
 
   constructor() {
-    // Initialize audio clips on first use
-    initializeAudioClips();
+    console.log(`CountdownManager: Initialized with ${COUNTDOWN_AUDIO_CLIPS.length} audio clips`);
   }
 
   /**
