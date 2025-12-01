@@ -8,6 +8,7 @@ import { OrientationDetector } from '../services/orientationDetector';
 import { TimerManager } from '../services/timerManager';
 import { FeedbackManager } from '../services/feedbackManager';
 import { ItemDatabase } from '../services/itemDatabase';
+import { CountdownManager } from '../services/countdownManager';
 import { ScoreManager } from '../services/scoreManager';
 import { GameItem } from '../types/index';
 import { RootStackParamList } from '../navigation/MainNavigator';
@@ -38,6 +39,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
   const timerManagerRef = useRef<TimerManager>(new TimerManager());
   const feedbackManagerRef = useRef<FeedbackManager>(new FeedbackManager());
   const itemDatabaseRef = useRef<ItemDatabase>(new ItemDatabase());
+  const countdownManagerRef = useRef<CountdownManager>(new CountdownManager());
   const currentItemRef = useRef<GameItem | null>(null);
   const gameStartedRef = useRef(false);
   const lastActionTimeRef = useRef(0);
@@ -84,6 +86,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
       console.log('GameScreen: Cleaning up - stopping listeners');
       orientationDetectorRef.current.stopListening();
       timerManagerRef.current.stop();
+      countdownManagerRef.current.cleanup().catch(console.error);
     };
   }, []);
 
@@ -182,7 +185,19 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 
   // Start a new round (initialize countdown)
   const startRound = async () => {
-    setCountdown(3);
+    const countdownManager = countdownManagerRef.current;
+    
+    // Set up countdown callback
+    countdownManager.onCountdown((count) => {
+      if (count === 'GO') {
+        setCountdown(null); // Trigger startGame
+      } else {
+        setCountdown(count);
+      }
+    });
+
+    // Start the countdown with audio
+    await countdownManager.startCountdown();
   };
 
   // Update ref whenever currentItem changes
