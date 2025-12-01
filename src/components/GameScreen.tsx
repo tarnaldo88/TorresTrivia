@@ -325,12 +325,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   skipTxt:{
-    justifyContent:'center',
     color:"#ffff",
-    alignItems:'center',
     fontSize: 40,
   },
-  correctBtn: {},
+  correctBtn: {
+    backgroundColor:'rgba(5, 223, 41, 0.67)',
+    width:200,
+    height:250,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  correctTxt:{
+    color:"#ffff",
+    fontSize: 40,
+  },
   scoreContainer: {
     alignItems: 'center',
     minWidth: 100,
