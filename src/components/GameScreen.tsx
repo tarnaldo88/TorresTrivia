@@ -297,7 +297,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 
       {/* Timer Display */}
       <View style={styles.timerContainer}>
-        <TouchableOpacity onPress={() => {handleAction("SKIP")}} style={styles.correctBtn}>
+        <TouchableOpacity onPress={() => {handleAction("CORRECT")}} style={styles.correctBtn}>
           <Text style={styles.correctTxt}>Correct</Text>
         </TouchableOpacity>
         <Text style={styles.timerLabel}>Time</Text>
