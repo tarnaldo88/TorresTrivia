@@ -1,6 +1,6 @@
 # Torres Trivia 🎮
 
-A mobile party game application built with React Native and Expo that replicates the popular "Heads Up!" game. Players hold their phone to their forehead with the screen facing the audience and guess words, phrases, or answer trivia questions based on clues from other players.
+My family's parties and holidays we always play games, including trivia and heads up. Recently we have noticed these games filled with too many ads and paywalls. To counter this I have made a trivia game for all to use that includes no ads or paid features. Some of the sound effects will be recordings of family members to personalize and make the game more fun and memorable as the years pass and we still get to hear our children's voice clips in the game. This is a mobile party game application built with React Native and Expo that replicates the popular "Heads Up!" game. Players hold their phone to their forehead with the screen facing the audience and guess words, phrases, or answer trivia questions based on clues from other players.
 
 ## Features
 
