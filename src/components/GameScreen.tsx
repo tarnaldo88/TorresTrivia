@@ -30,7 +30,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
   const [score, setScore] = useState(0);
   const [remainingTime, setRemainingTime] = useState(roundDuration * 1000);
   const [isRoundActive, setIsRoundActive] = useState(false);
-  const [countdown, setCountdown] = useState<number | null>(3); // 3, 2, 1, then null to start
+  const [countdownMessage, setCountdownMessage] = useState<string | null>('Get Ready...'); // Get Ready... -> Go! -> START_GAME
 
   const gameStateRef = useRef<GameState>(new GameState());
   const orientationDetectorRef = useRef<OrientationDetector>(
@@ -102,29 +102,13 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     }, [])
   );
 
-  // Start countdown before game
+  // Handle countdown message changes
   useEffect(() => {
-    if (countdown === null) {
-      // Countdown finished, start the actual game
+    if (countdownMessage === 'START_GAME') {
+      // Countdown sequence finished, start the actual game
       startGame();
-      return;
     }
-
-    if (countdown > 0) {
-      const timer = setTimeout(() => {
-        setCountdown(countdown - 1);
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    } else if (countdown === 0) {
-      // When countdown reaches 0, set to null to trigger startGame
-      const timer = setTimeout(() => {
-        setCountdown(null);
-      }, 500); // Show "Go!" for 500ms then start
-
-      return () => clearTimeout(timer);
-    }
-  }, [countdown]);
+  }, [countdownMessage]);
 
   // Start the actual game (after countdown)
   const startGame = async () => {
@@ -188,15 +172,12 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     const countdownManager = countdownManagerRef.current;
     
     // Set up countdown callback
-    countdownManager.onCountdown((count) => {
-      if (count === 'GO') {
-        setCountdown(null); // Trigger startGame
-      } else {
-        setCountdown(count);
-      }
+    countdownManager.onCountdown((message) => {
+      console.log('GameScreen: Countdown message:', message);
+      setCountdownMessage(message);
     });
 
-    // Start the countdown with audio
+    // Start the countdown sequence with audio
     await countdownManager.startCountdown();
   };
 
@@ -299,9 +280,9 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 
       {/* Item Display */}
       <View style={styles.itemContainer}>
-        {countdown !== null ? (
+        {countdownMessage !== null ? (
           <Text style={styles.countdownText}>
-            {countdown > 0 ? countdown : 'Go!'}
+            {countdownMessage}
           </Text>
         ) : currentItem && isRoundActive ? (
           <Text style={styles.itemText}>{currentItem.text}</Text>

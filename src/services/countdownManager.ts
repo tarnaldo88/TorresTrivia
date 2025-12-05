@@ -1,46 +1,70 @@
 import { Audio } from 'expo-av';
 
-// Import audio files directly
-import AmayaKai123 from '../assets/audio/AmayaKai123.wav';
-import Emilio123 from '../assets/audio/Emilio123.wav';
+// Import audio files - 123 countdown clips
+import countdown1 from '../assets/audio/123/countdown1.wav';
+import countdown2 from '../assets/audio/123/countdown2.wav';
+import countdown3 from '../assets/audio/123/countdown3.wav';
+
+// Import "Let's Play" clips
+import letsplay1 from '../assets/audio/letsplay/letsplay1.wav';
+import letsplay2 from '../assets/audio/letsplay/letsplay2.wav';
 
 /**
  * Callback type for countdown events
  */
-export type CountdownCallback = (count: number | 'GO') => void;
+export type CountdownCallback = (message: string) => void;
 
 /**
- * Available countdown audio clips
+ * Available countdown audio clips (1-2-3)
  */
-const COUNTDOWN_AUDIO_CLIPS = [AmayaKai123, Emilio123];
+const COUNTDOWN_AUDIO_CLIPS = [countdown1, countdown2, countdown3];
 
 /**
- * CountdownManager handles the 3-2-1-GO countdown with audio
+ * Available "Let's Play" audio clips
+ */
+const LETSPLAY_AUDIO_CLIPS = [letsplay1, letsplay2];
+
+/**
+ * CountdownManager handles the Get Ready... -> 123 audio -> Go! -> Let's Play audio flow
  */
 export class CountdownManager {
   private countdownInterval: ReturnType<typeof setInterval> | null = null;
-  private currentCount: number = 3;
   private callbacks: CountdownCallback[] = [];
-  private selectedAudioClip: any = null;
+  private selectedCountdownClip: any = null;
+  private selectedLetsplayClip: any = null;
   private soundObject: Audio.Sound | null = null;
   private isPlaying: boolean = false;
 
   constructor() {
-    console.log(`CountdownManager: Initialized with ${COUNTDOWN_AUDIO_CLIPS.length} audio clips`);
+    console.log(`CountdownManager: Initialized with ${COUNTDOWN_AUDIO_CLIPS.length} countdown clips and ${LETSPLAY_AUDIO_CLIPS.length} let's play clips`);
   }
 
   /**
    * Select a random audio clip from available options
    */
-  private selectRandomAudioClip(): void {
+  private selectRandomCountdownClip(): void {
     if (COUNTDOWN_AUDIO_CLIPS.length === 0) {
-      console.warn('CountdownManager: No audio clips available');
+      console.warn('CountdownManager: No countdown clips available');
       return;
     }
 
     const randomIndex = Math.floor(Math.random() * COUNTDOWN_AUDIO_CLIPS.length);
-    this.selectedAudioClip = COUNTDOWN_AUDIO_CLIPS[randomIndex];
-    console.log(`CountdownManager: Selected audio clip ${randomIndex + 1} of ${COUNTDOWN_AUDIO_CLIPS.length}`);
+    this.selectedCountdownClip = COUNTDOWN_AUDIO_CLIPS[randomIndex];
+    console.log(`CountdownManager: Selected countdown clip ${randomIndex + 1} of ${COUNTDOWN_AUDIO_CLIPS.length}`);
+  }
+
+  /**
+   * Select a random "Let's Play" audio clip
+   */
+  private selectRandomLetsplayClip(): void {
+    if (LETSPLAY_AUDIO_CLIPS.length === 0) {
+      console.warn('CountdownManager: No let\'s play clips available');
+      return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * LETSPLAY_AUDIO_CLIPS.length);
+    this.selectedLetsplayClip = LETSPLAY_AUDIO_CLIPS[randomIndex];
+    console.log(`CountdownManager: Selected let's play clip ${randomIndex + 1} of ${LETSPLAY_AUDIO_CLIPS.length}`);
   }
 
   /**
@@ -58,37 +82,45 @@ export class CountdownManager {
   }
 
   /**
-   * Start the countdown (3-2-1-GO)
+   * Start the countdown sequence:
+   * 1. Show "Get Ready..." and play countdown audio
+   * 2. Show "Go!" and play let's play audio
+   * 3. Start game after let's play audio finishes
    */
   async startCountdown(): Promise<void> {
-    // Reset state
-    this.currentCount = 3;
+    try {
+      // Step 1: Show "Get Ready..." and play countdown audio
+      console.log('CountdownManager: Starting countdown sequence');
+      this.triggerCallbacks('Get Ready...');
 
-    // Only select and play audio if clips are available
-    if (COUNTDOWN_AUDIO_CLIPS.length > 0) {
-      this.selectRandomAudioClip();
-      await this.playAudio();
-    } else {
-      console.warn('CountdownManager: No audio clips available. Countdown will proceed without audio.');
+      this.selectRandomCountdownClip();
+      await this.playAudio(this.selectedCountdownClip);
+
+      // Wait a bit after countdown finishes
+      await this.delay(500);
+
+      // Step 2: Show "Go!" and play let's play audio
+      this.triggerCallbacks('Go!');
+
+      this.selectRandomLetsplayClip();
+      await this.playAudio(this.selectedLetsplayClip);
+
+      // Wait for let's play audio to finish
+      await this.delay(500);
+
+      // Step 3: Start the game
+      this.triggerCallbacks('START_GAME');
+      console.log('CountdownManager: Countdown sequence complete, game starting');
+    } catch (error) {
+      console.error('CountdownManager: Error during countdown sequence:', error);
+      this.triggerCallbacks('START_GAME'); // Start game anyway
     }
-
-    // Start countdown interval
-    this.countdownInterval = setInterval(() => {
-      this.triggerCallbacks(this.currentCount);
-
-      if (this.currentCount === 0) {
-        this.triggerCallbacks('GO');
-        this.stopCountdown();
-      } else {
-        this.currentCount--;
-      }
-    }, 1000);
   }
 
   /**
-   * Play the selected audio clip
+   * Play an audio clip and wait for it to finish
    */
-  private async playAudio(): Promise<void> {
+  private async playAudio(audioClip: any): Promise<void> {
     try {
       // Clean up previous sound if exists
       if (this.soundObject) {
@@ -104,7 +136,7 @@ export class CountdownManager {
 
       // Load the audio file
       console.log('CountdownManager: Loading audio...');
-      await this.soundObject.loadAsync(this.selectedAudioClip);
+      await this.soundObject.loadAsync(audioClip);
 
       // Set volume to maximum
       await this.soundObject.setVolumeAsync(1.0);
@@ -114,7 +146,10 @@ export class CountdownManager {
       await this.soundObject.playAsync();
       this.isPlaying = true;
 
-      console.log('CountdownManager: Audio started playing');
+      // Wait for audio to finish playing
+      await this.waitForAudioToFinish();
+
+      console.log('CountdownManager: Audio finished playing');
     } catch (error) {
       console.error('CountdownManager: Failed to play audio:', error);
       this.isPlaying = false;
@@ -122,21 +157,49 @@ export class CountdownManager {
   }
 
   /**
-   * Stop the countdown
+   * Wait for the current audio to finish playing
    */
-  stopCountdown(): void {
-    if (this.countdownInterval) {
-      clearInterval(this.countdownInterval);
-      this.countdownInterval = null;
-    }
+  private async waitForAudioToFinish(): Promise<void> {
+    return new Promise((resolve) => {
+      if (!this.soundObject) {
+        resolve();
+        return;
+      }
+
+      const checkInterval = setInterval(async () => {
+        try {
+          const status = await this.soundObject?.getStatusAsync();
+          if (status && 'isPlaying' in status && !status.isPlaying) {
+            clearInterval(checkInterval);
+            resolve();
+          }
+        } catch (error) {
+          clearInterval(checkInterval);
+          resolve();
+        }
+      }, 100);
+
+      // Timeout after 10 seconds
+      setTimeout(() => {
+        clearInterval(checkInterval);
+        resolve();
+      }, 10000);
+    });
+  }
+
+  /**
+   * Simple delay helper
+   */
+  private delay(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   /**
    * Trigger all registered callbacks
    */
-  private triggerCallbacks(count: number | 'GO'): void {
+  private triggerCallbacks(message: string): void {
     this.callbacks.forEach((callback) => {
-      callback(count);
+      callback(message);
     });
   }
 
@@ -144,7 +207,6 @@ export class CountdownManager {
    * Clean up resources
    */
   async cleanup(): Promise<void> {
-    this.stopCountdown();
     if (this.soundObject) {
       try {
         await this.soundObject.unloadAsync();
