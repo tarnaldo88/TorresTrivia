@@ -7,6 +7,7 @@ import megan123 from '../assets/audio/123/megan123.mp3';
 
 // Import "Let's Play" clips
 import galanFamiliaLetsPlay from '../assets/audio/letsplay/GalanFamiliaLetsPlay.mp3';
+import playScream from '../assets/audio/letsplay/playScream.mp3';
 
 /**
  * Callback type for countdown events
@@ -21,7 +22,7 @@ const COUNTDOWN_AUDIO_CLIPS = [amayaKai123, emilio123, megan123];
 /**
  * Available "Let's Play" audio clips
  */
-const LETSPLAY_AUDIO_CLIPS = [galanFamiliaLetsPlay];
+const LETSPLAY_AUDIO_CLIPS = [galanFamiliaLetsPlay, playScream];
 
 /**
  * CountdownManager handles the Get Ready... -> 123 audio -> Go! -> Let's Play audio flow
