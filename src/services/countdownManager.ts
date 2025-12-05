@@ -125,13 +125,20 @@ export class CountdownManager {
         } catch (e) {
           console.warn('CountdownManager: Error unloading previous audio');
         }
+        this.soundObject = null;
       }
 
       // Create new sound object
       this.soundObject = new Audio.Sound();
 
-      // Load the audio file
-      await this.soundObject.loadAsync(audioClip);
+      try {
+        // Load the audio file
+        await this.soundObject.loadAsync(audioClip);
+      } catch (loadError) {
+        console.warn('CountdownManager: Failed to load audio file, continuing without audio:', loadError);
+        this.soundObject = null;
+        return; // Continue without audio
+      }
 
       // Set volume to maximum
       await this.soundObject.setVolumeAsync(1.0);
@@ -145,6 +152,7 @@ export class CountdownManager {
     } catch (error) {
       console.error('CountdownManager: Failed to play audio:', error);
       this.isPlaying = false;
+      this.soundObject = null;
     }
   }
 
