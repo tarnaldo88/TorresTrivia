@@ -40,6 +40,14 @@ export const HomeScreen: React.FC = () => {
     }
   };
 
+  const resetScore = async () =>{
+    try{
+      await ScoreManager.resetHighScore();
+    } catch (error) {
+      console.error('Failed to reset scores', error);
+    }
+  };
+
   return (    
     <ImageBackground 
       source={require('../assets/torresTrivia.png')} 
@@ -58,7 +66,7 @@ export const HomeScreen: React.FC = () => {
             <Text style={styles.scoreValue}>{highScore}</Text>
           </View>
         </View>
-          <TouchableOpacity style ={styles.button}>
+          <TouchableOpacity style ={styles.button} onPress={() => resetScore}>
             <Text style= {styles.resetScore}>Reset High Score</Text>
           </TouchableOpacity>
           <TouchableOpacity 
