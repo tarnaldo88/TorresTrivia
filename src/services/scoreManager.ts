@@ -87,4 +87,17 @@ export class ScoreManager {
       throw error;
     }
   }
+
+  static async resetHighScore(): Promise<void> {
+    try {
+      const db = Database.getInstance();
+      
+      await db.runAsync(
+        `UPDATE ${this.TABLE_NAME} SET highScore = ? WHERE id = 'scores'`, [0]
+      );
+    } catch (error){
+      console.log('Failed to reset the score', error);
+      throw error;
+    }
+  }
 }
