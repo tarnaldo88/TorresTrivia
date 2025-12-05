@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
 
   buttonGroup: {
     position: "absolute",
-    bottom: "20%",
+    bottom: "10%",
     left: 0,
     right: 0,
     alignItems: "center",
