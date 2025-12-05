@@ -96,7 +96,7 @@ export class ScoreManager {
         `UPDATE ${this.TABLE_NAME} SET highScore = ? WHERE id = 'scores'`, [0]
       );
     } catch (error){
-      console.log('Failed to reset the score', error);
+      console.error('Failed to reset the score', error);
       throw error;
     }
   }
