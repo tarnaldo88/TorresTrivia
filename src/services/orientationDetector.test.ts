@@ -182,57 +182,78 @@ describe('OrientationDetector', () => {
        *
        * For any completed action (correct guess or skip) followed by device
        * return to upright position, the system should be ready to detect
-       * and register the next orientation change.
+       * and register the next orientation change after debounce expires.
+       *
+       * Property: After any action is detected and debounce expires,
+       * the system should be able to detect a subsequent action.
        */
-      // Test with a simple example that demonstrates the property
-      const testDetector = new OrientationDetector();
-      testDetector.setDebounceMs(100); // Set debounce window
-      testDetector.startListening();
-      const actions: string[] = [];
+      fc.assert(
+        fc.property(
+          fc.tuple(
+            fc.boolean(), // first action is CORRECT (true) or SKIP (false)
+            fc.boolean() // second action is CORRECT (true) or SKIP (false)
+          ),
+          ([firstIsCorrect, secondIsCorrect]: [boolean, boolean]) => {
+            const testDetector = new OrientationDetector();
+            testDetector.setDebounceMs(100); // Set short debounce for testing
+            testDetector.startListening();
+            const actions: string[] = [];
 
-      testDetector.onOrientationChange((action) => {
-        actions.push(action);
-      });
+            testDetector.onOrientationChange((action) => {
+              actions.push(action);
+            });
 
-      // First action - downward rotation
-      const firstOrientation: DeviceOrientation = {
-        x: -0.7,
-        y: 0,
-        z: 0,
-        timestamp: Date.now(),
-      };
-      testDetector.processOrientation(firstOrientation);
-      expect(actions.length).toBe(1);
-      expect(actions[0]).toBe('CORRECT');
+            // First action - simulate z-axis acceleration change
+            // Start at z=0, then move to z=2.0 (or -2.0) to create the change
+            let currentZ = 0;
+            const firstZTarget = firstIsCorrect ? 2.0 : -2.0;
+            const firstOrientation: DeviceOrientation = {
+              x: 0,
+              y: 0,
+              z: firstZTarget,
+              timestamp: Date.now(),
+            };
+            testDetector.processOrientation(firstOrientation);
+            currentZ = firstZTarget;
 
-      // Return to upright (neutral position)
-      const uprightOrientation: DeviceOrientation = {
-        x: 0,
-        y: 0,
-        z: 0,
-        timestamp: Date.now() + 50,
-      };
-      testDetector.processOrientation(uprightOrientation);
-      // Still in debounce, so no new action
-      expect(actions.length).toBe(1);
+            // Verify first action was detected
+            expect(actions.length).toBe(1);
+            expect(actions[0]).toBe(firstIsCorrect ? 'CORRECT' : 'SKIP');
 
-      // Simulate time passing and second action after debounce
-      // We'll manually reset the last action time to simulate debounce expiration
-      testDetector.reset();
+            // Return to upright (neutral position) - should not trigger action
+            // Move from current z back to 0 (small change, won't trigger)
+            const uprightOrientation: DeviceOrientation = {
+              x: 0,
+              y: 0,
+              z: 0.5,
+              timestamp: Date.now() + 50,
+            };
+            testDetector.processOrientation(uprightOrientation);
+            // Still in debounce, so no new action
+            expect(actions.length).toBe(1);
 
-      // Second action - upward rotation
-      const secondOrientation: DeviceOrientation = {
-        x: 0.7,
-        y: 0,
-        z: 0,
-        timestamp: Date.now() + 200,
-      };
-      testDetector.processOrientation(secondOrientation);
+            // Reset to simulate debounce expiration
+            testDetector.reset();
 
-      // Should have detected both actions
-      expect(actions.length).toBe(2);
-      expect(actions[0]).toBe('CORRECT');
-      expect(actions[1]).toBe('SKIP');
+            // Second action - should be detected after debounce
+            // Create a new z-axis change from current position
+            const secondZTarget = secondIsCorrect ? 2.0 : -2.0;
+            const secondOrientation: DeviceOrientation = {
+              x: 0,
+              y: 0,
+              z: secondZTarget,
+              timestamp: Date.now() + 200,
+            };
+            testDetector.processOrientation(secondOrientation);
+
+            // Should have detected both actions
+            expect(actions.length).toBe(2);
+            expect(actions[0]).toBe(firstIsCorrect ? 'CORRECT' : 'SKIP');
+            expect(actions[1]).toBe(secondIsCorrect ? 'CORRECT' : 'SKIP');
+          }
+        ),
+        { numRuns: 100 }
+      );
     });
   });
 

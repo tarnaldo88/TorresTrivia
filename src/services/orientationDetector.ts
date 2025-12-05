@@ -212,5 +212,6 @@ export class OrientationDetector {
   reset(): void {
     this.lastActionTime = 0;
     this.lastDetectionTime = 0;
+    this.lastZ = 0;
   }
 }

@@ -1,13 +1,12 @@
 import { Audio } from 'expo-av';
 
 // Import audio files - 123 countdown clips
-import countdown1 from '../assets/audio/123/countdown1.wav';
-import countdown2 from '../assets/audio/123/countdown2.wav';
-import countdown3 from '../assets/audio/123/countdown3.wav';
+import amayaKai123 from '../assets/audio/123/AmayaKai123.wav';
+import emilio123 from '../assets/audio/123/Emilio123.wav';
+import megan123 from '../assets/audio/123/megan123.mp3';
 
 // Import "Let's Play" clips
-import letsplay1 from '../assets/audio/letsplay/letsplay1.wav';
-import letsplay2 from '../assets/audio/letsplay/letsplay2.wav';
+import galanFamiliaLetsPlay from '../assets/audio/letsplay/GalanFamiliaLetsPlay.mp3';
 
 /**
  * Callback type for countdown events
@@ -17,12 +16,12 @@ export type CountdownCallback = (message: string) => void;
 /**
  * Available countdown audio clips (1-2-3)
  */
-const COUNTDOWN_AUDIO_CLIPS = [countdown1, countdown2, countdown3];
+const COUNTDOWN_AUDIO_CLIPS = [amayaKai123, emilio123, megan123];
 
 /**
  * Available "Let's Play" audio clips
  */
-const LETSPLAY_AUDIO_CLIPS = [letsplay1, letsplay2];
+const LETSPLAY_AUDIO_CLIPS = [galanFamiliaLetsPlay];
 
 /**
  * CountdownManager handles the Get Ready... -> 123 audio -> Go! -> Let's Play audio flow
