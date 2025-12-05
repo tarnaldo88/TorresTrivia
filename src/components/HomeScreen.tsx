@@ -43,6 +43,8 @@ export const HomeScreen: React.FC = () => {
   const resetScore = async () =>{
     try{
       await ScoreManager.resetHighScore();
+      // Reload scores to update the display
+      await loadScores();
     } catch (error) {
       console.error('Failed to reset scores', error);
     }
@@ -66,7 +68,7 @@ export const HomeScreen: React.FC = () => {
             <Text style={styles.scoreValue}>{highScore}</Text>
           </View>
         </View>
-          <TouchableOpacity style ={styles.button} onPress={() => resetScore}>
+          <TouchableOpacity style ={styles.button} onPress={() => resetScore()}>
             <Text style= {styles.resetScore}>Reset High Score</Text>
           </TouchableOpacity>
           <TouchableOpacity 
