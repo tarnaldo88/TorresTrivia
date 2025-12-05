@@ -153,6 +153,8 @@
 
 
 
+
+
   - **Feature: heads-up-game, Property 17: Ready for next action after completion**
   - **Validates: Requirements 6.4**
 

@@ -36,7 +36,7 @@ export class CountdownManager {
   private isPlaying: boolean = false;
 
   constructor() {
-    console.log(`CountdownManager: Initialized with ${COUNTDOWN_AUDIO_CLIPS.length} countdown clips and ${LETSPLAY_AUDIO_CLIPS.length} let's play clips`);
+    // Initialized with audio clips
   }
 
   /**
@@ -50,7 +50,6 @@ export class CountdownManager {
 
     const randomIndex = Math.floor(Math.random() * COUNTDOWN_AUDIO_CLIPS.length);
     this.selectedCountdownClip = COUNTDOWN_AUDIO_CLIPS[randomIndex];
-    console.log(`CountdownManager: Selected countdown clip ${randomIndex + 1} of ${COUNTDOWN_AUDIO_CLIPS.length}`);
   }
 
   /**
@@ -64,7 +63,6 @@ export class CountdownManager {
 
     const randomIndex = Math.floor(Math.random() * LETSPLAY_AUDIO_CLIPS.length);
     this.selectedLetsplayClip = LETSPLAY_AUDIO_CLIPS[randomIndex];
-    console.log(`CountdownManager: Selected let's play clip ${randomIndex + 1} of ${LETSPLAY_AUDIO_CLIPS.length}`);
   }
 
   /**
@@ -90,7 +88,6 @@ export class CountdownManager {
   async startCountdown(): Promise<void> {
     try {
       // Step 1: Show "Get Ready..." and play countdown audio
-      console.log('CountdownManager: Starting countdown sequence');
       this.triggerCallbacks('Get Ready...');
 
       this.selectRandomCountdownClip();
@@ -110,7 +107,6 @@ export class CountdownManager {
 
       // Step 3: Start the game
       this.triggerCallbacks('START_GAME');
-      console.log('CountdownManager: Countdown sequence complete, game starting');
     } catch (error) {
       console.error('CountdownManager: Error during countdown sequence:', error);
       this.triggerCallbacks('START_GAME'); // Start game anyway
@@ -135,21 +131,17 @@ export class CountdownManager {
       this.soundObject = new Audio.Sound();
 
       // Load the audio file
-      console.log('CountdownManager: Loading audio...');
       await this.soundObject.loadAsync(audioClip);
 
       // Set volume to maximum
       await this.soundObject.setVolumeAsync(1.0);
 
       // Play the audio
-      console.log('CountdownManager: Playing audio...');
       await this.soundObject.playAsync();
       this.isPlaying = true;
 
       // Wait for audio to finish playing
       await this.waitForAudioToFinish();
-
-      console.log('CountdownManager: Audio finished playing');
     } catch (error) {
       console.error('CountdownManager: Failed to play audio:', error);
       this.isPlaying = false;

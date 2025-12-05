@@ -107,6 +107,8 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     if (countdownMessage === 'START_GAME') {
       // Countdown sequence finished, start the actual game
       startGame();
+      // Clear the countdown message so it doesn't display on screen
+      setCountdownMessage(null);
     }
   }, [countdownMessage]);
 
