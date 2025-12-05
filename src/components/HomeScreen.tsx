@@ -58,6 +58,9 @@ export const HomeScreen: React.FC = () => {
             <Text style={styles.scoreValue}>{highScore}</Text>
           </View>
         </View>
+          <TouchableOpacity style ={styles.button}>
+            <Text style= {styles.resetScore}>Reset High Score</Text>
+          </TouchableOpacity>
           <TouchableOpacity 
             style={styles.button} 
             onPress={() => navigation.navigate('HeadsUp')}
@@ -122,6 +125,11 @@ const styles = StyleSheet.create({
 
   scoreValue: {
     color: "#4CAF50",
+    fontSize: 32,
+    fontWeight: "bold",
+  },
+  resetScore: {
+    color: "#df313fff",
     fontSize: 32,
     fontWeight: "bold",
   },
