@@ -1,5 +1,5 @@
 import {useState} from 'react';  
-import { Audio } from 'expo-av';
+import { useAudioPlayer } from 'expo-audio';
 import React from 'react';
 import { 
     View, 
@@ -11,20 +11,23 @@ import {
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
-import thisMegan from '../assets/audio/this/thisisMegan.mp3';
-import thisEmilio from '../assets/audio/this/thisisEmilio.mp3';
-import thisKai from '../assets/audio/this/thisisKai.mp3';
-import thisAmaya from '../assets/audio/this/thisisAmaya.mp3';
-
-export const PlayerSelectScreen: React.FC = () =>  {
+export const PlayerSelectScreen: React.FC = () =>  {    
     const [playerList, setPlayerList] = useState<string[]>([]);
+    const [playerSelected, setPlayerSelected] = useState<boolean>(false);
+
+    const audioPlayers = {
+        megan: require('../assets/audio/this/thisisMegan.mp3'),
+        emilio: require('../assets/audio/this/thisisEmilio.mp3'),
+        amaya: require('../assets/audio/this/thisisAmaya.mp3'),
+        kai: require('../assets/audio/this/thisisKai.mp3'),
+    }
 
     const addtoPlayerList = (player:string) => {
         setPlayerList(prev => [...prev, player]);
     };
 
-    const playName = (name: any) => {
-        //parameter passes clipname to play upon press
+    const playName = (key: keyof typeof audioPlayers) => {
+        audioPlayers[key].play();
     };
 
     return(
@@ -32,14 +35,15 @@ export const PlayerSelectScreen: React.FC = () =>  {
             <View>  
                 <Text style={styles.playSelectTitle}>Players Selected: </Text>
             </View>
-            <View>
+            <View style={styles.buttonGrid}>
                 <TouchableOpacity 
+                    style={playerSelected ? styles.playerSelected : styles.playerBtn}
                     onPress={() => {
                         addtoPlayerList("Amaya");
-                        playName(thisAmaya);
+                        playName('amaya');
                     }}
                 >
-                    <Text>Amaya</Text>
+                    <Text style={styles.playerText}>Amaya</Text>
                 </TouchableOpacity>
             </View>            
         </View>
@@ -53,7 +57,7 @@ const styles = StyleSheet.create({
         
     },
     playerSelectedContainer:{
-        
+
     },
     playSelectTitle: {
         fontSize: 20,
@@ -62,5 +66,17 @@ const styles = StyleSheet.create({
     },
     buttonGrid:{
 
+    },
+    playerSelected: {
+        backgroundColor:"#9c03f5ff", 
+        alignItems:'center', 
+        borderRadius: 15,      
+    },
+    playerBtn:{
+        backgroundColor:"#ca67f1ff",
+        alignItems:'center',
+    },
+    playerText:{
+        color:"#faeeeeff"
     },
 });
