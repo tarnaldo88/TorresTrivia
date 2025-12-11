@@ -5,12 +5,14 @@ import { HomeScreen } from "../components/HomeScreen";
 import { GameScreen } from "../components/GameScreen";
 import { TriviaScreen } from "../components/TriviaScreen";
 import { NotJeopardyScreen } from "../components/NotJeopardyScreen";
+import { PlayerSelectScreen } from "../components/PlayerSelectScreen";
 
 export type RootStackParamList = {
   Home: undefined;
   HeadsUp: undefined;
   Trivia: undefined;
   Jeopardy: undefined;
+  PlayerSelect: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -41,6 +43,10 @@ export const MainNavigator = () => {
       <Stack.Screen 
         name="Jeopardy" 
         component={NotJeopardyScreen}
+      />
+      <Stack.Screen 
+        name="PlayerSelect"
+        component={PlayerSelectScreen}
       />
     </Stack.Navigator>
   );
