@@ -31,7 +31,9 @@ export const PlayerSelectScreen: React.FC = () =>  {
 
     const addtoPlayerList = (player:string) => {
         setPlayerList(prev =>
-            prev.includes(player) ? prev : [...prev, player]
+            prev.includes(player)
+                ? prev.filter(p => p !== player)   // remove
+                : [...prev, player]   
         );      
     };
 
