@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     playerBtn:{
         width: "30%",               // Three per row
         aspectRatio: 1.8, 
-        backgroundColor:"#c50303ff",
+        backgroundColor:"#03c54dff",
         alignItems:'center',
         marginVertical: 8,
         justifyContent: "center",
