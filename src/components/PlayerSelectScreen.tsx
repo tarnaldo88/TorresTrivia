@@ -28,9 +28,9 @@ export const PlayerSelectScreen: React.FC = () =>  {
     };
 
     return(
-        <View>
+        <View style= {styles.container}>
             <View>  
-                <Text>Players Selected: </Text>
+                <Text style={styles.playSelectTitle}>Players Selected: </Text>
             </View>
             <View>
                 <TouchableOpacity 
@@ -47,5 +47,20 @@ export const PlayerSelectScreen: React.FC = () =>  {
 };
 
 const styles = StyleSheet.create({
+    container: {
+        backgroundColor: "#100d11ff",
+        flex: 1,
+        
+    },
+    playerSelectedContainer:{
+        
+    },
+    playSelectTitle: {
+        fontSize: 20,
+        color: "#2bff01ff",
 
+    },
+    buttonGrid:{
+
+    },
 });
