@@ -23,8 +23,20 @@ export const PlayerSelectScreen: React.FC = () =>  {
         setPlayerList(prev => [...prev, player]);
     };
 
+    const playName = (name: any) => {
+        //parameter passes clipname to play upon press
+    };
+
     return(
         <View>
+            <TouchableOpacity 
+                onPress={() => {
+                    addtoPlayerList("Amaya");
+                    playName(thisAmaya);
+                }}
+            >
+                <Text>Amaya</Text>
+            </TouchableOpacity>
             
         </View>
     )
