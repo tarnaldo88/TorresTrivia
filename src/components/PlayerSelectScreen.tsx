@@ -75,16 +75,27 @@ const styles = StyleSheet.create({
 
     },
     buttonGrid:{
-
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "space-between",
+        paddingHorizontal: 10,
     },
     playerSelected: {
+        width: "30%",               // Three per row
+        aspectRatio: 1.8, 
         backgroundColor:"#9c03f5ff", 
         alignItems:'center', 
-        borderRadius: 15,      
+        borderRadius: 15,    
+        marginVertical: 8,
+        justifyContent: "center",  
     },
     playerBtn:{
+        width: "30%",               // Three per row
+        aspectRatio: 1.8, 
         backgroundColor:"#ca67f1ff",
         alignItems:'center',
+        marginVertical: 8,
+        justifyContent: "center",
     },
     playerText:{
         color:"#faeeeeff"
