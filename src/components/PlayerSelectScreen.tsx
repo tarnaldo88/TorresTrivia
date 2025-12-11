@@ -29,15 +29,23 @@ export const PlayerSelectScreen: React.FC = () =>  {
 
     return(
         <View>
-            <TouchableOpacity 
-                onPress={() => {
-                    addtoPlayerList("Amaya");
-                    playName(thisAmaya);
-                }}
-            >
-                <Text>Amaya</Text>
-            </TouchableOpacity>
-            
+            <View>  
+                <Text>Players Selected: </Text>
+            </View>
+            <View>
+                <TouchableOpacity 
+                    onPress={() => {
+                        addtoPlayerList("Amaya");
+                        playName(thisAmaya);
+                    }}
+                >
+                    <Text>Amaya</Text>
+                </TouchableOpacity>
+            </View>            
         </View>
     )
 };
+
+const styles = StyleSheet.create({
+
+});
