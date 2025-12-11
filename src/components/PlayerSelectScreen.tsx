@@ -9,3 +9,12 @@ import {
     ImageBackground, 
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+
+export const PlayerSelectScreen: React.FC = () =>  {
+
+    return(
+        <View>
+            
+        </View>
+    )
+};
