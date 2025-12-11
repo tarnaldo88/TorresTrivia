@@ -39,7 +39,9 @@ My family's parties and holidays we always play games, including trivia and head
 - Literature (30)
 - Sports (30)
 
-## Getting Started
+## Future Features
+- Player Select (Plays their recorded voice- "This is ___")
+- Team Select (Some set premade teams and feature to create custom team)
 
 ### Prerequisites
 
