@@ -44,8 +44,9 @@ export const PlayerSelectScreen: React.FC = () =>  {
                     data={playerList}
                     keyExtractor={(item) => item}
                     renderItem={({ item }) => (
-                        <Text style={{ fontSize: 18 }}>{item}</Text>
+                        <Text style={styles.playerSelectedText}>{item}</Text>
                     )}
+                    style={styles.flatListContain}
                 />
             </View>
             <View style={styles.buttonGrid}>
@@ -102,12 +103,19 @@ const styles = StyleSheet.create({
     playerSelectedContainer:{
         margin:10,
         marginTop:'20%',
-        alignItems:'center',
+        // flexDirection:'row',
+    },
+    flatListContain:{
+        flexDirection:'row', 
     },
     playSelectTitle: {
         fontSize: 20,
         color: "#01fff2ff",
-
+        marginBottom:10,
+    },
+    playerSelectedText:{
+        color:"#01fff2ff",
+        fontSize: 18,        
     },
     buttonGrid:{
         flexDirection: "row",
@@ -127,12 +135,13 @@ const styles = StyleSheet.create({
     playerBtn:{
         width: "30%",               // Three per row
         aspectRatio: 1.8, 
-        backgroundColor:"#ca67f1ff",
+        backgroundColor:"#c50303ff",
         alignItems:'center',
         marginVertical: 8,
         justifyContent: "center",
     },
     playerText:{
-        color:"#faeeeeff"
+        color:"#faeeeeff",
+        fontSize:20,
     },
 });
