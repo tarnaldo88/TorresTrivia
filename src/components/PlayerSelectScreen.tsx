@@ -38,7 +38,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
 
     return(
         <View style= {styles.container}>
-            <View>  
+            <View style={styles.playerSelectedContainer}>  
                 <Text style={styles.playSelectTitle}>Players Selected: </Text>
                 <FlatList
                     data={playerList}
@@ -54,6 +54,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
                     onPress={() => {
                         addtoPlayerList("Amaya");
                         playName('amaya');
+                        setPlayerSelected(!playerSelected);
                     }}
                 >
                     <Text style={styles.playerText}>Amaya</Text>
@@ -63,6 +64,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
                     onPress={() => {
                         addtoPlayerList("Kai");
                         playName('kai');
+                        setPlayerSelected(!playerSelected);
                     }}
                 >
                     <Text style={styles.playerText}>Kai</Text>
@@ -72,6 +74,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
                     onPress={() => {
                         addtoPlayerList("Megan");
                         playName('megan');
+                        setPlayerSelected(!playerSelected);
                     }}
                 >
                     <Text style={styles.playerText}>Megan</Text>
@@ -80,7 +83,8 @@ export const PlayerSelectScreen: React.FC = () =>  {
                     style={playerSelected ? styles.playerSelected : styles.playerBtn}
                     onPress={() => {
                         addtoPlayerList("Emilio");
-                        playName('megan');
+                        playName('emilio');
+                        setPlayerSelected(!playerSelected);
                     }}
                 >
                     <Text style={styles.playerText}>Emilio</Text>
@@ -93,15 +97,16 @@ export const PlayerSelectScreen: React.FC = () =>  {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#100d11ff",
-        flex: 1,
-        
+        flex: 1,        
     },
     playerSelectedContainer:{
-
+        margin:10,
+        marginTop:'20%',
+        alignItems:'center',
     },
     playSelectTitle: {
         fontSize: 20,
-        color: "#2bff01ff",
+        color: "#01fff2ff",
 
     },
     buttonGrid:{
