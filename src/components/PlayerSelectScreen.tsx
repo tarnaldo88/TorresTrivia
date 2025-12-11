@@ -53,7 +53,34 @@ export const PlayerSelectScreen: React.FC = () =>  {
                         playName('amaya');
                     }}
                 >
-                    <Text style={styles.playerText}>Amaya</Text>
+                    <Text style={styles.playerText}>Kai</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={playerSelected ? styles.playerSelected : styles.playerBtn}
+                    onPress={() => {
+                        addtoPlayerList("Kai");
+                        playName('kai');
+                    }}
+                >
+                    <Text style={styles.playerText}>Kai</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={playerSelected ? styles.playerSelected : styles.playerBtn}
+                    onPress={() => {
+                        addtoPlayerList("Megan");
+                        playName('megan');
+                    }}
+                >
+                    <Text style={styles.playerText}>Megan</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={playerSelected ? styles.playerSelected : styles.playerBtn}
+                    onPress={() => {
+                        addtoPlayerList("Emilio");
+                        playName('megan');
+                    }}
+                >
+                    <Text style={styles.playerText}>Emilio</Text>
                 </TouchableOpacity>
             </View>            
         </View>
