@@ -23,7 +23,16 @@ export const PlayerSelectScreen: React.FC = () =>  {
     }
 
     const addtoPlayerList = (player:string) => {
-        setPlayerList(prev => [...prev, player]);
+        let isInList:boolean = false;
+        for(let name of playerList) {
+            if(player === name) {
+                isInList = true;
+                break;
+            }
+        }
+        if(!isInList) {
+            setPlayerList(prev => [...prev, player]);
+        }        
     };
 
     const playName = (key: keyof typeof audioPlayers) => {
