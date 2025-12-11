@@ -11,8 +11,11 @@ import {
     FlatList,
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useDynamicSound } from '../services/UseDynamicSound';
+
 
 export const PlayerSelectScreen: React.FC = () =>  {    
+    const {play} = useDynamicSound();
     const [playerList, setPlayerList] = useState<string[]>([]);
     const [playerSelected, setPlayerSelected] = useState<boolean>(false);
 
@@ -30,7 +33,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
     };
 
     const playName = (key: keyof typeof audioPlayers) => {
-        audioPlayers[key].play();
+        play(audioPlayers[key]);
     };
 
     return(
@@ -53,7 +56,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
                         playName('amaya');
                     }}
                 >
-                    <Text style={styles.playerText}>Kai</Text>
+                    <Text style={styles.playerText}>Amaya</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
                     style={playerSelected ? styles.playerSelected : styles.playerBtn}
