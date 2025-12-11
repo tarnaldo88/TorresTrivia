@@ -17,7 +17,10 @@ import { useDynamicSound } from '../services/UseDynamicSound';
 export const PlayerSelectScreen: React.FC = () =>  {    
     const {play} = useDynamicSound();
     const [playerList, setPlayerList] = useState<string[]>([]);
-    const [playerSelected, setPlayerSelected] = useState<boolean>(false);
+    const [meganSelected, setMeganSelected] = useState<boolean>(false);
+    const [emilioSelected, setEmilioSelected] = useState<boolean>(false);
+    const [kaiSelected, setKaiSelected] = useState<boolean>(false);
+    const [amayaSelected, setAmayaSelected] = useState<boolean>(false);
 
     const audioPlayers = {
         megan: require('../assets/audio/this/thisisMegan.mp3'),
@@ -51,41 +54,41 @@ export const PlayerSelectScreen: React.FC = () =>  {
             </View>
             <View style={styles.buttonGrid}>
                 <TouchableOpacity 
-                    style={playerSelected ? styles.playerSelected : styles.playerBtn}
+                    style={amayaSelected ? styles.playerSelected : styles.playerBtn}
                     onPress={() => {
                         addtoPlayerList("Amaya");
                         playName('amaya');
-                        setPlayerSelected(!playerSelected);
+                        setAmayaSelected(!amayaSelected);
                     }}
                 >
                     <Text style={styles.playerText}>Amaya</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
-                    style={playerSelected ? styles.playerSelected : styles.playerBtn}
+                    style={kaiSelected ? styles.playerSelected : styles.playerBtn}
                     onPress={() => {
                         addtoPlayerList("Kai");
                         playName('kai');
-                        setPlayerSelected(!playerSelected);
+                        setKaiSelected(!kaiSelected);
                     }}
                 >
                     <Text style={styles.playerText}>Kai</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
-                    style={playerSelected ? styles.playerSelected : styles.playerBtn}
+                    style={meganSelected ? styles.playerSelected : styles.playerBtn}
                     onPress={() => {
                         addtoPlayerList("Megan");
                         playName('megan');
-                        setPlayerSelected(!playerSelected);
+                        setMeganSelected(!meganSelected);
                     }}
                 >
                     <Text style={styles.playerText}>Megan</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
-                    style={playerSelected ? styles.playerSelected : styles.playerBtn}
+                    style={emilioSelected ? styles.playerSelected : styles.playerBtn}
                     onPress={() => {
                         addtoPlayerList("Emilio");
                         playName('emilio');
-                        setPlayerSelected(!playerSelected);
+                        setEmilioSelected(!emilioSelected);
                     }}
                 >
                     <Text style={styles.playerText}>Emilio</Text>
