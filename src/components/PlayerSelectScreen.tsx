@@ -8,6 +8,7 @@ import {
     TouchableOpacity, 
     Image,
     ImageBackground, 
+    FlatList,
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
@@ -36,6 +37,13 @@ export const PlayerSelectScreen: React.FC = () =>  {
         <View style= {styles.container}>
             <View>  
                 <Text style={styles.playSelectTitle}>Players Selected: </Text>
+                <FlatList
+                    data={playerList}
+                    keyExtractor={(item) => item}
+                    renderItem={({ item }) => (
+                        <Text style={{ fontSize: 18 }}>{item}</Text>
+                    )}
+                />
             </View>
             <View style={styles.buttonGrid}>
                 <TouchableOpacity 
