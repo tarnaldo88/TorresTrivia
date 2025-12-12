@@ -50,7 +50,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
             <View style={styles.playerSelectedContainer}>        
                 <View style={styles.backBtn}>
                 <TouchableOpacity style={styles.playerSelected} onPress={() => {navigation.navigate('Home')}}>
-                    <Text style={styles.playerText}>Back</Text>
+                    <Text style={styles.playerText}> ⬅️ Back</Text>
                 </TouchableOpacity>
             </View>          
                 <Text style={styles.playSelectTitle}>Players Selected: </Text>
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
         fontSize:20,
     },
     backBtn:{
-        marginTop: 30,
-        alignItems:'center',
+        marginTop: 10,
+        alignItems: 'flex-start',
     },
 });
