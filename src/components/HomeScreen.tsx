@@ -75,7 +75,7 @@ export const HomeScreen: React.FC = () => {
             style={styles.button} 
             onPress={() => navigation.navigate('PlayerSelect')}
           >            
-            <Image source={require('../assets/headsup.png')} style={styles.buttonImage} resizeMode="cover"/>
+            <Image source={require('../assets/playSelBtn.png')} style={styles.buttonImage} resizeMode="cover"/>
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.button} 

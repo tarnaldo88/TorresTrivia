@@ -117,11 +117,9 @@ export const PlayerSelectScreen: React.FC = () =>  {
 
 const styles = StyleSheet.create({
     container: {
-        // backgroundColor: "#100d11ff",
         flex: 1,
-        justifyContent: "center",   // center vertically
-        alignItems: "center",   
-        // flexDirection:'row',
+        alignItems: "center",
+        paddingTop: 40,
     },
     background: {
         flex: 1,        
@@ -129,7 +127,7 @@ const styles = StyleSheet.create({
         height: "100%",
     },
     playerSelectedContainer:{
-        marginBottom:20,
+        margin:10,
         alignItems: 'center',
         // flexDirection:'row',
     },
@@ -149,7 +147,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "space-between",
-        paddingHorizontal: 10,
+        // paddingHorizontal: 10,
+        width:'90%',
     },
     playerSelected: {
         width: "30%",               // Three per row
@@ -158,22 +157,22 @@ const styles = StyleSheet.create({
         alignItems:'center', 
         borderRadius: 15,    
         marginVertical: 8,
-        justifyContent: "center",  
+        // justifyContent: "center",  
     },
     playerBtn:{
         width: "30%",               // Three per row
         aspectRatio: 1.8, 
         backgroundColor:"#03c54dff",
         alignItems:'center',
-        marginVertical: 8,
         justifyContent: "center",
+        marginVertical: 8,        
     },
     playerText:{
         color:"#faeeeeff",
         fontSize:20,
     },
     backBtn:{
-        marginTop: 10,
+        width:'30%',
         alignItems: 'flex-start',
     },
 });
