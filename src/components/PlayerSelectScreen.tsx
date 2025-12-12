@@ -46,6 +46,11 @@ export const PlayerSelectScreen: React.FC = () =>  {
     };
 
     return(
+        <ImageBackground 
+            source={require('../assets/playSel.png')} 
+            resizeMode='cover' 
+            style={styles.background}
+        >
         <View style= {styles.container}>
             <View style={styles.playerSelectedContainer}>        
                 <View style={styles.backBtn}>
@@ -106,17 +111,26 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 </TouchableOpacity>
             </View>            
         </View>
+        </ImageBackground>
     )
 };
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#100d11ff",
+        // backgroundColor: "#100d11ff",
+        flex: 1,
+        justifyContent: "center",   // center vertically
+        alignItems: "center",   
+        // flexDirection:'row',
+    },
+    background: {
         flex: 1,        
+        width: "100%",
+        height: "100%",
     },
     playerSelectedContainer:{
-        margin:10,
-        marginTop:'20%',
+        marginBottom:20,
+        alignItems: 'center',
         // flexDirection:'row',
     },
     flatListContain:{
@@ -124,11 +138,11 @@ const styles = StyleSheet.create({
     },
     playSelectTitle: {
         fontSize: 20,
-        color: "#01fff2ff",
+        color: "#ddf8f7ff",
         marginBottom:10,
     },
     playerSelectedText:{
-        color:"#01fff2ff",
+        color:"#e5fcfbff",
         fontSize: 18,        
     },
     buttonGrid:{
