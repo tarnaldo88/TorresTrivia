@@ -12,9 +12,13 @@ import {
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useDynamicSound } from '../services/UseDynamicSound';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/MainNavigator';
 
+type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
-export const PlayerSelectScreen: React.FC = () =>  {    
+export const PlayerSelectScreen: React.FC = () =>  {
+    const navigation = useNavigation<HomeScreenNavigationProp>();    
     const {play} = useDynamicSound();
     const [playerList, setPlayerList] = useState<string[]>([]);
     const [meganSelected, setMeganSelected] = useState<boolean>(false);
@@ -45,7 +49,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
         <View style= {styles.container}>
             <View style={styles.playerSelectedContainer}>        
                 <View style={styles.backBtn}>
-                <TouchableOpacity style={styles.playerSelected}>
+                <TouchableOpacity style={styles.playerSelected} onPress={() => {navigation.navigate('Home')}}>
                     <Text style={styles.playerText}>Back</Text>
                 </TouchableOpacity>
             </View>          
