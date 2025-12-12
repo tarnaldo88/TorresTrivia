@@ -43,7 +43,12 @@ export const PlayerSelectScreen: React.FC = () =>  {
 
     return(
         <View style= {styles.container}>
-            <View style={styles.playerSelectedContainer}>  
+            <View style={styles.playerSelectedContainer}>        
+                <View style={styles.backBtn}>
+                <TouchableOpacity style={styles.playerSelected}>
+                    <Text style={styles.playerText}>Back</Text>
+                </TouchableOpacity>
+            </View>          
                 <Text style={styles.playSelectTitle}>Players Selected: </Text>
                 <FlatList
                     data={playerList}
@@ -148,5 +153,9 @@ const styles = StyleSheet.create({
     playerText:{
         color:"#faeeeeff",
         fontSize:20,
+    },
+    backBtn:{
+        marginTop: 30,
+        alignItems:'center',
     },
 });
