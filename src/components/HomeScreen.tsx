@@ -79,6 +79,12 @@ export const HomeScreen: React.FC = () => {
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.button} 
+            onPress={() => navigation.navigate('TeamSelect')}
+          >            
+            <Text style={styles.teamSelectText}>Team Select</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.button} 
             onPress={() => navigation.navigate('HeadsUp')}
           >            
             <Image source={require('../assets/headsup.png')} style={styles.buttonImage} resizeMode="cover"/>
@@ -147,6 +153,11 @@ const styles = StyleSheet.create({
   resetScore: {
     color: "#df313fff",
     fontSize: 32,
+    fontWeight: "bold",
+  },
+  teamSelectText: {
+    color: "#fff",
+    fontSize: 24,
     fontWeight: "bold",
   },
 
