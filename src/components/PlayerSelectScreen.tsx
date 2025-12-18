@@ -33,6 +33,10 @@ export const PlayerSelectScreen: React.FC = () =>  {
         kai: require('../assets/audio/this/thisisKai.mp3'),
     }
 
+    const teamPlayers = {
+
+    }
+
     const addtoPlayerList = (player:string) => {
         setPlayerList(prev =>
             prev.includes(player)
@@ -43,6 +47,10 @@ export const PlayerSelectScreen: React.FC = () =>  {
 
     const playName = (key: keyof typeof audioPlayers) => {
         play(audioPlayers[key]);
+    };
+
+    const playTeamName = (key: keyof typeof teamPlayers) => {
+        //play(teamPlayers[key]);
     };
 
     return(
