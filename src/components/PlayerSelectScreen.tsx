@@ -26,7 +26,8 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const [kaiSelected, setKaiSelected] = useState<boolean>(false);
     const [amayaSelected, setAmayaSelected] = useState<boolean>(false);
     const [modeSelect, setModeSelect] = useState<boolean>(true);
-    const [shazamSelected,setShazamSelected] = useState<Boolean>(false);
+    const [shazamSelected,setShazamSelected] = useState<boolean>(false);
+    const [teamCustOne, setTeamCustOne] = useState<boolean>(false);
 
     const audioPlayers = {
         megan: require('../assets/audio/this/thisisMegan.mp3'),
