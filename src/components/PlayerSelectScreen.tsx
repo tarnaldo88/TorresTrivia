@@ -25,6 +25,8 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const [emilioSelected, setEmilioSelected] = useState<boolean>(false);
     const [kaiSelected, setKaiSelected] = useState<boolean>(false);
     const [amayaSelected, setAmayaSelected] = useState<boolean>(false);
+    const [modeSelect, setModeSelect] = useState<boolean>(true);
+    // const [playerOrTeamModeSelected, setPlayerOrTeamModeSelected] = useState<boolean>(true);
 
     const audioPlayers = {
         megan: require('../assets/audio/this/thisisMegan.mp3'),
@@ -45,6 +47,10 @@ export const PlayerSelectScreen: React.FC = () =>  {
         );      
     };
 
+    const switchSelectModes = () => {
+        setModeSelect(!modeSelect);
+    }
+
     const playName = (key: keyof typeof audioPlayers) => {
         play(audioPlayers[key]);
     };
@@ -59,6 +65,14 @@ export const PlayerSelectScreen: React.FC = () =>  {
             resizeMode='cover' 
             style={styles.background}
         >
+        <View>
+            <TouchableOpacity onPress={switchSelectModes} style={modeSelect ? styles.playerSelected : styles.playerBtn}>
+                <Text>Player Select</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={switchSelectModes} style={modeSelect ? styles.playerBtn : styles.playerSelected}>
+                <Text>Team Select</Text>
+            </TouchableOpacity>
+        </View>
         <View style= {styles.container}>
             <View style={styles.playerSelectedContainer}>        
                 <View style={styles.backBtn}>
