@@ -59,21 +59,9 @@ export const PlayerSelectScreen: React.FC = () =>  {
         //play(teamPlayers[key]);
     };
 
-    return(
-        <ImageBackground 
-            source={require('../assets/playSel.png')} 
-            resizeMode='cover' 
-            style={styles.background}
-        >
-        <View>
-            <TouchableOpacity onPress={switchSelectModes} style={modeSelect ? styles.playerSelected : styles.playerBtn}>
-                <Text>Player Select</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={switchSelectModes} style={modeSelect ? styles.playerBtn : styles.playerSelected}>
-                <Text>Team Select</Text>
-            </TouchableOpacity>
-        </View>
-        <View style= {styles.container}>
+    const playerSelect = () => {
+        return(
+            <View style= {styles.container}>
             <View style={styles.playerSelectedContainer}>        
                 <View style={styles.backBtn}>
                 <TouchableOpacity style={styles.playerSelected} onPress={() => {navigation.navigate('Home')}}>
@@ -133,6 +121,33 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 </TouchableOpacity>
             </View>            
         </View>
+        );
+    }
+
+    const teamSelect = () => {
+        return(
+            <View>
+                <Text>Under Construction</Text>
+            </View>
+        );
+    }
+
+    return(
+        <ImageBackground 
+            source={require('../assets/playSel.png')} 
+            resizeMode='cover' 
+            style={styles.background}
+        >
+        <View>
+            <TouchableOpacity onPress={switchSelectModes} style={modeSelect ? styles.playerSelected : styles.playerBtn}>
+                <Text>Player Select</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={switchSelectModes} style={modeSelect ? styles.playerBtn : styles.playerSelected}>
+                <Text>Team Select</Text>
+            </TouchableOpacity>
+        </View>
+        {modeSelect ?  playerSelect : teamSelect}
+        
         </ImageBackground>
     )
 };
