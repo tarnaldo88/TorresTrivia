@@ -129,7 +129,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const teamSelect = () => {
         return(
             <View>
-                <Text>Under Construction</Text>
+                <Text style={styles.playerText}>Under Construction</Text>
             </View>
         );
     }
