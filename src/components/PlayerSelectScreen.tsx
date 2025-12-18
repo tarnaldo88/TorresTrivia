@@ -33,6 +33,8 @@ export const PlayerSelectScreen: React.FC = () =>  {
         emilio: require('../assets/audio/this/thisisEmilio.mp3'),
         amaya: require('../assets/audio/this/thisisAmaya.mp3'),
         kai: require('../assets/audio/this/thisisKai.mp3'),
+        nathan: require('../assets/audio/this/thisisKai.mp3'), //placeholder audio file until upload
+        julian: require('../assets/audio/this/thisisKai.mp3'), //placeholder audio file until upload
     }
 
     const teamPlayers = {
@@ -147,7 +149,6 @@ export const PlayerSelectScreen: React.FC = () =>  {
             </TouchableOpacity>
         </View>
         {modeSelect ?  playerSelect : teamSelect}
-        
         </ImageBackground>
     )
 };
