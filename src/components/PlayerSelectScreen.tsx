@@ -138,7 +138,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
             resizeMode='cover' 
             style={styles.background}
         >
-        <View>
+        <View style={styles.modeSelectStyle}>
             <TouchableOpacity onPress={switchSelectModes} style={modeSelect ? styles.playerSelected : styles.playerBtn}>
                 <Text>Player Select</Text>
             </TouchableOpacity>
@@ -153,6 +153,9 @@ export const PlayerSelectScreen: React.FC = () =>  {
 };
 
 const styles = StyleSheet.create({
+    modeSelectStyle:{
+        flexDirection:'row',
+    },
     container: {
         flex: 1,
         alignItems: "center",
