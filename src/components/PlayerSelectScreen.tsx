@@ -141,7 +141,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
             </View>          
                 <Text style={styles.playSelectTitle}>Players Selected: </Text>
                 <FlatList
-                    data={playerList}
+                    data={teamList}
                     keyExtractor={(item) => item}
                     renderItem={({ item }) => (
                         <Text style={styles.playerSelectedText}>{item}</Text>
