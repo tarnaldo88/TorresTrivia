@@ -179,7 +179,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
                     <Text style={styles.playerText}>{teamCustTwo}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {addTeamToList(teamCustThree)}}>
-                    <Text>{teamCustThree}</Text>
+                    <Text style={styles.playerText}>{teamCustThree}</Text>
                 </TouchableOpacity>
             </View>
             </View>
