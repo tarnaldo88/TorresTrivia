@@ -28,9 +28,9 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const [amayaSelected, setAmayaSelected] = useState<boolean>(false);
     const [modeSelect, setModeSelect] = useState<boolean>(true);
     const [shazamSelected,setShazamSelected] = useState<boolean>(false);
-    const [teamCustOne, setTeamCustOne] = useState<boolean>(false);
-    const [teamCustTwo, setTeamCustTwo] = useState<boolean>(false);
-    const [teamCustThree, setTeamCustThree] = useState<boolean>(false);
+    const [teamCustOne, setTeamCustOne] = useState<string>("Custom Team 1");
+    const [teamCustTwo, setTeamCustTwo] = useState<string>("Custom Team 2");
+    const [teamCustThree, setTeamCustThree] = useState<string>("Custom Team 3");
     const [teamList, setTeamList] = useState<string[]>([]);
 
 
@@ -157,8 +157,9 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 </View>          
                 <Text style={styles.playSelectTitle}>Players Selected: </Text>
                 <TextInput 
-                value={teamCustOne}
-                onChangeText = {text => {setTeamCustOne(text)}}
+                    value={teamCustOne}
+                    onChangeText = {text => {setTeamCustOne(text)}}
+                    style={styles.textInput}
                 />
                 <TextInput placeholder="Insert Team 2 Name" />
                 <TextInput placeholder="Insert Team 3 Name" />
