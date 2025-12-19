@@ -9,6 +9,7 @@ import {
     Image,
     ImageBackground, 
     FlatList,
+    TextInput,
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useDynamicSound } from '../services/UseDynamicSound';
@@ -155,14 +156,13 @@ export const PlayerSelectScreen: React.FC = () =>  {
                     </TouchableOpacity>
                 </View>          
                 <Text style={styles.playSelectTitle}>Players Selected: </Text>
-                <FlatList
-                    data={teamList}
-                    keyExtractor={(item) => item}
-                    renderItem={({ item }) => (
-                        <Text style={styles.playerSelectedText}>{item}</Text>
-                    )}
-                    style={styles.flatListContain}
+                <TextInput 
+                value={teamCustOne}
+                onChangeText = {text => {setTeamCustOne(text)}}
                 />
+                <TextInput placeholder="Insert Team 2 Name" />
+                <TextInput placeholder="Insert Team 3 Name" />
+                
             </View>
             </View>
         );
@@ -196,6 +196,12 @@ const styles = StyleSheet.create({
     modeSelectStyle:{
         flexDirection:'row',
     },
+    textInput: {
+        padding: 10,
+        borderColor: '#000',
+        borderWidth: 1,
+        margin: 12,
+      },
     container: {
         flex: 1,
         alignItems: "center",
