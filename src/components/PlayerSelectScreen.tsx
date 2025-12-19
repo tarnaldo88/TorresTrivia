@@ -28,6 +28,8 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const [modeSelect, setModeSelect] = useState<boolean>(true);
     const [shazamSelected,setShazamSelected] = useState<boolean>(false);
     const [teamCustOne, setTeamCustOne] = useState<boolean>(false);
+    const [teamCustTwo, setTeamCustTwo] = useState<boolean>(false);
+    const [teamCustThree, setTeamCustThree] = useState<boolean>(false);
     const [teamList, setTeamList] = useState<string[]>([]);
 
 
