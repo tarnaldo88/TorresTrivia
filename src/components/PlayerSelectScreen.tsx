@@ -55,7 +55,12 @@ export const PlayerSelectScreen: React.FC = () =>  {
     };
 
     const addTeamToList = (team: string) => {
-        setTeamList(prev => [...prev, team]);
+        setTeamList(prev => 
+            // [...prev, team]
+            prev.includes(team)
+                ? prev.filter(p => p !== team)
+                : [...prev, team]
+        );
     }
 
     const switchSelectModes = () => {
