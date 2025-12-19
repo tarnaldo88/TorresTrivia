@@ -132,13 +132,12 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const teamSelect = () => {
         return(
             <View>
-                <Text style={styles.playerText}>Under Construction</Text>
                 <View style={styles.playerSelectedContainer}>        
                 <View style={styles.backBtn}>
-                <TouchableOpacity style={styles.playerSelected} onPress={() => {navigation.navigate('Home')}}>
-                    <Text style={styles.playerText}> ⬅️ Back</Text>
-                </TouchableOpacity>
-            </View>          
+                    <TouchableOpacity style={styles.playerSelected} onPress={() => {navigation.navigate('Home')}}>
+                        <Text style={styles.playerText}> ⬅️ Back</Text>
+                    </TouchableOpacity>
+                </View>          
                 <Text style={styles.playSelectTitle}>Players Selected: </Text>
                 <FlatList
                     data={teamList}
@@ -159,6 +158,11 @@ export const PlayerSelectScreen: React.FC = () =>  {
             resizeMode='cover' 
             style={styles.background}
         >
+            <View style={styles.backBtn}>
+                    <TouchableOpacity style={styles.playerSelected} onPress={() => {navigation.navigate('Home')}}>
+                        <Text style={styles.playerText}> ⬅️ Back</Text>
+                    </TouchableOpacity>
+            </View>  
         <View style={styles.modeSelectStyle}>
             <TouchableOpacity onPress={switchSelectModes} style={modeSelect ? styles.playerSelected : styles.playerBtn}>
                 <Text>Player Select</Text>
