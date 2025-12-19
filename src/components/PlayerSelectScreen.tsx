@@ -172,7 +172,15 @@ export const PlayerSelectScreen: React.FC = () =>  {
                     onChangeText = {text => {setTeamCustThree(text)}}
                     style={styles.textInput}
                 />
-                
+                <TouchableOpacity>
+                    <Text>{teamCustOne}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Text>{teamCustTwo}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Text>{teamCustThree}</Text>
+                </TouchableOpacity>
             </View>
             </View>
         );
