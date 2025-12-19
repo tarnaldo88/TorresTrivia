@@ -42,9 +42,14 @@ export const PlayerSelectScreen: React.FC = () =>  {
         julian: require('../assets/audio/this/thisisKai.mp3'), //placeholder audio file until upload
     }
 
+    //another possibility is to have teams and when you press team button modal pops up with all the players 
+    //same as the player flatlist that plays their sound clip on press & adds that player to team
+
     const teamPlayers = {
 
     }
+
+    //next step is to have text input that assigns to custom team 1-3, use that text to populate buttons
 
     const addtoPlayerList = (player:string) => {
         setPlayerList(prev =>
