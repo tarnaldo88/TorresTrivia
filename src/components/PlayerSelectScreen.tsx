@@ -161,8 +161,17 @@ export const PlayerSelectScreen: React.FC = () =>  {
                     onChangeText = {text => {setTeamCustOne(text)}}
                     style={styles.textInput}
                 />
-                <TextInput placeholder="Insert Team 2 Name" />
-                <TextInput placeholder="Insert Team 3 Name" />
+                <TextInput 
+                    value={teamCustTwo}
+                    onChangeText = {text => {setTeamCustTwo(text)}}
+                    style={styles.textInput}
+                />
+                <TextInput 
+                    value={teamCustThree}
+                    placeholder="Insert Team 3 Name" 
+                    onChangeText = {text => {setTeamCustThree(text)}}
+                    style={styles.textInput}
+                />
                 
             </View>
             </View>
