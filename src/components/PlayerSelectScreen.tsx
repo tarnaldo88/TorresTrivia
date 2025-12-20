@@ -36,11 +36,8 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const [custOneList, setCustOneList] = useState<string[]>([]);
     const [custTwoList, setCustTwoList] = useState<string[]>([]);
     const [custThreeList, setCustThreeList] = useState<string[]>([]);
-    //bools for knowing team is in selection mode
-    const [ThreeMode, setThreeMode] = useState<boolean>(false);
-    const [TwoMode, setTwoMode] = useState<boolean>(false);
-    const [ShazMode, setShazMode] = useState<boolean>(false);
-    const [OneMode, setOneMode] = useState<boolean>(false);
+    //for knowing which team is in selection mode
+    const [selectedTeam, setSelectedTeam] = useState<number | null>(null);
 
 
 
@@ -142,7 +139,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
         // team 1 is cust 1, etc. team 4 is Shazam
         if(team === 1) {
             setTeamCustOne(true);
-            
+
         }
     }
 
