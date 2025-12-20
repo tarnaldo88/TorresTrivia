@@ -119,41 +119,21 @@ export const PlayerSelectScreen: React.FC = () =>  {
         //play(teamPlayers[key]);
     };
 
-    const addToShazam = (playa: string) => {
-        setShazList(prev => 
-            // [...prev, team]
-            prev.includes(playa)
-                ? prev.filter(p => p !== playa)
-                : [...prev, playa]
+    const addPlayerToTeam = (player: PlayerName) => {
+        if (selectedTeam === null) return;
+      
+        setTeamMembers(prev =>
+          prev.map((members, index) =>
+            index === selectedTeam
+              ? members.includes(player)
+                ? members // prevent duplicates (optional)
+                : [...members, player]
+              : members
+          )
         );
-    }
+      };
 
-    const addToCustOne = (playa: string) => {
-        setCustOneList(prev => 
-            // [...prev, team]
-            prev.includes(playa)
-                ? prev.filter(p => p !== playa)
-                : [...prev, playa]
-        );
-    }
-
-    const addToCustTwo = (playa: string) => {
-        setCustTwoList(prev => 
-            // [...prev, team]
-            prev.includes(playa)
-                ? prev.filter(p => p !== playa)
-                : [...prev, playa]
-        );
-    }
-
-    const addToCustThree = (playa: string) => {
-        setCustThreeList(prev => 
-            // [...prev, team]
-            prev.includes(playa)
-                ? prev.filter(p => p !== playa)
-                : [...prev, playa]
-        );
-    }
+    
 
     const RadioButton = ({ selected, onPress, label }: RadioButtonProps) => (
         <Pressable
