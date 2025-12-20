@@ -10,6 +10,7 @@ import {
     ImageBackground, 
     FlatList,
     TextInput,
+    
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useDynamicSound } from '../services/UseDynamicSound';
@@ -196,6 +197,18 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 />
             </View>
             <View style={styles.buttonGrid}>
+            {playas.map(name => (
+                <Pressable
+                    key={name}
+                    onPress={() => {
+                        addtoPlayerList(name);
+                        playName(name);
+                    }}
+                    style={{ padding: 12 }}
+                >
+                    <Text>{name}</Text>
+                </Pressable>
+            ))}
                 <TouchableOpacity 
                     style={amayaSelected ? styles.playerSelected : styles.playerBtn}
                     onPress={() => {
