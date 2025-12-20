@@ -238,8 +238,8 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 <TouchableOpacity 
                     style={emilioSelected ? styles.playerSelected : styles.playerBtn}
                     onPress={() => {
-                        addtoPlayerList("Emilio");
-                        playName('emilio');
+                        addtoPlayerList("Tito");
+                        playName('nathan');
                         setEmilioSelected(!emilioSelected);
                     }}
                 >
@@ -248,8 +248,8 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 <TouchableOpacity 
                     style={emilioSelected ? styles.playerSelected : styles.playerBtn}
                     onPress={() => {
-                        addtoPlayerList("Emilio");
-                        playName('emilio');
+                        addtoPlayerList("Julian");
+                        playName('julian');
                         setEmilioSelected(!emilioSelected);
                     }}
                 >
@@ -258,12 +258,32 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 <TouchableOpacity 
                     style={emilioSelected ? styles.playerSelected : styles.playerBtn}
                     onPress={() => {
-                        addtoPlayerList("Emilio");
-                        playName('emilio');
+                        addtoPlayerList("Contract Oz");
+                        playName('hosmelito');
                         setEmilioSelected(!emilioSelected);
                     }}
                 >
                     <Text style={styles.playerText}>Contract Oz aka Hosmelito</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={emilioSelected ? styles.playerSelected : styles.playerBtn}
+                    onPress={() => {
+                        addtoPlayerList("Hosmel");
+                        playName('hosmel');
+                        setEmilioSelected(!emilioSelected);
+                    }}
+                >
+                    <Text style={styles.playerText}>Hosmel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={emilioSelected ? styles.playerSelected : styles.playerBtn}
+                    onPress={() => {
+                        addtoPlayerList("Pat");
+                        playName('pat');
+                        setEmilioSelected(!emilioSelected);
+                    }}
+                >
+                    <Text style={styles.playerText}>Pat</Text>
                 </TouchableOpacity>
             </View>            
         </View>
