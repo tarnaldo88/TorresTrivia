@@ -123,6 +123,15 @@ export const PlayerSelectScreen: React.FC = () =>  {
         );
     }
 
+    const addToCustThree = (playa: string) => {
+        setCustThreeList(prev => 
+            // [...prev, team]
+            prev.includes(playa)
+                ? prev.filter(p => p !== playa)
+                : [...prev, playa]
+        );
+    }
+
     const playerSelect = () => {
         return(
             <View style= {styles.container}>
