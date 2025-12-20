@@ -39,6 +39,8 @@ export const PlayerSelectScreen: React.FC = () =>  {
     //bools for knowing team is in selection mode
     const [ThreeMode, setThreeMode] = useState<boolean>(false);
     const [TwoMode, setTwoMode] = useState<boolean>(false);
+    const [ShazMode, setShazMode] = useState<boolean>(false);
+    const [OneMode, setOneMode] = useState<boolean>(false);
 
 
 
