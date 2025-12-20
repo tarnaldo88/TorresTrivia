@@ -250,13 +250,24 @@ export const PlayerSelectScreen: React.FC = () =>  {
             </View>
             <View>
                 <Text style={styles.playSelectTitle}>Select which team to add Players for the team: </Text>
-                {teams.map((team, index) => (
+                {teamNames.map((team, index) => (
                     <RadioButton
                         key={team}
                         label={team}
                         selected={selectedTeam === index}
                         onPress={() => setSelectedTeam(index)}
                     />
+                ))}
+            </View>
+            <View>
+                {/* Player buttons  */}
+                {playas.map(player => (
+                    <Pressable
+                        key={player}
+                        onPress={() => addPlayerToTeam(player)}
+                    >
+                        <Text>{player}</Text>
+                    </Pressable>
                 ))}
             </View>
             </View>
