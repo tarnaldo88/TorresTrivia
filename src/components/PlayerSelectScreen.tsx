@@ -10,7 +10,7 @@ import {
     ImageBackground, 
     FlatList,
     TextInput,
-    
+    Pressable,
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useDynamicSound } from '../services/UseDynamicSound';
