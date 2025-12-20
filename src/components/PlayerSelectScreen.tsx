@@ -45,6 +45,17 @@ export const PlayerSelectScreen: React.FC = () =>  {
         kai: require('../assets/audio/this/thisisKai.mp3'),
         nathan: require('../assets/audio/this/thisisKai.mp3'), //placeholder audio file until upload
         julian: require('../assets/audio/this/thisisKai.mp3'), //placeholder audio file until upload
+        marta: require('../assets/audio/this/thisisKai.mp3'), 
+        amy: require('../assets/audio/this/thisisKai.mp3'), 
+        pat: require('../assets/audio/this/thisisKai.mp3'), 
+        hosmel: require('../assets/audio/this/thisisKai.mp3'), 
+        hosmelito: require('../assets/audio/this/thisisKai.mp3'), 
+        linda: require('../assets/audio/this/thisisKai.mp3'), 
+        arnaldo: require('../assets/audio/this/thisisKai.mp3'), 
+        brad: require('../assets/audio/this/thisisKai.mp3'), 
+        lindsey: require('../assets/audio/this/thisisKai.mp3'), 
+        brian: require('../assets/audio/this/thisisKai.mp3'), 
+        everett: require('../assets/audio/this/thisisKai.mp3'), 
     }
 
     //another possibility is to have teams and when you press team button modal pops up with all the players 
