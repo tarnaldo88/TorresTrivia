@@ -283,31 +283,17 @@ export const PlayerSelectScreen: React.FC = () =>  {
             </View>
             <View>
                 <Text>Select which team to starting drafting to:</Text>
-                <View>
-                    <TouchableOpacity onPress={() => addTeamToList("Shazam")}>
-                        <Text>Team Shazam</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {addTeamToList(teamCustOne)}}>
-                        <Text style={styles.playerText}>{teamCustOne}</Text>
-                    </TouchableOpacity >
-                    <TouchableOpacity onPress={() => {addTeamToList(teamCustTwo)}}>
-                        <Text style={styles.playerText}>{teamCustTwo}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {addTeamToList(teamCustThree)}}>
-                        <Text style={styles.playerText}>{teamCustThree}</Text>
-                    </TouchableOpacity>
-                </View>
             </View>
             <View>
-            <Text style={styles.playSelectTitle}>Select which team to add Players for the team: </Text>
-            {teams.map((team, index) => (
-                <RadioButton
-                    key={team}
-                    label={team}
-                    selected={selectedTeam === index}
-                    onPress={() => setSelectedTeam(index)}
-                />
-            ))}
+                <Text style={styles.playSelectTitle}>Select which team to add Players for the team: </Text>
+                {teams.map((team, index) => (
+                    <RadioButton
+                        key={team}
+                        label={team}
+                        selected={selectedTeam === index}
+                        onPress={() => setSelectedTeam(index)}
+                    />
+                ))}
             </View>
             </View>
         );
