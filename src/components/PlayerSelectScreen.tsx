@@ -105,6 +105,15 @@ export const PlayerSelectScreen: React.FC = () =>  {
         );
     }
 
+    const addToCustOne = (playa: string) => {
+        setCustOneList(prev => 
+            // [...prev, team]
+            prev.includes(playa)
+                ? prev.filter(p => p !== playa)
+                : [...prev, playa]
+        );
+    }
+
     const playerSelect = () => {
         return(
             <View style= {styles.container}>
