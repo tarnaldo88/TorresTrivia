@@ -18,6 +18,12 @@ import { RootStackParamList } from '../navigation/MainNavigator';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
+type RadioButtonProps = {
+    selected: boolean;
+    onPress: () => void;
+    label: string;
+  };
+
 export const PlayerSelectScreen: React.FC = () =>  {
     const navigation = useNavigation<HomeScreenNavigationProp>();    
     const {play} = useDynamicSound();
@@ -38,6 +44,8 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const [custThreeList, setCustThreeList] = useState<string[]>([]);
     //for knowing which team is in selection mode
     const [selectedTeam, setSelectedTeam] = useState<number | null>(null);
+
+    const teams = ["Shazam", teamCustOne, teamCustTwo, teamCustThree];
 
 
 
@@ -135,13 +143,37 @@ export const PlayerSelectScreen: React.FC = () =>  {
         );
     }
 
-    const whichTeamSelectMode = (team: number) => {
-        // team 1 is cust 1, etc. team 4 is Shazam
-        if(team === 1) {
-            setTeamCustOne(true);
-
-        }
-    }
+    const RadioButton = ({ selected, onPress, label }: RadioButtonProps) => (
+        <Pressable
+          onPress={onPress}
+          style={{ flexDirection: "row", alignItems: "center", marginVertical: 8 }}
+        >
+          <View
+            style={{
+              height: 20,
+              width: 20,
+              borderRadius: 10,
+              borderWidth: 2,
+              borderColor: "#333",
+              alignItems: "center",
+              justifyContent: "center",
+              marginRight: 8,
+            }}
+          >
+            {selected && (
+              <View
+                style={{
+                  height: 10,
+                  width: 10,
+                  borderRadius: 5,
+                  backgroundColor: "#333",
+                }}
+              />
+            )}
+          </View>
+          <Text>{label}</Text>
+        </Pressable>
+      );
 
     const playerSelect = () => {
         return(
