@@ -96,6 +96,15 @@ export const PlayerSelectScreen: React.FC = () =>  {
         //play(teamPlayers[key]);
     };
 
+    const addToShazam = (playa: string) => {
+        setShazList(prev => 
+            // [...prev, team]
+            prev.includes(playa)
+                ? prev.filter(p => p !== playa)
+                : [...prev, playa]
+        );
+    }
+
     const playerSelect = () => {
         return(
             <View style= {styles.container}>
