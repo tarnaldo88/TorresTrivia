@@ -47,8 +47,6 @@ export const PlayerSelectScreen: React.FC = () =>  {
 
     const teams = ["Shazam", teamCustOne, teamCustTwo, teamCustThree];
 
-
-
     const audioPlayers = {
         megan: require('../assets/audio/this/thisisMegan.mp3'),
         emilio: require('../assets/audio/this/thisisEmilio.mp3'),
@@ -68,6 +66,9 @@ export const PlayerSelectScreen: React.FC = () =>  {
         brian: require('../assets/audio/this/thisisKai.mp3'), 
         everett: require('../assets/audio/this/thisisKai.mp3'), 
     }
+
+    type PlayerName = keyof typeof audioPlayers;
+    const playas = Object.keys(audioPlayers) as PlayerName[];
 
     //another possibility is to have teams and when you press team button modal pops up with all the players 
     //same as the player flatlist that plays their sound clip on press & adds that player to team
