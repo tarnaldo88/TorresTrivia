@@ -206,7 +206,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
                         <Text style={styles.playerText}> ⬅️ Back</Text>
                     </TouchableOpacity>
                 </View>          
-                <Text style={styles.playSelectTitle}>Players Selected: </Text>
+                <Text style={styles.custTeamNameTitle}>Customize Team Names: </Text>
                 <TextInput 
                     value={teamCustOne}
                     onChangeText = {text => {setTeamCustOne(text)}}
@@ -237,6 +237,17 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 <TouchableOpacity onPress={() => {addTeamToList(teamCustThree)}}>
                     <Text style={styles.playerText}>{teamCustThree}</Text>
                 </TouchableOpacity>
+            </View>
+            <View>
+            <Text style={styles.playSelectTitle}>Select Players for the team: </Text>
+                <FlatList
+                    data={playerList}
+                    keyExtractor={(item) => item}
+                    renderItem={({ item }) => (
+                        <Text style={styles.playerSelectedText}>{item}</Text>
+                    )}
+                    style={styles.flatListContain}
+                />
             </View>
             </View>
         );
@@ -328,6 +339,10 @@ const styles = StyleSheet.create({
         marginVertical: 8,        
     },
     playerText:{
+        color:"#faeeeeff",
+        fontSize:20,
+    },
+    custTeamNameTitle:{
         color:"#faeeeeff",
         fontSize:20,
     },
