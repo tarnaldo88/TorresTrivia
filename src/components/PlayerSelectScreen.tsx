@@ -36,6 +36,10 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const [custOneList, setCustOneList] = useState<string[]>([]);
     const [custTwoList, setCustTwoList] = useState<string[]>([]);
     const [custThreeList, setCustThreeList] = useState<string[]>([]);
+    //bools for knowing team is in selection mode
+    const [ThreeMode, setThreeMode] = useState<boolean>(false);
+    const [TwoMode, setTwoMode] = useState<boolean>(false);
+
 
 
     const audioPlayers = {
