@@ -45,8 +45,11 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const [custThreeList, setCustThreeList] = useState<string[]>([]);
     //for knowing which team is in selection mode
     const [selectedTeam, setSelectedTeam] = useState<number | null>(null);
+    // const [teams, setTeams] = useState<string[][]>([
+    //     [], [], [], []
+    //   ]);
 
-    const teams = ["Shazam", teamCustOne, teamCustTwo, teamCustThree];
+    const teamNames = ["Shazam", teamCustOne, teamCustTwo, teamCustThree];
 
     const audioPlayers = {
         megan: require('../assets/audio/this/thisisMegan.mp3'),
@@ -70,6 +73,13 @@ export const PlayerSelectScreen: React.FC = () =>  {
 
     type PlayerName = keyof typeof audioPlayers;
     const playas = Object.keys(audioPlayers) as PlayerName[];
+
+    const [teamMembers, setTeamMembers] = useState<PlayerName[][]>([
+        [],
+        [],
+        [],
+        [],
+      ]);
 
     //another possibility is to have teams and when you press team button modal pops up with all the players 
     //same as the player flatlist that plays their sound clip on press & adds that player to team
