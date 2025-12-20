@@ -299,15 +299,15 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 </View>
             </View>
             <View>
-            <Text style={styles.playSelectTitle}>Select Players for the team: </Text>
-                <FlatList
-                    data={playerList}
-                    keyExtractor={(item) => item}
-                    renderItem={({ item }) => (
-                        <Text style={styles.playerSelectedText}>{item}</Text>
-                    )}
-                    style={styles.flatListContain}
+            <Text style={styles.playSelectTitle}>Select which team to add Players for the team: </Text>
+            {teams.map((team, index) => (
+                <RadioButton
+                    key={team}
+                    label={team}
+                    selected={selectedTeam === index}
+                    onPress={() => setSelectedTeam(index)}
                 />
+            ))}
             </View>
             </View>
         );
