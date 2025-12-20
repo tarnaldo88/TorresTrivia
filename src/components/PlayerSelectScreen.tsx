@@ -32,6 +32,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const [teamCustTwo, setTeamCustTwo] = useState<string>("Custom Team 2");
     const [teamCustThree, setTeamCustThree] = useState<string>("Custom Team 3");
     const [teamList, setTeamList] = useState<string[]>([]);
+    const [shazList, setShazList] = useState<string[]>([]);
 
 
     const audioPlayers = {
