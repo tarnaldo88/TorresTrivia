@@ -235,6 +235,36 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 >
                     <Text style={styles.playerText}>Emilio</Text>
                 </TouchableOpacity>
+                <TouchableOpacity 
+                    style={emilioSelected ? styles.playerSelected : styles.playerBtn}
+                    onPress={() => {
+                        addtoPlayerList("Emilio");
+                        playName('emilio');
+                        setEmilioSelected(!emilioSelected);
+                    }}
+                >
+                    <Text style={styles.playerText}>Nate dog aka tito aka nate</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={emilioSelected ? styles.playerSelected : styles.playerBtn}
+                    onPress={() => {
+                        addtoPlayerList("Emilio");
+                        playName('emilio');
+                        setEmilioSelected(!emilioSelected);
+                    }}
+                >
+                    <Text style={styles.playerText}>Julian</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={emilioSelected ? styles.playerSelected : styles.playerBtn}
+                    onPress={() => {
+                        addtoPlayerList("Emilio");
+                        playName('emilio');
+                        setEmilioSelected(!emilioSelected);
+                    }}
+                >
+                    <Text style={styles.playerText}>Contract Oz aka Hosmelito</Text>
+                </TouchableOpacity>
             </View>            
         </View>
         );
