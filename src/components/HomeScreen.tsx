@@ -77,12 +77,12 @@ export const HomeScreen: React.FC = () => {
           >            
             <Image source={require('../assets/playSelBtn.png')} style={styles.buttonImage} resizeMode="cover"/>
           </TouchableOpacity>
-          <TouchableOpacity 
+          {/* <TouchableOpacity 
             style={styles.button} 
             onPress={() => navigation.navigate('TeamSelect')}
           >            
             <Text style={styles.teamSelectText}>Team Select</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity 
             style={styles.button} 
             onPress={() => navigation.navigate('HeadsUp')}
