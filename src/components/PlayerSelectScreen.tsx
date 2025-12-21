@@ -269,7 +269,10 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 {playas.map(player => (
                     <Pressable
                         key={player}
-                        onPress={() => addPlayerToTeam(player)}
+                        onPress={() => {
+                            addPlayerToTeam(player)
+                            playName(player)
+                        }}
                     >
                         <Text>{player}</Text>
                     </Pressable>
