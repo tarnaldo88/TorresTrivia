@@ -1,5 +1,5 @@
 import {useState} from 'react';  
-import { useAudioPlayer } from 'expo-audio';
+// import { useAudioPlayer } from 'expo-audio';
 import React from 'react';
 import { 
     View, 
@@ -12,7 +12,7 @@ import {
     TextInput,
     Pressable,
 } from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { useDynamicSound } from '../services/UseDynamicSound';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/MainNavigator';
@@ -30,7 +30,6 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const {play} = useDynamicSound();
     const [playerList, setPlayerList] = useState<string[]>([]);
     const [modeSelect, setModeSelect] = useState<boolean>(true);
-    const [shazamSelected,setShazamSelected] = useState<boolean>(false);
     const [teamCustOne, setTeamCustOne] = useState<string>("Custom Team 1");
     const [teamCustTwo, setTeamCustTwo] = useState<string>("Custom Team 2");
     const [teamCustThree, setTeamCustThree] = useState<string>("Custom Team 3");
