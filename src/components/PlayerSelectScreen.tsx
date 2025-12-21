@@ -29,10 +29,6 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const navigation = useNavigation<HomeScreenNavigationProp>();    
     const {play} = useDynamicSound();
     const [playerList, setPlayerList] = useState<string[]>([]);
-    const [meganSelected, setMeganSelected] = useState<boolean>(false);
-    const [emilioSelected, setEmilioSelected] = useState<boolean>(false);
-    const [kaiSelected, setKaiSelected] = useState<boolean>(false);
-    const [amayaSelected, setAmayaSelected] = useState<boolean>(false);
     const [modeSelect, setModeSelect] = useState<boolean>(true);
     const [shazamSelected,setShazamSelected] = useState<boolean>(false);
     const [teamCustOne, setTeamCustOne] = useState<string>("Custom Team 1");
