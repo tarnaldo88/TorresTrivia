@@ -13,6 +13,28 @@ export class GameState {
   }
 
   /**
+   * Get the team name for a given index
+   * @param index - The index of the team (0-3)
+   */
+  getTeamName(index: number): TeamName | null {
+    if (index >= 0 && index < this.teams.length) {
+      return this.teams[index];
+    }
+    return null;
+  }
+
+  /**
+   * Set the team name for a given index
+   * @param index - The index of the team (0-3)
+   * @param name - The new team name
+   */
+  setTeamName(index: number, name: TeamName): void {
+    if (index >= 0 && index < this.teams.length) {
+      this.teams[index] = name;
+    }
+  }
+
+  /**
    * Create a new round with optional custom duration
    * @param duration - Round duration in seconds (defaults to 60)
    */
