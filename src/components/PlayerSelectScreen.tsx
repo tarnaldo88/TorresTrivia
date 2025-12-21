@@ -255,7 +255,6 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 <Text>Select which team to starting drafting to:</Text>
             </View>
             <View>
-                <Text style={styles.playSelectTitle}>Select which team to add Players for the team: </Text>
                 {teamNames.map((team, index) => (
                     <RadioButton
                         key={team}
