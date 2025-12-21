@@ -233,7 +233,6 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 />
                 <TextInput 
                     value={teamCustThree}
-                    placeholder="Insert Team 3 Name" 
                     onChangeText = {text => {setTeamCustThree(text)}}
                     style={styles.textInput}
                 />
