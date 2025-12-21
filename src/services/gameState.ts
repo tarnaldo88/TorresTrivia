@@ -99,6 +99,8 @@ export class GameState {
     return this.currentRound;
   }
 
+  
+
   /**
    * Register a skip action (does not modify score)
    * @param itemId - The ID of the item that was skipped
@@ -195,4 +197,14 @@ export class GameState {
   private generateRoundId(): string {
     return `round_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
+
+  /**
+   * Get the current score for a given team
+   * @param team - The name of the team
+   */
+  getCurrentTeamScore(team: TeamName): number {
+    const teamIndex = this.teams.indexOf(team);
+    return this.currentRound ? (this.currentRound.teamsScore[teamIndex] || 0) : 0;
+  }
+  
 }
