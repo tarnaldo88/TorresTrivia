@@ -1,4 +1,4 @@
-import { GameRound, GameAction } from '../types/index';
+import { GameRound, GameAction, TeamName } from '../types/index';
 
 /**
  * GameState manages the current round state, score tracking, and round configuration
@@ -6,6 +6,11 @@ import { GameRound, GameAction } from '../types/index';
 export class GameState {
   private currentRound: GameRound | null = null;
   private roundDuration: number = 60; // default 60 seconds
+  private teams: TeamName[] = ['Shazam', 'Team B', 'Team C', 'Team D'];
+
+  getTeamNames(): TeamName[] {
+    return this.teams;
+  }
 
   /**
    * Create a new round with optional custom duration
