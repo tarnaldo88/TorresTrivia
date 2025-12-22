@@ -227,4 +227,15 @@ export class GameState {
     return this.currentRound ? (this.currentRound.teamsScore[teamIndex] || 0) : 0;
   }
 
+  setGameToTeamMode(): void {
+    this.teams = ['Team A', 'Team B', 'Team C', 'Team D'];
+  }
+
+  /**
+   * Set the game mode to no teams mode
+   */
+  setGameToNoTeamsMode(): void {
+    this.teams = [];
+  }
+
 }
