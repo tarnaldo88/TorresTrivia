@@ -88,13 +88,33 @@ export class GameState {
    * Register a correct guess action and increment score
    * @param itemId - The ID of the item that was guessed correctly
    */
-  registerCorrectGuess(itemId: string): GameRound | null {
+  // registerCorrectGuess(itemId: string): GameRound | null {
+  //   if (!this.currentRound || !this.currentRound.isActive) {
+  //     return null;
+  //   }
+
+  //   this.currentRound.currentScore += 1;
+  //   this.currentRound.itemsUsed.push(itemId);
+
+  //   return this.currentRound;
+  // }
+
+  /**
+   * Register a correct guess action and increment score
+   * @param itemId - The ID of the item that was guessed correctly
+   * @param team - The name of the team that guessed correctly
+   */
+  registerCorrectGuess(itemId: string, team: TeamName): GameRound | null {
     if (!this.currentRound || !this.currentRound.isActive) {
       return null;
     }
 
-    this.currentRound.currentScore += 1;
-    this.currentRound.itemsUsed.push(itemId);
+    const teamIndex = this.teams.indexOf(team);
+    if (teamIndex >= 0) {
+      this.currentRound.currentScore += 1;
+      this.currentRound.itemsUsed.push(itemId);
+      this.currentRound.teamsScore[teamIndex] = (this.currentRound.teamsScore[teamIndex] || 0) + 1;
+    }
 
     return this.currentRound;
   }
@@ -206,5 +226,5 @@ export class GameState {
     const teamIndex = this.teams.indexOf(team);
     return this.currentRound ? (this.currentRound.teamsScore[teamIndex] || 0) : 0;
   }
-  
+
 }
