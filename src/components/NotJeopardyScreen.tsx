@@ -23,7 +23,7 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
     const [pl3, setpl3] = useState(0);
     const [questionAmount, setQuestionAmount] = useState(0);
     const [doubleJeopardy, setDoubleJeopardy] = useState(false);
-    const [dailyDouble, setDailyDouble] = useState(0);
+    const [dailyDouble, setDailyDouble] = useState(false);
     const [whichPlayer, setWhichPlayer] = useState(0);
 
     const dollarAmounts: number[] = [200, 400, 600, 800, 1000];
@@ -89,6 +89,17 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
                 </View>
                 <View style={styles.container}>
                     <Text>Question Selected: ${questionAmount}</Text>
+                    <TouchableOpacity onPress= {() => setDailyDouble(!dailyDouble)}>
+                        <Text>Is it a Daily Double?</Text>
+                    </TouchableOpacity>
+                    {dailyDouble ? 
+                    <TextInput
+                        placeholder="Enter Daily Double Question $ Amount"
+                        style={styles.textInput}
+                        onChangeText={(text) => setQuestionAmount(parseInt(text))}
+                        value={questionAmount.toString()}
+                    />
+                    : <View></View>}
                     <Text>Which Player is Answering?</Text>
                     <View style={styles.rowContainer}>
                         <TouchableOpacity onPress={() => setWhichPlayer(1)}>
@@ -127,4 +138,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    //next step to make styles for text and btns
 });
