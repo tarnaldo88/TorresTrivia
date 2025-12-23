@@ -200,6 +200,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
+  scoreTitle: {
+    color: "#fff",
+    fontSize: 24,
+    fontWeight: "bold",
+  },
 
   buttonGroup: {
     position: "absolute",
