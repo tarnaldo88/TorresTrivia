@@ -30,20 +30,24 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
         return () => clearTimeout(timer);
       }, [pl1, pl2, pl3, onRoundEnd, roundDuration]);
 
-    const incrementScore = (player: number) => {
+    const incrementScore = (player: number, score:number) => {
         switch (player) {
             case 1:
-                setpl1(pl1 + 1);
+                setpl1(pl1 + score);
                 break;
             case 2:
-                setpl2(pl2 + 1);
+                setpl2(pl2 + score);
                 break;
             case 3:
-                setpl3(pl3 + 1);
+                setpl3(pl3 + score);
                 break;
             default:
                 break;
         }
+    }
+
+    const decrementScore = (player: number, score:number) => {
+
     }
 
     return(
