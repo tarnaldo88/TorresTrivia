@@ -22,6 +22,8 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
     const [pl2, setpl2] = useState(0);
     const [pl3, setpl3] = useState(0);
     const [questionAmount, setQuestionAmount] = useState(0);
+    const [doubleJeopardy, setDoubleJeopardy] = useState(false);
+
     const dollarAmounts: number[] = [200, 400, 600, 800, 1000];
 
     useEffect(() => {
@@ -33,6 +35,9 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
       }, [pl1, pl2, pl3, onRoundEnd, roundDuration]);
 
     const alterScore = (player: number, score:number) => {
+        if(doubleJeopardy) {
+            score *= 2;
+        }
         switch (player) {
             case 1:
                 setpl1(pl1 + score);
@@ -65,11 +70,20 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
                     <Text>Player 3: ${pl3}</Text>
                 </View>
                 <View style={styles.rowContainer}>
+                    <Text>Select Dollar Amount:</Text>
+                </View>
+                <View style={styles.rowContainer}>
                     {dollarAmounts.map((amount, index) => (
                         <TouchableOpacity key={index} onPress={() => setQuestionAmount(amount)}>
                             <Text>{amount}</Text>
                         </TouchableOpacity>
                     ))}
+                </View>
+                <View>
+                    <Text>Is it Double Jeopardy(Round 2)?</Text>
+                    <TouchableOpacity onPress={() => setDoubleJeopardy(!doubleJeopardy)}>
+                        <Text>{doubleJeopardy ? 'Yes' : 'No'}</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </ImageBackground>
