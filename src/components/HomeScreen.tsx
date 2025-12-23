@@ -14,6 +14,7 @@ import { ScoreManager } from '../services/scoreManager';
 import { RootStackParamList } from '../navigation/MainNavigator';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
+type GameMode = 'noTeams' | 'teamMode';
 
 /**
  * HomeScreen component - Main menu with score display
@@ -22,6 +23,7 @@ export const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const [lastScore, setLastScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  const [gameMode, setGameMode] = useState<GameMode>('noTeams');
 
   useFocusEffect(
     React.useCallback(() => {
