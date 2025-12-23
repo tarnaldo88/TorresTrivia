@@ -30,7 +30,7 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
         return () => clearTimeout(timer);
       }, [pl1, pl2, pl3, onRoundEnd, roundDuration]);
 
-    const incrementScore = (player: number, score:number) => {
+    const alterScore = (player: number, score:number) => {
         switch (player) {
             case 1:
                 setpl1(pl1 + score);
@@ -46,32 +46,14 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
         }
     }
 
-    const decrementScore = (player: number, score:number) => {
-        switch (player) {
-            case 1:
-                setpl1(pl1 - score);
-                break;
-            case 2:
-                setpl2(pl2 - score);
-                break;
-            case 3:
-                setpl3(pl3 - score);
-                break;
-            default:
-                break;
-        }
-    }
+    
 
     const doubleJeop = (player:number, score:number, double: boolean) => {
-        if (double) {
-            incrementScore(player, score * 2);
-        } else {
-            decrementScore(player, score * 2);
-        }
+        alterScore(player, score * 2);
     }
 
-    const dailyDouble(player: number, score: number) => {
-        
+    const dailyDouble = (player: number, score: number) => {
+        alterScore(player, score);
     }
 
     return(
