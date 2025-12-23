@@ -60,6 +60,11 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
         <ImageBackground source={require('../assets/torresTrivia.png')}>
             <View style={styles.container}>
                 <View style={styles.rowContainer}>
+                    <Text>Player 1: ${pl1}</Text>
+                    <Text>Player 2: ${pl2}</Text>
+                    <Text>Player 3: ${pl3}</Text>
+                </View>
+                <View style={styles.rowContainer}>
                     {dollarAmounts.map((amount, index) => (
                         <TouchableOpacity key={index} onPress={() => setQuestionAmount(amount)}>
                             <Text>{amount}</Text>
