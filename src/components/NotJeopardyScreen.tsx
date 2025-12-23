@@ -21,6 +21,7 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
     const [pl1, setpl1] = useState(0);
     const [pl2, setpl2] = useState(0);
     const [pl3, setpl3] = useState(0);
+    const dollarAmounts = [200, 400, 600, 800, 1000];
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -56,8 +57,10 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
 
     return(
         <ImageBackground source={require('../assets/torresTrivia.png')}>
-            <View>
-                
+            <View style={styles.container}>
+                <View style={styles.rowContainer}>
+
+                </View>
             </View>
         </ImageBackground>
 
@@ -67,6 +70,11 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    rowContainer: {
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
     },
