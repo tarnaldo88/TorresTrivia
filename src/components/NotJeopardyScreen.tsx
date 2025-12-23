@@ -47,7 +47,19 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
     }
 
     const decrementScore = (player: number, score:number) => {
-
+        switch (player) {
+            case 1:
+                setpl1(pl1 - score);
+                break;
+            case 2:
+                setpl2(pl2 - score);
+                break;
+            case 3:
+                setpl3(pl3 - score);
+                break;
+            default:
+                break;
+        }
     }
 
     return(
