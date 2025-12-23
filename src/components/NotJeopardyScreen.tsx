@@ -23,6 +23,8 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
     const [pl3, setpl3] = useState(0);
     const [questionAmount, setQuestionAmount] = useState(0);
     const [doubleJeopardy, setDoubleJeopardy] = useState(false);
+    const [dailyDouble, setDailyDouble] = useState(0);
+    const [whichPlayer, setWhichPlayer] = useState("");
 
     const dollarAmounts: number[] = [200, 400, 600, 800, 1000];
 
@@ -53,9 +55,9 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
         }
     }
 
-    const doubleJeop = (player:number, score:number, double: boolean) => {
-        alterScore(player, score * 2);
-    }
+    // const doubleJeop = (player:number, score:number, double: boolean) => {
+    //     alterScore(player, score * 2);
+    // }
 
     // const dailyDouble = (player: number, score: number) => {
     //     alterScore(player, score);
@@ -79,11 +81,18 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
                         </TouchableOpacity>
                     ))}
                 </View>
-                <View>
+                <View style={styles.rowContainer}>
                     <Text>Is it Double Jeopardy(Round 2)?</Text>
                     <TouchableOpacity onPress={() => setDoubleJeopardy(!doubleJeopardy)}>
                         <Text>{doubleJeopardy ? 'Yes' : 'No'}</Text>
                     </TouchableOpacity>
+                </View>
+                <View style={styles.rowContainer}>
+                    <Text>Question Selected: ${questionAmount}</Text>
+                    <Text>Which Player is Answering?</Text>
+                    <View style={styles.rowContainer}>
+
+                    </View>
                 </View>
             </View>
         </ImageBackground>
