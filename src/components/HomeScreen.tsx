@@ -134,7 +134,10 @@ export const HomeScreen: React.FC = () => {
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.button} 
-            onPress={() => navigation.navigate('Trivia')}
+            onPress={() => {
+              handleStartGame();
+              navigation.navigate('Trivia');
+            }}
           >
             <Image source={require('../assets/trivia.png')} style={styles.buttonImage} resizeMode="cover"/>
           </TouchableOpacity>
