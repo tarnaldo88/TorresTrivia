@@ -52,6 +52,18 @@ export const HomeScreen: React.FC = () => {
     }
   };
 
+  const handleGameModeChange = (mode: GameMode) => {
+    setGameMode(mode);
+  };
+
+  const handleStartGame = () => {
+    try{
+      await handleStartGame(gameMode);  
+    } catch (error) {
+      console.error('Failed to start game', error);
+    }
+  }
+
   return (    
     <ImageBackground 
       source={require('../assets/torresTrivia.png')} 
