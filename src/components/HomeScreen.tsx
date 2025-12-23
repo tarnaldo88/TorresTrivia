@@ -56,9 +56,14 @@ export const HomeScreen: React.FC = () => {
     setGameMode(mode);
   };
 
-  const handleStartGame = () => {
+  const handleStartGame =  async () => {
     try{
       await handleStartGame(gameMode);  
+
+      const newLastScore = await ScoreManager.getLastScore();
+      const newHighScore = await ScoreManager.getHighScore();
+      setLastScore(newLastScore);
+      setHighScore(newHighScore);
     } catch (error) {
       console.error('Failed to start game', error);
     }
