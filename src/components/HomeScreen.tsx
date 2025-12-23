@@ -125,7 +125,10 @@ export const HomeScreen: React.FC = () => {
           </TouchableOpacity> */}
           <TouchableOpacity 
             style={styles.button} 
-            onPress={() => navigation.navigate('HeadsUp')}
+            onPress={() => {
+              handleStartGame(); 
+              navigation.navigate('HeadsUp')
+            }}
           >            
             <Image source={require('../assets/headsup.png')} style={styles.buttonImage} resizeMode="cover"/>
           </TouchableOpacity>
