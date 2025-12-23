@@ -6,6 +6,7 @@ import {
     TouchableOpacity, 
     Image,
     ImageBackground, 
+    TextInput,
 } from 'react-native';
 import { ScoreManager } from '../services/scoreManager';
 
@@ -137,6 +138,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    textInput: {
+        
     },
     //next step to make styles for text and btns
 });
