@@ -8,6 +8,7 @@ export interface GameRound {
   currentScore: number;
   isActive: boolean;
   itemsUsed: string[];
+  teamsScore: number[];
 }
 
 /**
