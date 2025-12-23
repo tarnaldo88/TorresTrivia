@@ -30,7 +30,21 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
         return () => clearTimeout(timer);
       }, [pl1, pl2, pl3, onRoundEnd, roundDuration]);
 
-    
+    const incrementScore = (player: number) => {
+        switch (player) {
+            case 1:
+                setpl1(pl1 + 1);
+                break;
+            case 2:
+                setpl2(pl2 + 1);
+                break;
+            case 3:
+                setpl3(pl3 + 1);
+                break;
+            default:
+                break;
+        }
+    }
 
     return(
         <ImageBackground source={require('../assets/torresTrivia.png')}>
