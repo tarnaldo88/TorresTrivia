@@ -21,7 +21,8 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
     const [pl1, setpl1] = useState(0);
     const [pl2, setpl2] = useState(0);
     const [pl3, setpl3] = useState(0);
-    const dollarAmounts = [200, 400, 600, 800, 1000];
+    const [questionAmount, setQuestionAmount] = useState(0);
+    const dollarAmounts: number[] = [200, 400, 600, 800, 1000];
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -59,7 +60,11 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
         <ImageBackground source={require('../assets/torresTrivia.png')}>
             <View style={styles.container}>
                 <View style={styles.rowContainer}>
-
+                    {dollarAmounts.map((amount, index) => (
+                        <TouchableOpacity key={index} onPress={() => setQuestionAmount(amount)}>
+                            <Text>{amount}</Text>
+                        </TouchableOpacity>
+                    ))}
                 </View>
             </View>
         </ImageBackground>
