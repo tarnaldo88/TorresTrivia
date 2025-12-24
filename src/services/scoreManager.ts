@@ -83,6 +83,19 @@ export class ScoreManager {
     }
   }
 
+  static async saveJeopScore(score: number): Promise<void> {
+    try {
+      const db = Database.getInstance();
+      await db.runAsync(
+        `UPDATE ${this.TABLE_NAME} SET jeopScore = ? WHERE id = 'scores'`,
+        [score]
+      );
+    } catch(error) {
+      console.error('Failed to save jeopardy score:', error);
+      throw error;
+    }
+  }
+
   /**
    * Save a game score and update high score if needed
    */
