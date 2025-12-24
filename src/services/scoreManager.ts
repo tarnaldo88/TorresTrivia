@@ -16,7 +16,8 @@ export class ScoreManager {
         `CREATE TABLE IF NOT EXISTS ${this.TABLE_NAME} (
           id TEXT PRIMARY KEY,
           lastScore INTEGER DEFAULT 0,
-          highScore INTEGER DEFAULT 0
+          highScore INTEGER DEFAULT 0,
+          jeopScore INTEGER DEFAULT 0
         );`
       );
 
@@ -27,8 +28,8 @@ export class ScoreManager {
       
       if ((result as any).count === 0) {
         await db.runAsync(
-          `INSERT INTO ${this.TABLE_NAME} (id, lastScore, highScore) VALUES (?, ?, ?)`,
-          ['scores', 0, 0]
+          `INSERT INTO ${this.TABLE_NAME} (id, lastScore, highScore, jeopScore) VALUES (?, ?, ?, ?)`,
+          ['scores', 0, 0, 0]
         );
       }
     } catch (error) {
