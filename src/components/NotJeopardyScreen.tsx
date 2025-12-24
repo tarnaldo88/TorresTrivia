@@ -142,5 +142,16 @@ const styles = StyleSheet.create({
     textInput: {
         
     },
+    playerBtn: {
+        backgroundColor: 'white',
+        color: 'purple',
+        justifyContent: 'center',
+    },
+    playerBtnSelected: {
+        backgroundColor: 'green',
+        color: 'white',
+        fontWeight: 'bold',
+        justifyContent: 'center',
+    },
     //next step to make styles for text and btns
 });
