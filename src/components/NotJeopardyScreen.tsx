@@ -56,14 +56,6 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
         }
     }
 
-    // const doubleJeop = (player:number, score:number, double: boolean) => {
-    //     alterScore(player, score * 2);
-    // }
-
-    // const dailyDouble = (player: number, score: number) => {
-    //     alterScore(player, score);
-    // }
-
     return(
         <ImageBackground source={require('../assets/torresTrivia.png')}>
             <View style={styles.container}>
