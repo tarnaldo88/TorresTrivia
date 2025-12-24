@@ -158,5 +158,17 @@ const styles = StyleSheet.create({
       fontSize: 20,
 
     },
+    correctBtn: {
+        backgroundColor: 'green',
+        color: 'white',
+        fontWeight: 'bold',
+        justifyContent: 'center',
+    },
+    wrongBtn: {
+        backgroundColor: 'red',
+        color: 'white',
+        fontWeight: 'bold',
+        justifyContent: 'center',
+    },
     //next step to make styles for text and btns
 });
