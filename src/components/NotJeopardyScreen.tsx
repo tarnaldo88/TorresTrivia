@@ -29,6 +29,11 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
 
     const dollarAmounts: number[] = [200, 400, 600, 800, 1000];
 
+    const saveJeopardyHighScore = () => {
+        let maxScore = Math.max(pl1, pl2, pl3);
+        ScoreManager.saveScore(maxScore);
+    }
+
     useEffect(() => {
         const timer = setTimeout(() => {
           onRoundEnd && onRoundEnd(pl1 + pl2 + pl3);
