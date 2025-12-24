@@ -103,13 +103,13 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
                     : <View></View>}
                     <Text>Which Player is Answering?</Text>
                     <View style={styles.rowContainer}>
-                        <TouchableOpacity onPress={() => setWhichPlayer(1)}>
+                        <TouchableOpacity  style={(whichPlayer === 1) ? styles.playerBtn : styles.playerBtnSelected} onPress={() => setWhichPlayer(1)}>
                             <Text>Player 1</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => setWhichPlayer(2)}>
+                        <TouchableOpacity style={(whichPlayer === 2) ? styles.playerBtn : styles.playerBtnSelected} onPress={() => setWhichPlayer(2)}>
                             <Text>Player 2</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => setWhichPlayer(3)}>
+                        <TouchableOpacity style={(whichPlayer === 3) ? styles.playerBtn : styles.playerBtnSelected} onPress={() => setWhichPlayer(3)}>
                             <Text>Player 3</Text>
                         </TouchableOpacity>
                     </View>
@@ -152,6 +152,11 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         justifyContent: 'center',
+    },
+    playerBtnText: {
+      fontweight: 'bold',
+      fontSize: 20,
+
     },
     //next step to make styles for text and btns
 });
