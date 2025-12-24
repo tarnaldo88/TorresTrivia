@@ -70,6 +70,19 @@ export class ScoreManager {
     }
   }
 
+  static async getJeopScore(): Promise<number> {
+    try {
+      const db = Database.getInstance();
+      const result = await.db.getFirstAsync(
+        `SELECT jeopScore FROM ${this.TABLE_NAME} WHERE id = 'scores'`
+      );
+      return result ? (result as any).jeopScore : 0;
+    } catch (error) {
+      console.error('Failed to get jeopardy high score:', error);
+      return 0;
+    }
+  }
+
   /**
    * Save a game score and update high score if needed
    */
