@@ -115,10 +115,10 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
                     </View>
                 </View>
                 <View style={styles.rowContainer}>
-                    <TouchableOpacity onPress={() => alterScore(whichPlayer, questionAmount)}>
+                    <TouchableOpacity style={styles.correctBtn} onPress={() => alterScore(whichPlayer, questionAmount)}>
                         <Text>CORRECT!</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => alterScore(whichPlayer, -questionAmount)}>
+                    <TouchableOpacity style={styles.wrongBtn} onPress={() => alterScore(whichPlayer, -questionAmount)}>
                         <Text>WRONG!</Text>
                     </TouchableOpacity>
                 </View>
