@@ -34,13 +34,13 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
         ScoreManager.saveScore(maxScore);
     }
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-          onRoundEnd && onRoundEnd(pl1 + pl2 + pl3);
-        }, roundDuration * 1000);
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //       onRoundEnd && onRoundEnd(pl1 + pl2 + pl3);
+    //     }, roundDuration * 1000);
     
-        return () => clearTimeout(timer);
-      }, [pl1, pl2, pl3, onRoundEnd, roundDuration]);
+    //     return () => clearTimeout(timer);
+    //   }, [pl1, pl2, pl3, onRoundEnd, roundDuration]);
 
     const alterScore = (player: number, score:number) => {
         if(doubleJeopardy) {
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     playerBtnText: {
       fontweight: 'bold',
       fontSize: 20,
-
+      color: 'white',
     },
     correctBtn: {
         backgroundColor: 'green',
