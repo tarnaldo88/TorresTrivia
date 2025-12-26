@@ -150,6 +150,19 @@ export class ScoreManager {
     }
   }
 
+  static async getJeopardyTriviaScore(): Promise<void> {
+    try {
+      const db = Database.getInstance();
+      const result = await db.getFirstAsync(
+        `SELECT jeopardyTrivScore FROM ${this.TABLE_NAME} WHERE id = 'scores'`
+      );
+      return result ? (result as any).jeopardyTrivScore : 0;
+    } catch (error) {
+      console.error('Failed to get jeopardy trivia score:', error);
+      return 0;
+    }
+  }
+
   /**
    * Save a game score and update high score if needed
    */
