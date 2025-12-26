@@ -84,7 +84,7 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
                 <TouchableOpacity style={styles.correctBtn} onPress={() => addScore()}>
                     <Text>CORRECT!</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.wrongBtn} >
+                <TouchableOpacity style={styles.wrongBtn} onPress={() => nextQuestion()}>
                     <Text>WRONG!</Text>
                 </TouchableOpacity>
             </View>
