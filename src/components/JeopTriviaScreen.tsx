@@ -22,6 +22,10 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
     const [triviaDb, setTriviaDb] = useState<TriviaDatabase | null>(null);
     const [questionsAnswered, setQuestionsAnswered] = useState(0);
 
+    useEffect(() => {
+        initializeTriviaDatabase();
+    }, []);
+
 
     return(
         <View>
