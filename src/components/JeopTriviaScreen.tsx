@@ -174,4 +174,15 @@ const styles = StyleSheet.create({
         color: '#ff0000',
         textAlign: 'center',
     },
+    rowContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    correctBtn: {
+        backgroundColor: 'green',
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 });
