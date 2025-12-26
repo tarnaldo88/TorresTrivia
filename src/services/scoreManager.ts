@@ -30,8 +30,8 @@ export class ScoreManager {
       
       if ((result as any).count === 0) {
         await db.runAsync(
-          `INSERT INTO ${this.TABLE_NAME} (id, lastScore, highScore, jeopScore) VALUES (?, ?, ?, ?)`,
-          ['scores', 0, 0, 0]
+          `INSERT INTO ${this.TABLE_NAME} (id, lastScore, highScore, jeopScore, triviaScore, jeopardyTrivScore) VALUES (?, ?, ?, ?)`,
+          ['scores', 0, 0, 0, 0, 0]
         );
       }
     } catch (error) {
@@ -107,6 +107,19 @@ export class ScoreManager {
       );
     } catch(error) {
       console.error('Failed to reset jeopardy score:', error);
+    }
+  }
+
+  static async getTriviaScore(): Promise<void> {
+    try {
+      const db = Database.getInstance();
+      const result = await db.getFirstAsync(
+        `SELECT triviaScore FROM ${this.TABLE_NAME} WHERE id = 'scores'`
+      );
+      return result ? (result as any).triviaScore : 0;
+    } catch (error) {
+      console.error('Failed to get trivia score:', error);
+      return 0;
     }
   }
 
