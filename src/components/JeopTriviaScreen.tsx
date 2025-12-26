@@ -26,6 +26,22 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
         initializeTriviaDatabase();
     }, []);
 
+    const initializeTriviaDatabase = async () => {
+        try {
+            const db = new TriviaDatabase();
+            await db.initialize();
+            setTriviaDb(db);
+            
+            // Load first question
+            const firstQuestion = await db.getRandomQuestion();
+            setCurrentQuestion(firstQuestion);
+            setLoading(false);
+        } catch (error) {
+            console.error('Failed to initialize trivia database:', error);
+            setLoading(false);
+        }
+    }
+
 
     return(
         <View>
