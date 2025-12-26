@@ -55,6 +55,22 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
         }
     }
 
+    if (loading) {
+        return (
+            <View style={styles.container}>
+                <ActivityIndicator size="large" color="#0000ff" />
+            </View>
+        );
+    }
+    
+    if (!currentQuestion) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.errorText}>No questions available</Text>
+            </View>
+        );
+    }
+
     return(
         <View>
             <Text>in progress</Text>
