@@ -17,7 +17,9 @@ export class ScoreManager {
           id TEXT PRIMARY KEY,
           lastScore INTEGER DEFAULT 0,
           highScore INTEGER DEFAULT 0,
-          jeopScore INTEGER DEFAULT 0
+          jeopScore INTEGER DEFAULT 0,
+          triviaScore INTEGER DEFAULT 0,
+          jeopardyTrivScore INTEGER DEFAULT 0
         );`
       );
 
