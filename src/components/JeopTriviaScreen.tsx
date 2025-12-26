@@ -184,5 +184,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',
-    }
+    },
+    wrongBtn: {
+        backgroundColor: 'red',
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
