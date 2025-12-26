@@ -123,6 +123,33 @@ export class ScoreManager {
     }
   }
 
+  static async saveTriviaScore(score: number): Promise<void> {
+    try {
+      const db = Database.getInstance();
+      await db.runAsync(
+        `UPDATE ${this.TABLE_NAME} SET triviaScore = ? WHERE id = 'scores'`,
+        [score]
+      );
+    } catch (error) {
+      console.error('Failed to save trivia score:', error);
+      throw error;
+    }
+  }
+
+  static async resetTriviaScore(): Promise<void> {
+    try {
+      const db = Database.getInstance();
+      const zero: number = 0;
+      await db.runAsync(
+        `UPDATE ${this.TABLE_NAME} SET triviaScore = ? WHERE id = 'scores'`,
+        [zero]
+      );
+    } catch (error) {
+      console.error('Failed to reset trivia score:', error);
+      throw error;
+    }
+  }
+
   /**
    * Save a game score and update high score if needed
    */
