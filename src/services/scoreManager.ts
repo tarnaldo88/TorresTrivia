@@ -176,6 +176,20 @@ export class ScoreManager {
     }
   }
 
+  static async resetJeopardyTriviaScore(): Promise<void> {
+    try {
+      const db = Database.getInstance();
+      const zero: number = 0;
+      await db.runAsync(
+        `UPDATE ${this.TABLE_NAME} SET jeopardyTrivScore = ? WHERE id = 'scores'`,
+        [zero]
+      );
+    } catch (error) {
+      console.error('Failed to reset jeopardy trivia score:', error);
+      throw error;
+    }
+  }
+
   /**
    * Save a game score and update high score if needed
    */
