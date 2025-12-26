@@ -147,6 +147,12 @@ export const HomeScreen: React.FC = () => {
           >
             <Image source={require('../assets/jeopardy.png')} style={styles.buttonImage} resizeMode="cover"/>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('JeopTriv')}
+          >
+            <Image source={require('../assets/trivia.png')} style={styles.buttonImage} resizeMode="cover"/>
+          </TouchableOpacity>
         </View>
       </View>
     </ImageBackground>
