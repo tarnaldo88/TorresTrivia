@@ -42,6 +42,18 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
         }
     }
 
+    const nextQuestion = async () => {
+        if (!triviaDb) return;
+
+        try{
+            setShowAnswer(false);
+            const nextQ = await triviaDb.getRandomQuestion();
+            setCurrentQuestion(nextQ);
+            setQuestionsAnswered(questionsAnswered + 1);
+        } catch (error) {
+            console.error('Failed to load next question:', error);
+        }
+    }
 
     return(
         <View>
