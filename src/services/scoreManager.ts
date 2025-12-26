@@ -163,6 +163,19 @@ export class ScoreManager {
     }
   }
 
+  static async saveJeopardyTriviaScore(score: number): Promise<void> {
+    try {
+      const db = Database.getInstance();
+      await db.runAsync(
+        `UPDATE ${this.TABLE_NAME} SET jeopardyTrivScore = ? WHERE id = 'scores'`,
+        [score]
+      );
+    } catch (error) {
+      console.error('Failed to save jeopardy trivia score:', error);
+      throw error;
+    }
+  }
+
   /**
    * Save a game score and update high score if needed
    */
