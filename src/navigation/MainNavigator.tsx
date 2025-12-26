@@ -7,6 +7,7 @@ import { TriviaScreen } from "../components/TriviaScreen";
 import { NotJeopardyScreen } from "../components/NotJeopardyScreen";
 import { PlayerSelectScreen } from "../components/PlayerSelectScreen";
 import { TeamSelectScreen } from "../components/TeamSelectScreen";
+import { JeopTriviaScreen } from "../components/JeopTriviaScreen";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -53,6 +54,10 @@ export const MainNavigator = () => {
       <Stack.Screen 
         name="TeamSelect"
         component={TeamSelectScreen}
+      />
+      <Stack.Screen 
+        name="JeopTriv"
+        component={JeopTriviaScreen}
       />
     </Stack.Navigator>
   );
