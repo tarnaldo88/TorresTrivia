@@ -99,6 +99,7 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
             </TouchableOpacity>
             {showAnswer && (
                 <View style={styles.answerSection}>
+                    <Text style={styles.answerLabel}>Answer: </Text>
                     <Text style={styles.answerText}>{currentQuestion.question}</Text>
                 </View>
             )}
