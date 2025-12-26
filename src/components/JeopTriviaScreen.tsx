@@ -21,6 +21,7 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
     const [loading, setLoading] = useState(true);
     const [triviaDb, setTriviaDb] = useState<TriviaDatabase | null>(null);
     const [questionsAnswered, setQuestionsAnswered] = useState(0);
+    const [totalScore, setTotalScore] = useState(0);
 
     useEffect(() => {
         initializeTriviaDatabase();
@@ -71,9 +72,27 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
         );
     }
 
+    const addScore = () => {
+        nextQuestion();
+        setTotalScore(totalScore + currentQuestion.value);
+    }
+
     return(
         <View>
             <Text>in progress</Text>
+            <View style={styles.rowContainer}>
+                <TouchableOpacity style={styles.correctBtn} onPress={() => addScore()}>
+                    <Text>CORRECT!</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.wrongBtn} >
+                    <Text>WRONG!</Text>
+                </TouchableOpacity>
+            </View>
+            {/* <View style={styles.container}>
+                    <TouchableOpacity style={styles.playerBtn} onPress={saveJeopardyHighScore}>
+                        <Text>Save High Score</Text>
+                    </TouchableOpacity>
+            </View> */}
         </View>
     );
 }
