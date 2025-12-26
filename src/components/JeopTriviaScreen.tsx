@@ -77,6 +77,10 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
         setTotalScore(totalScore + currentQuestion.value);
     }
 
+    const toggleAnswer = () => {
+        setShowAnswer(!showAnswer);
+    }
+
     return(
         <View style={styles.container}>
             <Text>in progress</Text>
@@ -89,10 +93,10 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
                 style={styles.button}
                 onPress={toggleAnswer}
             >                        
-                                    <Text style={styles.buttonText}>
-                                        {showAnswer ? 'Hide Answer' : 'Show Answer'}
-                                    </Text>
-                                </TouchableOpacity>
+                <Text style={styles.buttonText}>
+                    {showAnswer ? 'Hide Answer' : 'Show Answer'}
+                </Text>
+            </TouchableOpacity>
             <View style={styles.rowContainer}>
                 <TouchableOpacity style={styles.correctBtn} onPress={() => addScore()}>
                     <Text>CORRECT!</Text>
