@@ -9,6 +9,7 @@ import {
     TextInput,
 } from 'react-native';
 import { ScoreManager } from '../services/scoreManager';
+import { useNavigation } from '@react-navigation/native';
 
 interface NotJeopardyScreenProps {
     roundDuration?: number;

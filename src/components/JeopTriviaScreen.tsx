@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { TriviaDatabase } from '../services/triviaDatabase';
 import { TriviaQuestion } from '../types/index';
+import { useNavigation } from '@react-navigation/native';
 
 interface JeopTriviaScreenProps {
     roundDuration?: number;
