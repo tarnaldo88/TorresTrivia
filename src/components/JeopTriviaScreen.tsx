@@ -16,10 +16,8 @@ interface JeopTriviaScreenProps {
     onRoundENd?: (finalScore: number) => void;
 }
 
-type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
-
 export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
-    const navigation = useNavigation<HomeScreenNavigationProp>();
+    const navigation = useNavigation();
     const [showAnswer, setShowAnswer] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState<TriviaQuestion | null>(null);
     const [loading, setLoading] = useState(true);
