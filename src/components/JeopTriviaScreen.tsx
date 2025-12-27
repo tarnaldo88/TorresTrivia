@@ -15,7 +15,10 @@ interface JeopTriviaScreenProps {
     onRoundENd?: (finalScore: number) => void;
 }
 
+type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
+
 export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
+    const navigation = useNavigation<HomeScreenNavigationProp>();
     const [showAnswer, setShowAnswer] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState<TriviaQuestion | null>(null);
     const [loading, setLoading] = useState(true);
@@ -85,7 +88,7 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
         <View style={styles.container}>
             <View style={styles.scoreSection}>
                 <Text style={styles.scoreText}>Score: {totalScore}</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {}}>
                     <Text style={styles.endRoundText}>End Round</Text>
                 </TouchableOpacity>
             </View>
