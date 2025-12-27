@@ -83,6 +83,12 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
 
     return(
         <View style={styles.container}>
+            <View style={styles.scoreSection}>
+                <Text style={styles.scoreText}>Score: {totalScore}</Text>
+                <TouchableOpacity>
+                    <Text style={styles.endRoundText}>End Round</Text>
+                </TouchableOpacity>
+            </View>
             <Text>in progress</Text>
             <View style={styles.questionSection}>
                 <Text style={styles.questionCounter}>Question {questionsAnswered + 1}</Text>
@@ -133,6 +139,12 @@ const styles = StyleSheet.create({
     headerSection: {
         marginTop: 20,
         alignItems: 'center',
+    },
+    scoreSection: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 20,  
     },
     questionCounter: {
         fontSize: 18,
