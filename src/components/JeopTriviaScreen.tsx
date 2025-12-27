@@ -229,4 +229,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    endRoundText: {
+        fontSize: 16,
+        color: '#007AFF',
+    },
 });
