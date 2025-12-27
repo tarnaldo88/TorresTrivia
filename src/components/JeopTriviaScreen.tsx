@@ -148,6 +148,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 20,  
     },
+    scoreText: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#ffffffff',  
+    },
     questionCounter: {
         fontSize: 18,
         fontWeight: 'bold',
