@@ -89,7 +89,7 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
         <View style={styles.container}>
             <View style={styles.scoreSection}>
                 <Text style={styles.scoreText}>Score: {totalScore}</Text>
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity onPress={() => {navigation.navigate('Home')}}>
                     <Text style={styles.endRoundText}>End Round</Text>
                 </TouchableOpacity>
             </View>
