@@ -14,10 +14,6 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDynamicSound } from '../services/UseDynamicSound';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/MainNavigator';
-
-type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 type RadioButtonProps = {
     selected: boolean;
@@ -26,7 +22,7 @@ type RadioButtonProps = {
   };
 
 export const PlayerSelectScreen: React.FC = () =>  {
-    const navigation = useNavigation<HomeScreenNavigationProp>();    
+    const navigation = useNavigation();    
     const {play} = useDynamicSound();
     const [playerList, setPlayerList] = useState<string[]>([]);
     const [modeSelect, setModeSelect] = useState<boolean>(true);
