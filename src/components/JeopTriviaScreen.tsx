@@ -79,7 +79,10 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
 
     const addScore = () => {
         nextQuestion();
-        setTotalScore(totalScore + currentQuestion.value + dollarAmounts[currentQuestion.value]);
+        if(questionsAnswered > dollarAmounts.length - 1) {
+            setQuestionsAnswered(0);
+        }
+        setTotalScore(totalScore + currentQuestion.value + dollarAmounts[questionsAnswered]);
     }
 
     const subtractScore = () => {
