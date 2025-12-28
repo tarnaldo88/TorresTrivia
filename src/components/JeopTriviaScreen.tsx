@@ -25,6 +25,8 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
     const [questionsAnswered, setQuestionsAnswered] = useState(0);
     const [totalScore, setTotalScore] = useState(0);
 
+    const dollarAmounts: number[] = [200, 400, 600, 800, 1000];
+    
     useEffect(() => {
         initializeTriviaDatabase();
     }, []);
