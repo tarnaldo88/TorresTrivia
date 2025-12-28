@@ -26,7 +26,7 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
     const [totalScore, setTotalScore] = useState(0);
 
     const dollarAmounts: number[] = [200, 400, 600, 800, 1000];
-    
+
     useEffect(() => {
         initializeTriviaDatabase();
     }, []);
@@ -79,6 +79,11 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
     const addScore = () => {
         nextQuestion();
         setTotalScore(totalScore + currentQuestion.value);
+    }
+
+    const subtractScore = () => {
+        nextQuestion();
+        setTotalScore(totalScore - currentQuestion.value);
     }
 
     const toggleAnswer = () => {
