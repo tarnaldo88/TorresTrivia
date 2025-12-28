@@ -126,7 +126,7 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
                     </TouchableOpacity>
                 </View>
                 <View style={styles.container}>
-                        <TouchableOpacity style={styles.playerBtn} onPress={saveJeopardyHighScore}>
+                        <TouchableOpacity style={styles.playerBtn} onPress={ScoreManager.saveJeopScore}>
                             <Text>Save High Score</Text>
                         </TouchableOpacity>
                 </View>
