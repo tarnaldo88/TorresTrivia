@@ -10,6 +10,7 @@ import {
 import { TriviaDatabase } from '../services/triviaDatabase';
 import { TriviaQuestion } from '../types/index';
 import { useNavigation } from '@react-navigation/native';
+import { ScoreManager } from '../services/scoreManager';
 
 interface JeopTriviaScreenProps {
     roundDuration?: number;
@@ -126,11 +127,11 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
                     <Text>WRONG!</Text>
                 </TouchableOpacity>
             </View>
-            {/* <View style={styles.container}>
-                    <TouchableOpacity style={styles.playerBtn} onPress={saveJeopardyHighScore}>
+            <View style={styles.container}>
+                    <TouchableOpacity style={styles.playerBtn} onPress={ScoreManager.saveJeopScore}>
                         <Text>Save High Score</Text>
                     </TouchableOpacity>
-            </View> */}
+            </View>
         </View>
     );
 }
