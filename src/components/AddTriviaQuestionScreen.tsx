@@ -18,6 +18,18 @@ export const AddTriviaQuestionScreen = () => {
     const [answer, setAnswer] = useState('');
     const [category, setCategory] = useState('');
 
+    const initializeTriviaDatabase = async () => {
+        try {
+            const db = new TriviaDatabase();
+            await db.initialize();
+            setTriviaDb(db);
+            setLoading(false);
+        } catch (error) {
+            console.error('Failed to initialize trivia database:', error);
+            setLoading(false);
+        }
+    };
+
 
     return (
     <View style={styles.container}>
