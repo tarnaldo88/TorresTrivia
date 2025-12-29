@@ -78,9 +78,9 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
     }
 
     const calcMoney = () => {
-        if(currentQuestion.difficulty === 'easy') {
+        if(currentQuestion.difficulty === 'Easy') {
             return 200;
-        } else if(currentQuestion.difficulty === 'medium') {
+        } else if(currentQuestion.difficulty === 'Medium') {
             return 400;
         } else {
             return 800;
@@ -92,7 +92,7 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
         if(questionsAnswered > dollarAmounts.length - 1) {
             setQuestionsAnswered(0);
         }
-        setTotalScore(totalScore + currentQuestion.value + dollarAmounts[questionsAnswered]);
+        setTotalScore(totalScore + calcMoney());
     }
 
     const subtractScore = () => {
