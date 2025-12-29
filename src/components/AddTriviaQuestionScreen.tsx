@@ -6,6 +6,7 @@ import {
     TouchableOpacity, 
     ImageBackground,
     ActivityIndicator,
+    TextInput,
 } from 'react-native';
 import { TriviaDatabase } from '../services/triviaDatabase';
 import { TriviaQuestion } from '../types/index';
@@ -38,6 +39,39 @@ export const AddTriviaQuestionScreen = () => {
     return (
     <View style={styles.container}>
         <Text style={styles.title}>Add Trivia Question</Text>
+        {loading ? (
+            <ActivityIndicator size="large" color="#0000ff" />
+        ) : (
+            <View>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Difficulty"
+                    value={difficulty}
+                    onChangeText={setDifficulty}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Question"
+                    value={question}
+                    onChangeText={setQuestion}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Answer"
+                    value={answer}
+                    onChangeText={setAnswer}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Category"
+                    value={category}
+                    onChangeText={setCategory}
+                />
+                <TouchableOpacity style={styles.button} onPress={() => triviaDb?.addQuestion(difficulty, question, answer, category)}>
+                    <Text style={styles.buttonText}>Add Question</Text>
+                </TouchableOpacity>
+        )
+        )}
     </View>
 );
 };
