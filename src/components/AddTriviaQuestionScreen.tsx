@@ -75,8 +75,7 @@ export const AddTriviaQuestionScreen = () => {
                     <Text style={styles.buttonText}>Add Question</Text>
                 </TouchableOpacity>
             </View>
-        )
-        )}
+        )}   
     </View>
 );
 };
