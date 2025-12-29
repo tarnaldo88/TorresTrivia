@@ -43,24 +43,28 @@ export const AddTriviaQuestionScreen = () => {
             <ActivityIndicator size="large" color="#0000ff" />
         ) : (
             <View>
+                <Text>Difficulty</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Difficulty"
                     value={difficulty}
                     onChangeText={setDifficulty}
                 />
+                <Text>Question</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Question"
                     value={question}
                     onChangeText={setQuestion}
                 />
+                <Text>Answer</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Answer"
                     value={answer}
                     onChangeText={setAnswer}
                 />
+                <Text>Category</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Category"
@@ -70,8 +74,13 @@ export const AddTriviaQuestionScreen = () => {
                 <TouchableOpacity style={styles.button} onPress={() => triviaDb?.addQuestion(difficulty, question, answer, category)}>
                     <Text style={styles.buttonText}>Add Question</Text>
                 </TouchableOpacity>
+            </View>
         )
         )}
     </View>
 );
 };
+
+const styles = StyleSheet.create({
+
+});
