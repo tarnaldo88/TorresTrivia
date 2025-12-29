@@ -9,7 +9,7 @@ import {
     TextInput,
 } from 'react-native';
 import { TriviaDatabase } from '../services/triviaDatabase';
-import { TriviaQuestion } from '../types/index';
+// import { TriviaQuestion } from '../types/index';
 
 export const AddTriviaQuestionScreen = () => {
     const [triviaDb, setTriviaDb] = useState<TriviaDatabase | null>(null);

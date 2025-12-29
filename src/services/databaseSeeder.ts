@@ -435,16 +435,16 @@ export async function addItems(
 /**
  * Clear all items from the database
  */
-export async function clearItems(): Promise<void> {
-  try {
-    const db = Database.getInstance();
-    await db.runAsync('DELETE FROM items');
-    console.log('All items cleared from database');
-  } catch (error) {
-    console.error('Failed to clear items:', error);
-    throw error;
-  }
-}
+// export async function clearItems(): Promise<void> {
+//   try {
+//     const db = Database.getInstance();
+//     await db.runAsync('DELETE FROM items');
+//     console.log('All items cleared from database');
+//   } catch (error) {
+//     console.error('Failed to clear items:', error);
+//     throw error;
+//   }
+// }
 
 /**
  * Add custom trivia questions to the database
@@ -471,13 +471,13 @@ export async function addTriviaQuestions(
 /**
  * Clear all trivia questions from the database
  */
-export async function clearTriviaQuestions(): Promise<void> {
-  try {
-    const db = Database.getInstance();
-    await db.runAsync('DELETE FROM trivia_questions');
-    console.log('All trivia questions cleared from database');
-  } catch (error) {
-    console.error('Failed to clear trivia questions:', error);
-    throw error;
-  }
-}
+// export async function clearTriviaQuestions(): Promise<void> {
+//   try {
+//     const db = Database.getInstance();
+//     await db.runAsync('DELETE FROM trivia_questions');
+//     console.log('All trivia questions cleared from database');
+//   } catch (error) {
+//     console.error('Failed to clear trivia questions:', error);
+//     throw error;
+//   }
+// }
