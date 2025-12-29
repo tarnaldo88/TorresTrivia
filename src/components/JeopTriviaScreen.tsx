@@ -87,6 +87,16 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
         }
     };
 
+    const questDifficulty= () => {
+        if(currentQuestion.difficulty === 'Easy') {
+            return '200';
+        } else if(currentQuestion.difficulty === 'Medium') {
+            return '400';
+        } else {
+            return '800';
+        }
+    }
+
     const addScore = () => {
         nextQuestion();
         if(questionsAnswered > dollarAmounts.length - 1) {
@@ -116,7 +126,7 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
             <View style={styles.questionSection}>
                 <Text style={styles.questionCounter}>Question {questionsAnswered + 1}</Text>
                 <Text style={styles.categoryText}>{currentQuestion.category}</Text>
-                <Text style={styles.difficultyText}>{currentQuestion.difficulty}</Text>
+                <Text style={styles.difficultyText}>{questDifficulty()}</Text>
                 <Text style={styles.questionText}>{currentQuestion.answer}</Text>
             </View>
             <TouchableOpacity 
