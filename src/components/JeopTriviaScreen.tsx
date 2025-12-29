@@ -116,6 +116,7 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
             <View style={styles.questionSection}>
                 <Text style={styles.questionCounter}>Question {questionsAnswered + 1}</Text>
                 <Text style={styles.categoryText}>{currentQuestion.category}</Text>
+                <Text style={styles.difficultyText}>{currentQuestion.difficulty}</Text>
                 <Text style={styles.questionText}>{currentQuestion.answer}</Text>
             </View>
             <TouchableOpacity 
@@ -198,6 +199,9 @@ const styles = StyleSheet.create({
         color: '#ffffffff',
         textAlign: 'center',
         lineHeight: 32,
+    },
+    difficultyText: {
+        
     },
     buttonSection: {
         marginBottom: 30,
