@@ -16,6 +16,7 @@ export const AddTriviaQuestionScreen = () => {
     const [difficulty, setDifficulty] = useState('');
     const [question, setQuestion] = useState('');
     const [answer, setAnswer] = useState('');
+    const [category, setCategory] = useState('');
 
 
     return (
