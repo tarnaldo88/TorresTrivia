@@ -97,7 +97,7 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
 
     const subtractScore = () => {
         nextQuestion();
-        setTotalScore(totalScore - currentQuestion.value);
+        setTotalScore(totalScore - calcMoney());
     }
 
     const toggleAnswer = () => {
