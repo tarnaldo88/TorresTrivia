@@ -211,7 +211,9 @@ const styles = StyleSheet.create({
         lineHeight: 32,
     },
     difficultyText: {
-        
+        color: '#f7f0f0ff',
+        fontWeight: 'bold',
+        fontSize: 20,
     },
     buttonSection: {
         marginBottom: 30,
