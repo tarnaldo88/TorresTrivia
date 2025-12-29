@@ -88,6 +88,7 @@ export const TriviaScreen: React.FC<TriviaScreenProps> = ({
                 <View style={styles.questionSection}>
                     <Text style={styles.questionCounter}>Question {questionsAnswered + 1}</Text>
                     <Text style={styles.categoryText}>{currentQuestion.category}</Text>
+                    <Text style={styles.difficultyText}>Difficulty: {currentQuestion.difficulty}</Text>
                     <Text style={styles.questionText}>{currentQuestion.question}</Text>
                 </View>
 
@@ -158,6 +159,11 @@ const styles = StyleSheet.create({
         color: '#ffffffff',
         textAlign: 'center',
         lineHeight: 32,
+    },
+    difficultyText:{
+        fontSize: 14,
+        color: '#f7f0f0ff',
+        fontStyle: 'italic',
     },
     buttonSection: {
         marginBottom: 30,
