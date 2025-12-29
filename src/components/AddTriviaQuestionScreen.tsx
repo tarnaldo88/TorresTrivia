@@ -42,7 +42,7 @@ export const AddTriviaQuestionScreen = () => {
         {loading ? (
             <ActivityIndicator size="large" color="#0000ff" />
         ) : (
-            <View>
+            <View style={styles.form}>
                 <Text>Difficulty</Text>
                 <TextInput
                     style={styles.input}
@@ -112,5 +112,9 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    form:{
+        width: '80%',
+        alignItems: 'center',
     },
 });
