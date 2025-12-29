@@ -77,6 +77,16 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
         );
     }
 
+    const calcMoney = () => {
+        if(currentQuestion.difficulty === 'easy') {
+            return 200;
+        } else if(currentQuestion.difficulty === 'medium') {
+            return 400;
+        } else {
+            return 800;
+        }
+    };
+
     const addScore = () => {
         nextQuestion();
         if(questionsAnswered > dollarAmounts.length - 1) {
