@@ -43,28 +43,28 @@ export const AddTriviaQuestionScreen = () => {
             <ActivityIndicator size="large" color="#0000ff" />
         ) : (
             <View style={styles.form}>
-                <Text>Difficulty</Text>
+                <Text style={styles.label}>Difficulty</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Difficulty"
                     value={difficulty}
                     onChangeText={setDifficulty}
                 />
-                <Text>Question</Text>
+                <Text style={styles.label}>Question</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Question"
                     value={question}
                     onChangeText={setQuestion}
                 />
-                <Text>Answer</Text>
+                <Text style={styles.label}>Answer</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Answer"
                     value={answer}
                     onChangeText={setAnswer}
                 />
-                <Text>Category</Text>
+                <Text style={styles.label}>Category</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Category"
