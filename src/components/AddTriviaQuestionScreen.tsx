@@ -9,3 +9,11 @@ import {
 } from 'react-native';
 import { TriviaDatabase } from '../services/triviaDatabase';
 import { TriviaQuestion } from '../types/index';
+
+export const AddTriviaQuestionScreen = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Add Trivia Question</Text>
+    </View>
+  );
+};
