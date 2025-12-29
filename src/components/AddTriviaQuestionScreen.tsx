@@ -18,6 +18,10 @@ export const AddTriviaQuestionScreen = () => {
     const [answer, setAnswer] = useState('');
     const [category, setCategory] = useState('');
 
+    useEffect(() => {
+        initializeTriviaDatabase();
+    }, []);
+
     const initializeTriviaDatabase = async () => {
         try {
             const db = new TriviaDatabase();
