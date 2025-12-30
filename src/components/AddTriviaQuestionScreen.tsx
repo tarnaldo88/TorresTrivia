@@ -41,6 +41,9 @@ export const AddTriviaQuestionScreen = () => {
         <Text style={styles.title}>Add Trivia Question</Text>
         {loading ? (
             <ActivityIndicator size="large" color="#0000ff" />
+            <TouchableOpacity>
+                <Text>Go Back</Text>
+            </TouchableOpacity>
         ) : (
             <View style={styles.form}>
                 <Text style={styles.label}>Difficulty</Text>
