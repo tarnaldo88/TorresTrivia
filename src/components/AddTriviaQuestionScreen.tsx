@@ -41,11 +41,14 @@ export const AddTriviaQuestionScreen = () => {
         <Text style={styles.title}>Add Trivia Question</Text>
         {loading ? (
             <ActivityIndicator size="large" color="#0000ff" />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Text>Go Back</Text>
             </TouchableOpacity>
         ) : (
             <View style={styles.form}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Text>Go Back</Text>
+                </TouchableOpacity>
                 <Text style={styles.label}>Difficulty</Text>
                 <TextInput
                     style={styles.input}
