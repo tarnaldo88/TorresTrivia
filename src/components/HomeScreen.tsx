@@ -153,6 +153,9 @@ export const HomeScreen: React.FC = () => {
           >
             <Image source={require('../assets/trivia.png')} style={styles.buttonImage} resizeMode="cover"/>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('AddQuestion')}>
+            <Text>Add a Trivia Question</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ImageBackground>
