@@ -66,7 +66,11 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
                 />
             </View>
             <View style={styles.triviaQuestionContainer}>
+                <Text>Trivia Question ID</Text>
+                <Text>{triviaQuestion?.id}</Text>
+                <Text>Trivia Question:</Text>
                 <Text>{triviaQuestion?.question}</Text>
+                <Text>Trivia Answer:</Text>
                 <Text>{triviaQuestion?.answer}</Text>
                 <Text>{triviaQuestion?.category}</Text>
                 <Text>{triviaQuestion?.difficulty}</Text>
