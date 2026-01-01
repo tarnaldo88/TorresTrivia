@@ -66,15 +66,15 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
                 />
             </View>
             <View style={styles.triviaQuestionContainer}>
-                <Text>Trivia Question ID</Text>
+                <Text style={styles.triviaQuestLabel}>Trivia Question ID</Text>
                 <Text>{triviaQuestion?.id}</Text>
-                <Text>Trivia Question:</Text>
+                <Text style={styles.triviaQuestLabel}>Trivia Question:</Text>
                 <Text>{triviaQuestion?.question}</Text>
-                <Text>Trivia Answer:</Text>
+                <Text style={styles.triviaQuestLabel}>Trivia Answer:</Text>
                 <Text>{triviaQuestion?.answer}</Text>
-                <Text>Trivia Category:</Text>
+                <Text style={styles.triviaQuestLabel}>Trivia Category:</Text>
                 <Text>{triviaQuestion?.category}</Text>
-                <Text>Trivia Difficulty:</Text>
+                <Text style={styles.triviaQuestLabel}>Trivia Difficulty:</Text>
                 <Text>{triviaQuestion?.difficulty}</Text>
             </View>
         </View>
@@ -119,5 +119,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    triviaQuestLabel:{
+        fontSize: 20,
+        color: '#ddf8f7ff',
+        marginBottom: 10,
+    },
+    triviaQuestionPart:{
+        fontSize: 18,
+        color: '#e5fcfbff',
     },
 })
