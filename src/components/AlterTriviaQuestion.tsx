@@ -55,7 +55,7 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
 
     const getTriviaQuestionById = async (questId: string) => {
         try {
-            const triviaQuestion = await triviaDb?.getQuestionById(triviaQuestion?.id || '');
+            const triviaQuestion = await triviaDb?.getQuestionById(questId || '');
             setTriviaQuestion(triviaQuestion);
         } catch (error) {
             console.error('Failed to get trivia question by id:', error);
