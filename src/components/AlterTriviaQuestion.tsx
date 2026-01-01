@@ -72,7 +72,9 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
                 <Text>{triviaQuestion?.question}</Text>
                 <Text>Trivia Answer:</Text>
                 <Text>{triviaQuestion?.answer}</Text>
+                <Text>Trivia Category:</Text>
                 <Text>{triviaQuestion?.category}</Text>
+                <Text>Trivia Difficulty:</Text>
                 <Text>{triviaQuestion?.difficulty}</Text>
             </View>
         </View>
