@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { TriviaDatabase } from '../services/triviaDatabase';
 import { TriviaQuestion } from '../types/index';
+import { addItems } from '../services/databaseSeeder';
 
 export const AlterTriviaQuestionScreen= React.FC = () => {
     const [triviaDb, setTriviaDb] = useState<TriviaDatabase | null>(null);
@@ -39,6 +40,11 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
     const handleAlterTriviaQuestion = async () => {
         try {
             await triviaDb?.alterTriviaQuestion(triviaQuestion?.id || '', difficulty, question, answer, category);
+            await addItems([{ 
+                id: triviaQuestion?.id || '', 
+                text: triviaQuestion?.question || '', 
+                category: triviaQuestion?.category || '' 
+            }]);
             console.log('Trivia question altered successfully');
         } catch (error) {
             console.error('Failed to alter trivia question:', error);
