@@ -20,6 +20,7 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
     const [answer, setAnswer] = useState('');
     const [category, setCategory] = useState('');
     const [triviaQuestion, setTriviaQuestion] = useState<TriviaQuestion | null>(null);
+    const [questionId, setQuestionId] = useState('');
 
     useEffect(() => {
         initializeTriviaDatabase();
@@ -51,7 +52,7 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
         }
     }
 
-    const getTriviaQuestionById = async () => {
+    const getTriviaQuestionById = async (questId: string) => {
         try {
             const triviaQuestion = await triviaDb?.getQuestionById(triviaQuestion?.id || '');
             setTriviaQuestion(triviaQuestion);
@@ -86,6 +87,14 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
                 <TextInput 
                     value={category}
                     onChangeText = {(text: string) => {setCategory(text)}}
+                    style={styles.inputText}
+                />
+            </View>
+            <View style={styles.inputContainer}>
+                <TextInput
+                    value={questionId}
+                    onChangeText={(text: string) => {setQuestionId(text)}}
+                    placeholder="Enter question ID"
                     style={styles.inputText}
                 />
             </View>
