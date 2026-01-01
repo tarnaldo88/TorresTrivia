@@ -39,7 +39,7 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
 
     const handleAlterTriviaQuestion = async () => {
         try {
-            await triviaDb?.alterTriviaQuestion(triviaQuestion?.id || '', difficulty, question, answer, category);
+            // await triviaDb?.alterTriviaQuestion(triviaQuestion?.id || '', difficulty, question, answer, category);
             await addItems([{ 
                 id: triviaQuestion?.id || '', 
                 text: triviaQuestion?.question || '', 
@@ -92,6 +92,9 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
                 <Text style={styles.triviaQuestLabel}>Trivia Difficulty:</Text>
                 <Text style={styles.triviaQuestionPart}>{triviaQuestion?.difficulty}</Text>
             </View>
+            <TouchableOpacity style={styles.submitBtn} onPress={handleAlterTriviaQuestion}>
+                <Text style={styles.submitBtnText}>Submit</Text>
+            </TouchableOpacity>
         </View>
 
     );
