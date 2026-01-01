@@ -9,6 +9,7 @@ import { PlayerSelectScreen } from "../components/PlayerSelectScreen";
 import { TeamSelectScreen } from "../components/TeamSelectScreen";
 import { JeopTriviaScreen } from "../components/JeopTriviaScreen";
 import { AddTriviaQuestionScreen } from "../components/AddTriviaQuestionScreen";
+import { AlterTriviaQuestionScreen } from "../components/AlterTriviaQuestion";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -63,6 +64,10 @@ export const MainNavigator = () => {
       <Stack.Screen
         name="AddQuestion"
         component={AddTriviaQuestionScreen}
+      />
+      <Stack.Screen
+        name="AlterQuestion"
+        component={AlterTriviaQuestionScreen}
       />
     </Stack.Navigator>
   );
