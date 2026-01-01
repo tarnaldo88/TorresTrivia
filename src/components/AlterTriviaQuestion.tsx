@@ -97,6 +97,9 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
                     placeholder="Enter question ID"
                     style={styles.inputText}
                 />
+                <TouchableOpacity style={styles.submitBtn} onPress={() => getTriviaQuestionById(questionId)}>
+                    <Text style={styles.submitBtnText}>Get Question</Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.triviaQuestionContainer}>
                 <Text style={styles.triviaQuestLabel}>Trivia Question ID</Text>
