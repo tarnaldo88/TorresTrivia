@@ -9,7 +9,7 @@ import {
     TextInput,
 } from 'react-native';
 import { TriviaDatabase } from '../services/triviaDatabase';
-// import { TriviaQuestion } from '../types/index';
+import { TriviaQuestion } from '../types/index';
 
 export const AlterTriviaQuestionScreen= React.FC = () => {
     const [triviaDb, setTriviaDb] = useState<TriviaDatabase | null>(null);
@@ -18,6 +18,7 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
     const [question, setQuestion] = useState('');
     const [answer, setAnswer] = useState('');
     const [category, setCategory] = useState('');
+    const [triviaQuestion, setTriviaQuestion] = useState<TriviaQuestion | null>(null);
 
     useEffect(() => {
         initializeTriviaDatabase();
@@ -38,7 +39,7 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
 
     return(
         <View style={styles.container}>
-            <View>
+            <View style={styles.inputContainer}>
                 <Text>Difficulty</Text>
                 <TextInput 
                     value={difficulty}
