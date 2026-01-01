@@ -7,6 +7,7 @@ import {
     ImageBackground,
     ActivityIndicator,
     TextInput,
+    ScrollView,
 } from 'react-native';
 import { TriviaDatabase } from '../services/triviaDatabase';
 import { TriviaQuestion } from '../types/index';
@@ -63,7 +64,7 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
 
 
     return(
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.inputContainer}>
                 <Text>Difficulty</Text>
                 <TextInput 
@@ -116,7 +117,7 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
             <TouchableOpacity style={styles.submitBtn} onPress={handleAlterTriviaQuestion}>
                 <Text style={styles.submitBtnText}>Submit</Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
 
     );
 }
