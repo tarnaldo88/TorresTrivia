@@ -36,6 +36,15 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
         }
     };
 
+    const handleAlterTriviaQuestion = async () => {
+        try {
+            await triviaDb?.alterTriviaQuestion(triviaQuestion?.id || '', difficulty, question, answer, category);
+            console.log('Trivia question altered successfully');
+        } catch (error) {
+            console.error('Failed to alter trivia question:', error);
+        }
+    }
+
 
     return(
         <View style={styles.container}>
