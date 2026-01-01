@@ -97,4 +97,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         margin: 12,
     },
+    inputContainer:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 })
