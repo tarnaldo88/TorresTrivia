@@ -43,25 +43,25 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
                 <Text>Difficulty</Text>
                 <TextInput 
                     value={difficulty}
-                    onChangeText = {text => {setDifficulty(text)}}
+                    onChangeText = {(text: string) => {setDifficulty(text)}}
                     style={styles.inputText}
                 />
                 <Text>Question</Text>
                 <TextInput 
                     value={question}
-                    onChangeText = {text => {setQuestion(text)}}
+                    onChangeText = {(text: string) => {setQuestion(text)}}
                     style={styles.inputText}
                 />
                 <Text>Answer</Text>
                 <TextInput 
                     value={answer}
-                    onChangeText = {text => {setAnswer(text)}}
+                    onChangeText = {(text: string) => {setAnswer(text)}}
                     style={styles.inputText}
                 />
                 <Text>Category</Text>
                 <TextInput 
                     value={category}
-                    onChangeText = {text => {setCategory(text)}}
+                    onChangeText = {(text: string) => {setCategory(text)}}
                     style={styles.inputText}
                 />
             </View>
