@@ -19,6 +19,22 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
     const [answer, setAnswer] = useState('');
     const [category, setCategory] = useState('');
 
+    useEffect(() => {
+        initializeTriviaDatabase();
+    }, []);
+
+    const initializeTriviaDatabase = async () => {
+        try {
+            const db = new TriviaDatabase();
+            await db.initialize();
+            setTriviaDb(db);
+            setLoading(false);
+        } catch (error) {
+            console.error('Failed to initialize trivia database:', error);
+            setLoading(false);
+        }
+    };
+
 
     return(
         <View>
