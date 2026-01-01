@@ -58,7 +58,7 @@ export class TriviaDatabase {
   }
 
   /**
-   * Get a specific question by ID
+   * Get a specific question by ID.
    */
   async getQuestionById(id: string): Promise<TriviaQuestion> {
     try {
