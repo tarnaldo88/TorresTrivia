@@ -37,7 +37,7 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
 
 
     return(
-        <View>
+        <View style={styles.container}>
 
         </View>
 
@@ -49,5 +49,27 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    submitBtn:{
+        backgroundColor: 'white',
+        color: 'purple',
+        justifyContent: 'center',
+    },
+    submitBtnSelected: {
+        backgroundColor: 'green',
+        color: 'white',
+        fontWeight: 'bold',
+        justifyContent: 'center',
+    },
+    submitBtnText: {
+      fontweight: 'bold',
+      fontSize: 20,
+      color: 'white',
+    },
+    inputText:{
+        padding: 10,
+        borderColor: '#000',
+        borderWidth: 1,
+        margin: 12,
     },
 })
