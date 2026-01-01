@@ -65,6 +65,12 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
                     style={styles.inputText}
                 />
             </View>
+            <View style={styles.triviaQuestionContainer}>
+                <Text>{triviaQuestion?.question}</Text>
+                <Text>{triviaQuestion?.answer}</Text>
+                <Text>{triviaQuestion?.category}</Text>
+                <Text>{triviaQuestion?.difficulty}</Text>
+            </View>
         </View>
 
     );
@@ -99,6 +105,11 @@ const styles = StyleSheet.create({
         margin: 12,
     },
     inputContainer:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    triviaQuestionContainer:{
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
