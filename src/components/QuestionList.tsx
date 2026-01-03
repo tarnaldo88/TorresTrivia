@@ -25,16 +25,18 @@ const QuestionList: React.FC = () => {
                     </TouchableOpacity>
                 )}
             />
+            {currentQuestion && (
+                <View>
+                    <TouchableOpacity onPress={handleNext}>
+                        <Text>Next</Text>
+                    </TouchableOpacity>
+                    <Text>Current Question: {currentQuestion?.question}</Text>
+                    <TouchableOpacity onPress={() => setCurrentQuestion(null)}>
+                        <Text>Clear</Text>
+                    </TouchableOpacity>
+                </View>
+            )}
             
-            <View>
-                <TouchableOpacity onPress={handleNext}>
-                    <Text>Next</Text>
-                </TouchableOpacity>
-                <Text>Current Question: {currentQuestion?.question}</Text>
-                <TouchableOpacity onPress={() => setCurrentQuestion(null)}>
-                    <Text>Clear</Text>
-                </TouchableOpacity>
-            </View>
         </View>
     );
 }
