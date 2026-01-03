@@ -12,6 +12,7 @@ import {
 import { TriviaDatabase } from '../services/triviaDatabase';
 import { TriviaQuestion } from '../types/index';
 import { addItems } from '../services/databaseSeeder';
+import { QuestionList } from './QuestionList';
 
 export const AlterTriviaQuestionScreen= React.FC = () => {
     const [triviaDb, setTriviaDb] = useState<TriviaDatabase | null>(null);
@@ -102,6 +103,7 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
                     <Text style={styles.submitBtnText}>Get Question</Text>
                 </TouchableOpacity>
             </View>
+            <QuestionList />
             <View style={styles.triviaQuestionContainer}>
                 <Text style={styles.triviaQuestLabel}>Trivia Question ID</Text>
                 <Text style={styles.triviaQuestionPart}>{triviaQuestion?.id}</Text>
