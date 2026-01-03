@@ -63,6 +63,12 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
         }
     }
 
+    const handleNext = () => {
+        const currentIndex = QuestionList.findIndex((q) => q === question);
+        const nextIndex = (currentIndex + 1) % QuestionList.length;
+        setQuestion(QuestionList[nextIndex]);
+    }
+
 
     return(
         <ScrollView style={styles.container}>
@@ -103,7 +109,7 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
                     <Text style={styles.submitBtnText}>Get Question</Text>
                 </TouchableOpacity>
             </View>
-            <QuestionList />
+            
             <View style={styles.triviaQuestionContainer}>
                 <Text style={styles.triviaQuestLabel}>Trivia Question ID</Text>
                 <Text style={styles.triviaQuestionPart}>{triviaQuestion?.id}</Text>
