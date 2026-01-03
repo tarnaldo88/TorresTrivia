@@ -14,6 +14,27 @@ const QuestionList: React.FC = () => {
     return (
         <View>
             <Text>Question List</Text>
+            <FlatList
+                data={QuestionList}
+                keyExtractor={(question) => question.id.toString()}
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => setCurrentQuestion(item)}>
+                        <Text>Question: {item.id}</Text>
+                        <Text>{item.question}</Text>
+                        <Text>Answer: {item.answer}</Text>
+                    </TouchableOpacity>
+                )}
+            />
+            
+            <View>
+                <TouchableOpacity onPress={handleNext}>
+                    <Text>Next</Text>
+                </TouchableOpacity>
+                <Text>Current Question: {currentQuestion?.question}</Text>
+                <TouchableOpacity onPress={() => setCurrentQuestion(null)}>
+                    <Text>Clear</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }
