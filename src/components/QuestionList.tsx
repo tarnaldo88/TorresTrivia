@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { TriviaQuestion } from '../types/index';
 
-const QuestionList: React.FC = () => {
+export const QuestionList: React.FC = () => {
     const [currentQuestion, setCurrentQuestion] = useState<TriviaQuestion | null>(null);
 
     const handleNext = () => {
