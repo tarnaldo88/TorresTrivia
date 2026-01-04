@@ -21,7 +21,7 @@ export const QuestionList: React.FC = ({questions}) => {
     // }
 
     return (
-        <View>
+        <View style={styles.container}>
             <Text style={styles.title}>Question List</Text>
             {questions.length > 0 ? (
                 <>
