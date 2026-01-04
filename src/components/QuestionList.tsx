@@ -49,5 +49,21 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-    },    
+    },   
+    buttonNext: {
+        backgroundColor: 'blue',
+        padding: 10,
+        borderRadius: 5,
+        margin: 10,
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+    },
+    btnPrevious:{
+        backgroundColor: 'purple',
+        padding: 10,
+        borderRadius: 5,
+        margin: 10,
+    },
 })
