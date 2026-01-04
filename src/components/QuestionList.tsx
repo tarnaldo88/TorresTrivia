@@ -3,13 +3,18 @@ import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { TriviaQuestion } from '../types/index';
 
 export const QuestionList: React.FC = () => {
-    const [currentQuestion, setCurrentQuestion] = useState<TriviaQuestion | null>(null);
+    // const [currentQuestion, setCurrentQuestion] = useState<TriviaQuestion | null>(null);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
     const handleNext = () => {
-        const currentIndex = QuestionList.findIndex((q) => q === currentQuestion);
-        const nextIndex = (currentIndex + 1) % QuestionList.length;
-        setCurrentQuestion(QuestionList[nextIndex]);
+        setCurrentQuestionIndex((prevIndex) => (prevIndex + 1) % QuestionList.length);
     }
+
+    // const handleNext = () => {
+    //     const currentIndex = QuestionList.findIndex((q) => q === currentQuestion);
+    //     const nextIndex = (currentIndex + 1) % QuestionList.length;
+    //     setCurrentQuestion(QuestionList[nextIndex]);
+    // }
 
     return (
         <View>
