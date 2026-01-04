@@ -120,32 +120,7 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
                     <Text style={styles.submitBtnText}>Get Question</Text>
                 </TouchableOpacity>
             </View>
-            {/* SECTION TO SELECT FROM QUESTION LIST */}
-            {/* <View>
-                <Text>Question List</Text>
-                <FlatList
-                    data={QuestionList}
-                    keyExtractor={(quest) => quest.id.toString()}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => setQuestion(item)}>
-                            <Text>Question: {item.id}</Text>
-                            <Text>{item.question}</Text>
-                            <Text>Answer: {item.answer}</Text>
-                        </TouchableOpacity>
-                    )}
-                />
-                {question && (
-                    <View>
-                        <TouchableOpacity onPress={handleNext}>
-                            <Text>Next</Text>
-                        </TouchableOpacity>
-                        <Text>Current Question: {question?.quest}</Text>
-                        <TouchableOpacity onPress={() => setQuestion(null)}>
-                            <Text>Clear</Text>
-                        </TouchableOpacity>
-                    </View>
-                )}
-            </View> */}
+            
             <QuestionList questions={trivQuestions} />
 
             <View style={styles.triviaQuestionContainer}>
@@ -216,3 +191,30 @@ const styles = StyleSheet.create({
         color: '#e5fcfbff',
     },
 })
+
+{/* SECTION TO SELECT FROM QUESTION LIST */}
+            {/* <View>
+                <Text>Question List</Text>
+                <FlatList
+                    data={QuestionList}
+                    keyExtractor={(quest) => quest.id.toString()}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity onPress={() => setQuestion(item)}>
+                            <Text>Question: {item.id}</Text>
+                            <Text>{item.question}</Text>
+                            <Text>Answer: {item.answer}</Text>
+                        </TouchableOpacity>
+                    )}
+                />
+                {question && (
+                    <View>
+                        <TouchableOpacity onPress={handleNext}>
+                            <Text>Next</Text>
+                        </TouchableOpacity>
+                        <Text>Current Question: {question?.quest}</Text>
+                        <TouchableOpacity onPress={() => setQuestion(null)}>
+                            <Text>Clear</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+            </View> */}
