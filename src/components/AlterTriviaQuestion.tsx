@@ -120,7 +120,8 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
                     <Text style={styles.submitBtnText}>Get Question</Text>
                 </TouchableOpacity>
             </View>
-            <View>
+            {/* SECTION TO SELECT FROM QUESTION LIST */}
+            {/* <View>
                 <Text>Question List</Text>
                 <FlatList
                     data={QuestionList}
@@ -144,8 +145,8 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
                         </TouchableOpacity>
                     </View>
                 )}
-                
-            </View>
+            </View> */}
+            
             <View style={styles.triviaQuestionContainer}>
                 <Text style={styles.triviaQuestLabel}>Trivia Question ID</Text>
                 <Text style={styles.triviaQuestionPart}>{triviaQuestion?.id}</Text>
