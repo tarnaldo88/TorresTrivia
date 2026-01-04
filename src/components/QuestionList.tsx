@@ -28,6 +28,7 @@ export const QuestionList: React.FC = ({questions}) => {
                     <Text>Current Question: {currentQuestionIndex + 1} of {questions.length}</Text>
                     <Text>{questions[currentQuestionIndex].question}</Text>
                     <Text>Answer: {questions[currentQuestionIndex].answer}</Text>
+                    <Text>Category: {questions[currentQuestionIndex].category}</Text>
                     <TouchableOpacity style={styles.btnPrevious} onPress={handlePrevious}>
                         <Text style={styles.buttonText}>Previous</Text>
                     </TouchableOpacity>
