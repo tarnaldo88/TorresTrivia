@@ -29,10 +29,10 @@ export const QuestionList: React.FC = ({questions}) => {
                     <Text>{questions[currentQuestionIndex].question}</Text>
                     <Text>Answer: {questions[currentQuestionIndex].answer}</Text>
                     <TouchableOpacity style={styles.btnPrevious} onPress={handlePrevious}>
-                        <Text>Previous</Text>
+                        <Text style={styles.buttonText}>Previous</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.buttonNext} onPress={handleNext}>
-                        <Text>Next</Text>
+                        <Text style={styles.buttonText}>Next</Text>
                     </TouchableOpacity>
                 </>
             ) : (
