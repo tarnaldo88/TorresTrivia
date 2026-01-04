@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { TriviaQuestion } from '../types/index';
 
 export const QuestionList: React.FC = ({questions}) => {
@@ -43,3 +43,11 @@ export const QuestionList: React.FC = ({questions}) => {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },    
+})
