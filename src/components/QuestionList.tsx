@@ -22,7 +22,7 @@ export const QuestionList: React.FC = ({questions}) => {
 
     return (
         <View>
-            <Text>Question List</Text>
+            <Text style={styles.title}>Question List</Text>
             {questions.length > 0 ? (
                 <>
                     <Text>Current Question: {currentQuestionIndex + 1} of {questions.length}</Text>
