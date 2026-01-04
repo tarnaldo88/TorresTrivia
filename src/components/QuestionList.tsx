@@ -36,7 +36,7 @@ export const QuestionList: React.FC = ({questions}) => {
                     </TouchableOpacity>
                 </>
             ) : (
-                <Text>No questions available.</Text>
+                <Text style={styles.title}>No questions available.</Text>
             )
             }
             
