@@ -31,6 +31,9 @@ export const QuestionList: React.FC = ({questions}) => {
                     <TouchableOpacity onPress={handlePrevious}>
                         <Text>Previous</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={handleNext}>
+                        <Text>Next</Text>
+                    </TouchableOpacity>
                 </>
             )
             }
