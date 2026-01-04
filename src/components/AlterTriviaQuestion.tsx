@@ -27,6 +27,7 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
 
     useEffect(() => {
         initializeTriviaDatabase();
+        fillTriviaQuestionsArray();
     }, []);
 
     const initializeTriviaDatabase = async () => {
@@ -68,6 +69,15 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
         const currentIndex = QuestionList.findIndex((q) => q === question);
         const nextIndex = (currentIndex + 1) % QuestionList.length;
         setQuestion(QuestionList[nextIndex]);
+    }
+
+    const fillTriviaQuestionsArray = async () => {
+        try {
+            const triviaQuestions = await triviaDb?.getAllTriviaQuestions();
+            setTriviaQuestions(triviaQuestions || []);
+        } catch (error) {
+            console.error('Failed to get trivia questions:', error);
+        }
     }
 
 
