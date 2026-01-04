@@ -65,11 +65,11 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
         }
     }
 
-    const handleNext = () => {
-        const currentIndex = QuestionList.findIndex((q) => q === question);
-        const nextIndex = (currentIndex + 1) % QuestionList.length;
-        setQuestion(QuestionList[nextIndex]);
-    }
+    // const handleNext = () => {
+    //     const currentIndex = QuestionList.findIndex((q) => q === question);
+    //     const nextIndex = (currentIndex + 1) % QuestionList.length;
+    //     setQuestion(QuestionList[nextIndex]);
+    // }
 
     const fillTriviaQuestionsArray = async () => {
         try {
