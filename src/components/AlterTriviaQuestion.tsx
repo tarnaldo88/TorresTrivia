@@ -23,6 +23,7 @@ export const AlterTriviaQuestionScreen= React.FC = () => {
     const [category, setCategory] = useState('');
     const [triviaQuestion, setTriviaQuestion] = useState<TriviaQuestion | null>(null);
     const [questionId, setQuestionId] = useState('');
+    const [trivQuestions, setTriviaQuestions] = useState<TriviaQuestion[]>([]);
 
     useEffect(() => {
         initializeTriviaDatabase();
