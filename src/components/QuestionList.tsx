@@ -26,6 +26,8 @@ export const QuestionList: React.FC = ({questions}) => {
             {questions.length > 0 ? (
                 <>
                     <Text>Current Question: {currentQuestionIndex + 1} of {questions.length}</Text>
+                    <Text>{questions[currentQuestionIndex].question}</Text>
+                    <Text>Answer: {questions[currentQuestionIndex].answer}</Text>
                 </>
             )
             }
