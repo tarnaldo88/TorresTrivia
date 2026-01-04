@@ -10,6 +10,10 @@ export const QuestionList: React.FC = () => {
         setCurrentQuestionIndex((prevIndex) => (prevIndex + 1) % QuestionList.length);
     }
 
+    const handlePrevious = () => {
+        setCurrentQuestionIndex((prevIndex) => (prevIndex - 1 + QuestionList.length) % QuestionList.length);
+    }
+
     // const handleNext = () => {
     //     const currentIndex = QuestionList.findIndex((q) => q === currentQuestion);
     //     const nextIndex = (currentIndex + 1) % QuestionList.length;
