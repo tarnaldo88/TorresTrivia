@@ -35,6 +35,8 @@ export const QuestionList: React.FC = ({questions}) => {
                         <Text>Next</Text>
                     </TouchableOpacity>
                 </>
+            ) : (
+                <Text>No questions available.</Text>
             )
             }
             
