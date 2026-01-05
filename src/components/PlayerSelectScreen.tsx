@@ -38,10 +38,10 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const teamNames = ["Shazam", teamCustOne, teamCustTwo, teamCustThree];
 
     const audioTeams = {
-        shazam: require('../assets/audio/this/thisisMegan.mp3');
-        custOne: require('../assets/audio/this/thisisMegan.mp3');
-        custTwo: require('../assets/audio/this/thisisMegan.mp3');
-        custThree: require('../assets/audio/this/thisisMegan.mp3');
+        shazam: require('../assets/audio/this/thisisMegan.mp3'),
+        custOne: require('../assets/audio/this/thisisMegan.mp3'),
+        custTwo: require('../assets/audio/this/thisisMegan.mp3'),
+        custThree: require('../assets/audio/this/thisisMegan.mp3'),
     };
 
     const audioPlayers = {

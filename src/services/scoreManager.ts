@@ -75,7 +75,7 @@ export class ScoreManager {
   static async getJeopScore(): Promise<number> {
     try {
       const db = Database.getInstance();
-      const result = await.db.getFirstAsync(
+      const result = await db.getFirstAsync(
         `SELECT jeopScore FROM ${this.TABLE_NAME} WHERE id = 'scores'`
       );
       return result ? (result as any).jeopScore : 0;
