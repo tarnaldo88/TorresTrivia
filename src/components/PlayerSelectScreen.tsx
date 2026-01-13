@@ -1,16 +1,13 @@
-import {useState} from 'react';  
-// import { useAudioPlayer } from 'expo-audio';
-import React from 'react';
+import { useState } from 'react';
 import { 
     View, 
     Text, 
     StyleSheet, 
     TouchableOpacity, 
-    Image,
-    ImageBackground, 
     FlatList,
     TextInput,
     Pressable,
+    ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -23,38 +20,27 @@ type RadioButtonProps = {
     selected: boolean;
     onPress: () => void;
     label: string;
-  };
+};
 
-export const PlayerSelectScreen: React.FC = () =>  {
+export const PlayerSelectScreen: React.FC = () => {
     const navigation = useNavigation<PlayerSelectNavigationProp>();    
-    const {play} = useDynamicSound();
+    const { play } = useDynamicSound();
     const [playerList, setPlayerList] = useState<string[]>([]);
     const [modeSelect, setModeSelect] = useState<boolean>(true);
     const [teamCustOne, setTeamCustOne] = useState<string>("Custom Team 1");
     const [teamCustTwo, setTeamCustTwo] = useState<string>("Custom Team 2");
     const [teamCustThree, setTeamCustThree] = useState<string>("Custom Team 3");
-    //for knowing which team is in selection mode
     const [selectedTeam, setSelectedTeam] = useState<number | null>(null);
-    // const [teams, setTeams] = useState<string[][]>([
-    //     [], [], [], []
-    //   ]);
 
     const teamNames = ["Shazam", teamCustOne, teamCustTwo, teamCustThree];
-
-    const audioTeams = {
-        shazam: require('../assets/audio/this/thisisMegan.mp3'),
-        custOne: require('../assets/audio/this/thisisMegan.mp3'),
-        custTwo: require('../assets/audio/this/thisisMegan.mp3'),
-        custThree: require('../assets/audio/this/thisisMegan.mp3'),
-    };
 
     const audioPlayers = {
         megan: require('../assets/audio/this/thisisMegan.mp3'),
         emilio: require('../assets/audio/this/thisisEmilio.mp3'),
         amaya: require('../assets/audio/this/thisisAmaya.mp3'),
         kai: require('../assets/audio/this/thisisKai.mp3'),
-        nathan: require('../assets/audio/this/thisisKai.mp3'), //placeholder audio file until upload
-        julian: require('../assets/audio/this/thisisKai.mp3'), //placeholder audio file until upload
+        nathan: require('../assets/audio/this/thisisKai.mp3'),
+        julian: require('../assets/audio/this/thisisKai.mp3'),
         marta: require('../assets/audio/this/thisisKai.mp3'), 
         amy: require('../assets/audio/this/thisisKai.mp3'), 
         pat: require('../assets/audio/this/thisisKai.mp3'), 
@@ -66,31 +52,15 @@ export const PlayerSelectScreen: React.FC = () =>  {
         lindsey: require('../assets/audio/this/thisisKai.mp3'), 
         brian: require('../assets/audio/this/thisisKai.mp3'), 
         everett: require('../assets/audio/this/thisisKai.mp3'), 
-    }
+    };
 
     type PlayerName = keyof typeof audioPlayers;
     const playas = Object.keys(audioPlayers) as PlayerName[];
 
-    const [teamMembers, setTeamMembers] = useState<PlayerName[][]>([
-        [],
-        [],
-        [],
-        [],
-      ]);
-
-    //another possibility is to have teams and when you press team button modal pops up with all the players 
-    //same as the player flatlist that plays their sound clip on press & adds that player to team
-
-    const teamPlayers = {
-
-    }
-
-    //next step is to have text input that assigns to custom team 1-3, use that text to populate buttons
-
-    const addtoPlayerList = (player:string) => {
+    const addtoPlayerList = (player: string) => {
         setPlayerList(prev =>
             prev.includes(player)
-                ? prev.filter(p => p !== player)   // remove
+                ? prev.filter(p => p !== player)
                 : [...prev, player]   
         );      
     };
@@ -98,273 +68,434 @@ export const PlayerSelectScreen: React.FC = () =>  {
     const addTeamToList = (team: string) => {
         setPlayerList(prev =>
             prev.includes(team)
-                ? prev.filter(t => t !== team)   // remove
+                ? prev.filter(t => t !== team)
                 : [...prev, team]   
         );      
     };
 
     const switchSelectModes = () => {
         setModeSelect(!modeSelect);
-    }
+    };
 
     const playName = (key: keyof typeof audioPlayers) => {
         play(audioPlayers[key]);
     };
 
-    const playTeamName = (key: keyof typeof teamPlayers) => {
-        //play(teamPlayers[key]);
-    };
-
-    const addPlayerToTeam = (player: PlayerName) => {
-        if (selectedTeam === null) return;
-      
-        setTeamMembers(prev =>
-          prev.map((members, index) =>
-            index === selectedTeam
-              ? members.includes(player)
-                ? members // prevent duplicates (optional)
-                : [...members, player]
-              : members
-          )
-        );
-      };
-
-    
-
     const RadioButton = ({ selected, onPress, label }: RadioButtonProps) => (
         <Pressable
-          onPress={onPress}
-          style={{ flexDirection: "row", alignItems: "center", marginVertical: 8 }}
+            onPress={onPress}
+            style={styles.radioButtonContainer}
         >
-          <View
-            style={{
-              height: 20,
-              width: 20,
-              borderRadius: 10,
-              borderWidth: 2,
-              borderColor: "#333",
-              alignItems: "center",
-              justifyContent: "center",
-              marginRight: 8,
-            }}
-          >
-            {selected && (
-              <View
-                style={{
-                  height: 10,
-                  width: 10,
-                  borderRadius: 5,
-                  backgroundColor: "#333",
-                }}
-              />
-            )}
-          </View>
-          <Text>{label}</Text>
+            <View style={[styles.radioButtonCircle, selected && styles.radioButtonSelected]}>
+                {selected && <View style={styles.radioButtonInner} />}
+            </View>
+            <Text style={styles.radioButtonLabel}>{label}</Text>
         </Pressable>
-      );
+    );
 
-    const playerSelect = () => {
-        return(
-            <View style= {styles.container}>
-            <View style={styles.playerSelectedContainer}>        
-                <View style={styles.backBtn}>
-                <TouchableOpacity style={styles.playerSelected} onPress={() => {navigation.navigate('Home')}}>
-                    <Text style={styles.playerText}> ⬅️ Back</Text>
-                </TouchableOpacity>
-            </View>          
-                <Text style={styles.playSelectTitle}>Players Selected: </Text>
-                <FlatList
-                    data={playerList}
-                    keyExtractor={(item) => item}
-                    renderItem={({ item }) => (
-                        <Text style={styles.playerSelectedText}>{item}</Text>
+    const PlayerSelectView = () => {
+        return (
+            <View style={styles.modeContainer}>
+                <View style={styles.selectedListContainer}>
+                    <Text style={styles.sectionTitle}>Selected Players</Text>
+                    {playerList.length === 0 ? (
+                        <Text style={styles.emptyText}>No players selected</Text>
+                    ) : (
+                        <FlatList
+                            data={playerList}
+                            keyExtractor={(item) => item}
+                            renderItem={({ item }) => (
+                                <View style={styles.selectedPlayerTag}>
+                                    <Text style={styles.selectedPlayerText}>{item}</Text>
+                                </View>
+                            )}
+                            scrollEnabled={false}
+                        />
                     )}
-                    style={styles.flatListContain}
-                />
-            </View>
-            <View style={styles.buttonGrid}>
-            {playas.map(name => (
-                <Pressable
-                    key={name}
-                    onPress={() => {
-                        addtoPlayerList(name);
-                        playName(name);
-                    }}
-                    style={{ padding: 12 }}
-                >
-                    <Text>{name}</Text>
-                </Pressable>
-            ))}
-            </View>            
-        </View>
-        );
-    }
+                </View>
 
-    const teamSelect = () => {
-        return(
-            <View style={styles.bg}>
-                <View style={styles.playerSelectedContainer}>        
-                      
-                <Text style={styles.custTeamNameTitle}>Customize Team Names: </Text>
-                <TextInput 
-                    value={teamCustOne}
-                    onChangeText = {text => {setTeamCustOne(text)}}
-                    style={styles.textInput}
-                />
-                <TextInput 
-                    value={teamCustTwo}
-                    onChangeText = {text => {setTeamCustTwo(text)}}
-                    style={styles.textInput}
-                />
-                <TextInput 
-                    value={teamCustThree}
-                    onChangeText = {text => {setTeamCustThree(text)}}
-                    style={styles.textInput}
-                />
-            </View>
-            <View>
-                <TouchableOpacity onPress={() => addTeamToList("Shazam")}>
-                    <Text>Team Shazam</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => {addTeamToList(teamCustOne)}}>
-                    <Text style={styles.playerText}>{teamCustOne}</Text>
-                </TouchableOpacity >
-                <TouchableOpacity onPress={() => {addTeamToList(teamCustTwo)}}>
-                    <Text style={styles.playerText}>{teamCustTwo}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => {addTeamToList(teamCustThree)}}>
-                    <Text style={styles.playerText}>{teamCustThree}</Text>
-                </TouchableOpacity>
-            </View>
-            <View>
-                <Text style={styles.custTeamNameTitle}>Select which team to starting drafting to:</Text>
-            </View>
-            <View>
-                {teamNames.map((team, index) => (
-                    <RadioButton
-                        key={team}
-                        label={team}
-                        selected={selectedTeam === index}
-                        onPress={() => setSelectedTeam(index)}
-                    />
-                ))}
-            </View>
-                <View style={styles.buttonGrid}>
-                    {/* Player buttons  */}
-                    {playas.map(player => (
-                        <Pressable
-                            key={player}
-                            onPress={() => {
-                                addPlayerToTeam(player)
-                                playName(player)
-                            }}
-                            style={styles.buttonGrid}
-                        >
-                            <Text style={styles.playerText}>{player}</Text>
-                        </Pressable>
-                    ))}
+                <View style={styles.playersGridContainer}>
+                    <Text style={styles.sectionTitle}>Available Players</Text>
+                    <View style={styles.playerGrid}>
+                        {playas.map(name => (
+                            <Pressable
+                                key={name}
+                                onPress={() => {
+                                    addtoPlayerList(name);
+                                    playName(name);
+                                }}
+                                style={[
+                                    styles.playerButton,
+                                    playerList.includes(name) && styles.playerButtonSelected
+                                ]}
+                            >
+                                <Text style={styles.playerButtonText}>{name}</Text>
+                            </Pressable>
+                        ))}
+                    </View>
                 </View>
             </View>
         );
-    }
+    };
 
-    return(
-        <View >
-            <View style={styles.backBtn}>
-                    <TouchableOpacity style={styles.playerSelected} onPress={() => {navigation.navigate('Home')}}>
-                        <Text style={styles.playerText}> ⬅️ Back</Text>
-                    </TouchableOpacity>
-            </View>  
-        <View style={styles.modeSelectStyle}>
-            <TouchableOpacity onPress={switchSelectModes} style={modeSelect ? styles.playerSelected : styles.playerBtn}>
-                <Text>Player Select</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={switchSelectModes} style={modeSelect ? styles.playerBtn : styles.playerSelected}>
-                <Text>Team Select</Text>
-            </TouchableOpacity>
+    const TeamSelectView = () => {
+        return (
+            <ScrollView style={styles.modeContainer}>
+                <View style={styles.customizeTeamsContainer}>
+                    <Text style={styles.sectionTitle}>Customize Team Names</Text>
+                    <TextInput 
+                        value={teamCustOne}
+                        onChangeText={text => setTeamCustOne(text)}
+                        style={styles.teamNameInput}
+                        placeholder="Team 1 Name"
+                        placeholderTextColor="#999"
+                    />
+                    <TextInput 
+                        value={teamCustTwo}
+                        onChangeText={text => setTeamCustTwo(text)}
+                        style={styles.teamNameInput}
+                        placeholder="Team 2 Name"
+                        placeholderTextColor="#999"
+                    />
+                    <TextInput 
+                        value={teamCustThree}
+                        onChangeText={text => setTeamCustThree(text)}
+                        style={styles.teamNameInput}
+                        placeholder="Team 3 Name"
+                        placeholderTextColor="#999"
+                    />
+                </View>
+
+                <View style={styles.selectedListContainer}>
+                    <Text style={styles.sectionTitle}>Selected Teams</Text>
+                    {playerList.length === 0 ? (
+                        <Text style={styles.emptyText}>No teams selected</Text>
+                    ) : (
+                        playerList.map(team => (
+                            <View key={team} style={styles.selectedTeamTag}>
+                                <Text style={styles.selectedTeamText}>{team}</Text>
+                            </View>
+                        ))
+                    )}
+                </View>
+
+                <View style={styles.teamButtonsContainer}>
+                    <Text style={styles.sectionTitle}>Select Teams</Text>
+                    {teamNames.map(team => (
+                        <Pressable
+                            key={team}
+                            onPress={() => addTeamToList(team)}
+                            style={[
+                                styles.teamButton,
+                                playerList.includes(team) && styles.teamButtonSelected
+                            ]}
+                        >
+                            <Text style={styles.teamButtonText}>{team}</Text>
+                        </Pressable>
+                    ))}
+                </View>
+
+                <View style={styles.draftingContainer}>
+                    <Text style={styles.sectionTitle}>Draft Players to Team</Text>
+                    <Text style={styles.draftingSubtitle}>Select which team to draft to:</Text>
+                    {teamNames.map((team, index) => (
+                        <RadioButton
+                            key={team}
+                            label={team}
+                            selected={selectedTeam === index}
+                            onPress={() => setSelectedTeam(index)}
+                        />
+                    ))}
+                </View>
+
+                <View style={styles.playersGridContainer}>
+                    <Text style={styles.sectionTitle}>Available Players</Text>
+                    <View style={styles.playerGrid}>
+                        {playas.map(player => (
+                            <Pressable
+                                key={player}
+                                onPress={() => {
+                                    playName(player);
+                                }}
+                                style={styles.playerButton}
+                            >
+                                <Text style={styles.playerButtonText}>{player}</Text>
+                            </Pressable>
+                        ))}
+                    </View>
+                </View>
+            </ScrollView>
+        );
+    };
+
+    return (
+        <View style={styles.screen}>
+            <View style={styles.header}>
+                <TouchableOpacity 
+                    style={styles.backButton}
+                    onPress={() => navigation.navigate('Home')}
+                >
+                    <Text style={styles.backButtonText}>← Back</Text>
+                </TouchableOpacity>
+                <Text style={styles.headerTitle}>Player Selection</Text>
+                <View style={{ width: 60 }} />
+            </View>
+
+            <View style={styles.modeToggle}>
+                <TouchableOpacity 
+                    onPress={switchSelectModes} 
+                    style={[styles.modeButton, modeSelect && styles.modeButtonActive]}
+                >
+                    <Text style={[styles.modeButtonText, modeSelect && styles.modeButtonTextActive]}>
+                        Players
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    onPress={switchSelectModes} 
+                    style={[styles.modeButton, !modeSelect && styles.modeButtonActive]}
+                >
+                    <Text style={[styles.modeButtonText, !modeSelect && styles.modeButtonTextActive]}>
+                        Teams
+                    </Text>
+                </TouchableOpacity>
+            </View>
+
+            {modeSelect ? <PlayerSelectView /> : <TeamSelectView />}
         </View>
-        {modeSelect ?  playerSelect() : teamSelect()}
-        </View>
-    )
+    );
 };
 
 const styles = StyleSheet.create({
-    bg: {
-        backgroundColor:'#83f59bff',
-        justifyContent:'center'
-    },
-    modeSelectStyle:{
-        flexDirection:'row',
-    },
-    textInput: {
-        padding: 10,
-        borderColor: '#000',
-        borderWidth: 1,
-        margin: 12,
-        backgroundColor:'#fff',
-      },
-    container: {
+    screen: {
         flex: 1,
-        alignItems: "center",
-        paddingTop: 40,
+        backgroundColor: '#f8f9fa',
     },
-    background: {
-        flex: 1,        
-        width: "100%",
-        height: "100%",
-    },
-    playerSelectedContainer:{
-        margin:10,
+    header: {
+        flexDirection: 'row',
         alignItems: 'center',
-        // flexDirection:'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 16,
+        paddingVertical: 16,
+        backgroundColor: '#fff',
+        borderBottomWidth: 1,
+        borderBottomColor: '#e0e0e0',
     },
-    flatListContain:{
-        flexDirection:'row', 
+    headerTitle: {
+        fontSize: 24,
+        fontWeight: '700',
+        color: '#1a1a1a',
+        flex: 1,
+        textAlign: 'center',
     },
-    playSelectTitle: {
-        fontSize: 20,
-        color: "#ddf8f7ff",
-        marginBottom:10,
+    backButton: {
+        paddingHorizontal: 12,
+        paddingVertical: 8,
     },
-    playerSelectedText:{
-        color:"#e5fcfbff",
-        fontSize: 18,        
+    backButtonText: {
+        fontSize: 16,
+        color: '#007AFF',
+        fontWeight: '600',
     },
-    buttonGrid:{
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "space-between",
-        // paddingHorizontal: 10,
-        width:'90%',
+    modeToggle: {
+        flexDirection: 'row',
+        backgroundColor: '#fff',
+        borderBottomWidth: 1,
+        borderBottomColor: '#e0e0e0',
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        gap: 8,
     },
-    playerSelected: {
-        width: "30%",               // Three per row
-        aspectRatio: 1.8, 
-        backgroundColor:"#9c03f5ff", 
-        alignItems:'center', 
-        borderRadius: 15,    
-        marginVertical: 8,
-        justifyContent: "center",  
+    modeButton: {
+        flex: 1,
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        borderRadius: 8,
+        backgroundColor: '#f0f0f0',
+        alignItems: 'center',
     },
-    playerBtn:{
-        width: "30%",               // Three per row
-        aspectRatio: 1.8, 
-        backgroundColor:"#03c54dff",
-        alignItems:'center',
-        justifyContent: "center",
-        marginVertical: 8,        
+    modeButtonActive: {
+        backgroundColor: '#007AFF',
     },
-    playerText:{
-        color:"#faeeeeff",
-        fontSize:20,
+    modeButtonText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#666',
     },
-    custTeamNameTitle:{
-        color:"#960189ff",
-        fontSize:20,
-        fontWeight:'bold',
+    modeButtonTextActive: {
+        color: '#fff',
     },
-    backBtn:{
-        width:'30%',
-        alignItems: 'flex-start',
+    modeContainer: {
+        flex: 1,
+        paddingHorizontal: 16,
+        paddingVertical: 16,
+    },
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: '#1a1a1a',
+        marginBottom: 12,
+        marginTop: 16,
+    },
+    selectedListContainer: {
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        padding: 16,
+        marginBottom: 16,
+        borderWidth: 1,
+        borderColor: '#e0e0e0',
+    },
+    selectedPlayerTag: {
+        backgroundColor: '#e3f2fd',
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        marginBottom: 8,
+        borderLeftWidth: 4,
+        borderLeftColor: '#007AFF',
+    },
+    selectedPlayerText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#1a1a1a',
+    },
+    selectedTeamTag: {
+        backgroundColor: '#f3e5f5',
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        marginBottom: 8,
+        borderLeftWidth: 4,
+        borderLeftColor: '#9c27b0',
+    },
+    selectedTeamText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#1a1a1a',
+    },
+    emptyText: {
+        fontSize: 14,
+        color: '#999',
+        fontStyle: 'italic',
+    },
+    playersGridContainer: {
+        marginBottom: 16,
+    },
+    playerGrid: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 8,
+    },
+    playerButton: {
+        width: '31%',
+        paddingVertical: 12,
+        paddingHorizontal: 8,
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        borderWidth: 2,
+        borderColor: '#e0e0e0',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    playerButtonSelected: {
+        backgroundColor: '#007AFF',
+        borderColor: '#007AFF',
+    },
+    playerButtonText: {
+        fontSize: 12,
+        fontWeight: '600',
+        color: '#1a1a1a',
+        textAlign: 'center',
+    },
+    customizeTeamsContainer: {
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        padding: 16,
+        marginBottom: 16,
+        borderWidth: 1,
+        borderColor: '#e0e0e0',
+    },
+    teamNameInput: {
+        borderWidth: 1,
+        borderColor: '#e0e0e0',
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        marginBottom: 12,
+        fontSize: 14,
+        backgroundColor: '#f8f9fa',
+    },
+    teamButtonsContainer: {
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        padding: 16,
+        marginBottom: 16,
+        borderWidth: 1,
+        borderColor: '#e0e0e0',
+    },
+    teamButton: {
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        backgroundColor: '#f8f9fa',
+        borderRadius: 8,
+        marginBottom: 8,
+        borderWidth: 2,
+        borderColor: '#e0e0e0',
+    },
+    teamButtonSelected: {
+        backgroundColor: '#9c27b0',
+        borderColor: '#9c27b0',
+    },
+    teamButtonText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#1a1a1a',
+    },
+    draftingContainer: {
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        padding: 16,
+        marginBottom: 16,
+        borderWidth: 1,
+        borderColor: '#e0e0e0',
+    },
+    draftingSubtitle: {
+        fontSize: 13,
+        color: '#666',
+        marginBottom: 12,
+        fontWeight: '500',
+    },
+    radioButtonContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        marginBottom: 8,
+        backgroundColor: '#f8f9fa',
+        borderRadius: 8,
+    },
+    radioButtonCircle: {
+        width: 24,
+        height: 24,
+        borderRadius: 12,
+        borderWidth: 2,
+        borderColor: '#007AFF',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 12,
+    },
+    radioButtonSelected: {
+        borderColor: '#007AFF',
+        backgroundColor: '#e3f2fd',
+    },
+    radioButtonInner: {
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+        backgroundColor: '#007AFF',
+    },
+    radioButtonLabel: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#1a1a1a',
     },
 });
