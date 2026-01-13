@@ -13,7 +13,11 @@ import {
     Pressable,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useDynamicSound } from '../services/UseDynamicSound';
+import { RootStackParamList } from '../navigation/MainNavigator';
+
+type PlayerSelectNavigationProp = NativeStackNavigationProp<RootStackParamList, 'PlayerSelect'>;
 
 type RadioButtonProps = {
     selected: boolean;
@@ -22,7 +26,7 @@ type RadioButtonProps = {
   };
 
 export const PlayerSelectScreen: React.FC = () =>  {
-    const navigation = useNavigation();    
+    const navigation = useNavigation<PlayerSelectNavigationProp>();    
     const {play} = useDynamicSound();
     const [playerList, setPlayerList] = useState<string[]>([]);
     const [modeSelect, setModeSelect] = useState<boolean>(true);
@@ -88,6 +92,14 @@ export const PlayerSelectScreen: React.FC = () =>  {
             prev.includes(player)
                 ? prev.filter(p => p !== player)   // remove
                 : [...prev, player]   
+        );      
+    };
+
+    const addTeamToList = (team: string) => {
+        setPlayerList(prev =>
+            prev.includes(team)
+                ? prev.filter(t => t !== team)   // remove
+                : [...prev, team]   
         );      
     };
 

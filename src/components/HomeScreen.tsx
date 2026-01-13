@@ -76,7 +76,7 @@ export const HomeScreen: React.FC = () => {
       style={styles.background}
     >
       <View style={styles.content}>
-      <View style={styles.scoreContainer}>
+      <View style={styles.scoreBox}>
         <Text style={styles.scoreTitle}>Choose Game Mode:</Text>
         <TouchableOpacity
           style={gameMode === 'noTeams' ? styles.button : styles.button}
