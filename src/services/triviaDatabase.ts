@@ -159,4 +159,37 @@ export class TriviaDatabase {
   getUsedQuestionIds(): Set<string> {
     return new Set(this.usedQuestionIds);
   }
+
+  /**
+   * Add a new trivia question to the database
+   */
+  async addQuestion(
+    difficulty: string,
+    question: string,
+    answer: string,
+    category: string
+  ): Promise<void> {
+    try {
+      // Validate inputs
+      if (!difficulty || !question || !answer || !category) {
+        throw new Error('All fields (difficulty, question, answer, category) are required');
+      }
+
+      const db = Database.getInstance();
+      const id = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
+      await db.runAsync(
+        'INSERT INTO trivia_questions (id, question, answer, category, difficulty) VALUES (?, ?, ?, ?, ?)',
+        [id, question, answer, category, difficulty]
+      );
+
+      // Add the new question ID to the list
+      this.allQuestionIds.push(id);
+
+      console.log(`Question added successfully with id: ${id}`);
+    } catch (error) {
+      console.error('Failed to add trivia question:', error);
+      throw error;
+    }
+  }
 }

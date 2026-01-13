@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react';  
+import { useState, useEffect } from 'react';  
 import { 
     View, 
     Text, 
     StyleSheet, 
-    TouchableOpacity, 
-    ImageBackground,
+    TouchableOpacity,
     ActivityIndicator,
     TextInput,
 } from 'react-native';
 import { TriviaDatabase } from '../services/triviaDatabase';
 import { useNavigation } from '@react-navigation/native';
-// import { TriviaQuestion } from '../types/index';
 
 export const AddTriviaQuestionScreen = () => {
     const navigation = useNavigation();
     const [triviaDb, setTriviaDb] = useState<TriviaDatabase | null>(null);
     const [loading, setLoading] = useState(true);
+    const [submitting, setSubmitting] = useState(false);
     const [difficulty, setDifficulty] = useState('');
     const [question, setQuestion] = useState('');
     const [answer, setAnswer] = useState('');
@@ -34,6 +33,26 @@ export const AddTriviaQuestionScreen = () => {
         } catch (error) {
             console.error('Failed to initialize trivia database:', error);
             setLoading(false);
+        }
+    };
+
+    const handleAddQuestion = async () => {
+        if (!triviaDb) return;
+
+        setSubmitting(true);
+        try {
+            await triviaDb.addQuestion(difficulty, question, answer, category);
+            // Clear form after successful submission
+            setDifficulty('');
+            setQuestion('');
+            setAnswer('');
+            setCategory('');
+            // Navigate back after successful addition
+            navigation.goBack();
+        } catch (error) {
+            console.error('Failed to add question:', error);
+        } finally {
+            setSubmitting(false);
         }
     };
 
@@ -81,8 +100,8 @@ export const AddTriviaQuestionScreen = () => {
                     value={category}
                     onChangeText={setCategory}
                 />
-                <TouchableOpacity style={styles.button} onPress={() => triviaDb?.addQuestion(difficulty, question, answer, category)}>
-                    <Text style={styles.buttonText}>Add Question</Text>
+                <TouchableOpacity style={styles.button} onPress={handleAddQuestion} disabled={submitting}>
+                    <Text style={styles.buttonText}>{submitting ? 'Adding...' : 'Add Question'}</Text>
                 </TouchableOpacity>
             </View>
         )}   
