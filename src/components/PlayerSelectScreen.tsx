@@ -202,13 +202,9 @@ export const PlayerSelectScreen: React.FC = () =>  {
 
     const teamSelect = () => {
         return(
-            <View>
+            <View style={styles.bg}>
                 <View style={styles.playerSelectedContainer}>        
-                <View style={styles.backBtn}>
-                    <TouchableOpacity style={styles.playerSelected} onPress={() => {navigation.navigate('Home')}}>
-                        <Text style={styles.playerText}> ⬅️ Back</Text>
-                    </TouchableOpacity>
-                </View>          
+                      
                 <Text style={styles.custTeamNameTitle}>Customize Team Names: </Text>
                 <TextInput 
                     value={teamCustOne}
@@ -241,7 +237,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 </TouchableOpacity>
             </View>
             <View>
-                <Text>Select which team to starting drafting to:</Text>
+                <Text style={styles.custTeamNameTitle}>Select which team to starting drafting to:</Text>
             </View>
             <View>
                 {teamNames.map((team, index) => (
@@ -253,30 +249,27 @@ export const PlayerSelectScreen: React.FC = () =>  {
                     />
                 ))}
             </View>
-            <View>
-                {/* Player buttons  */}
-                {playas.map(player => (
-                    <Pressable
-                        key={player}
-                        onPress={() => {
-                            addPlayerToTeam(player)
-                            playName(player)
-                        }}
-                    >
-                        <Text>{player}</Text>
-                    </Pressable>
-                ))}
-            </View>
+                <View style={styles.buttonGrid}>
+                    {/* Player buttons  */}
+                    {playas.map(player => (
+                        <Pressable
+                            key={player}
+                            onPress={() => {
+                                addPlayerToTeam(player)
+                                playName(player)
+                            }}
+                            style={styles.buttonGrid}
+                        >
+                            <Text style={styles.playerText}>{player}</Text>
+                        </Pressable>
+                    ))}
+                </View>
             </View>
         );
     }
 
     return(
-        <ImageBackground 
-            source={require('../assets/playSel.png')} 
-            resizeMode='cover' 
-            style={styles.background}
-        >
+        <View >
             <View style={styles.backBtn}>
                     <TouchableOpacity style={styles.playerSelected} onPress={() => {navigation.navigate('Home')}}>
                         <Text style={styles.playerText}> ⬅️ Back</Text>
@@ -291,11 +284,15 @@ export const PlayerSelectScreen: React.FC = () =>  {
             </TouchableOpacity>
         </View>
         {modeSelect ?  playerSelect() : teamSelect()}
-        </ImageBackground>
+        </View>
     )
 };
 
 const styles = StyleSheet.create({
+    bg: {
+        backgroundColor:'#83f59bff',
+        justifyContent:'center'
+    },
     modeSelectStyle:{
         flexDirection:'row',
     },
@@ -304,6 +301,7 @@ const styles = StyleSheet.create({
         borderColor: '#000',
         borderWidth: 1,
         margin: 12,
+        backgroundColor:'#fff',
       },
     container: {
         flex: 1,
@@ -361,8 +359,9 @@ const styles = StyleSheet.create({
         fontSize:20,
     },
     custTeamNameTitle:{
-        color:"#faeeeeff",
+        color:"#960189ff",
         fontSize:20,
+        fontWeight:'bold',
     },
     backBtn:{
         width:'30%',
