@@ -290,7 +290,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 <Text>Team Select</Text>
             </TouchableOpacity>
         </View>
-        {/* {modeSelect ?  playerSelect : teamSelect} */}
+        {modeSelect ?  playerSelect() : teamSelect()}
         </ImageBackground>
     )
 };
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
         alignItems:'center', 
         borderRadius: 15,    
         marginVertical: 8,
-        // justifyContent: "center",  
+        justifyContent: "center",  
     },
     playerBtn:{
         width: "30%",               // Three per row
