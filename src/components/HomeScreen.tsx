@@ -56,9 +56,9 @@ export const HomeScreen: React.FC = () => {
     setGameMode(mode);
   };
 
-  const handleStartGame =  async () => {
+  const handleStartGame =  async (modeOfGame: GameMode) => {
     try{
-      await handleStartGame(gameMode);  
+      await handleStartGame(modeOfGame);  
 
       const newLastScore = await ScoreManager.getLastScore();
       const newHighScore = await ScoreManager.getHighScore();
@@ -76,10 +76,10 @@ export const HomeScreen: React.FC = () => {
       style={styles.background}
     >
       <View style={styles.content}>
-      <View style={styles.modeContainer}>
-        <Text style={styles.modeTitle}>Choose Game Mode:</Text>
+      <View style={styles.scoreContainer}>
+        <Text style={styles.scoreTitle}>Choose Game Mode:</Text>
         <TouchableOpacity
-          style={gameMode === 'noTeams' ? styles.modeBtnSelected : styles.modeBtn}
+          style={gameMode === 'noTeams' ? styles.button : styles.button}
           onPress={() => handleGameModeChange('noTeams')}
         >
           <Text style={gameMode === 'noTeams' ? styles.modeTextSelected : styles.modeText}>No Teams</Text>
@@ -126,7 +126,7 @@ export const HomeScreen: React.FC = () => {
           <TouchableOpacity 
             style={styles.button} 
             onPress={() => {
-              handleStartGame(); 
+              handleStartGame(gameMode); 
               navigation.navigate('HeadsUp')
             }}
           >            
@@ -135,7 +135,7 @@ export const HomeScreen: React.FC = () => {
           <TouchableOpacity 
             style={styles.button} 
             onPress={() => {
-              handleStartGame();
+              handleStartGame(gameMode);
               navigation.navigate('Trivia');
             }}
           >
@@ -243,5 +243,27 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     borderRadius: 20,
+  },
+  modeBtn: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 8,
+    backgroundColor: "#03c54dff",
+  },
+  modeBtnSelected: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 8,
+    backgroundColor: "#9c03f5ff",
+  },
+  modeText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  modeTextSelected: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
