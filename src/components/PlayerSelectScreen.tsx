@@ -247,7 +247,7 @@ export const PlayerSelectScreen: React.FC = () => {
                     </View>
                 )}
                 style={styles.modeContainer}
-                contentContainerStyle={{ paddingBottom: 20 }}
+                contentContainerStyle={{ paddingBottom: 100 }}
             />
         );
     };
