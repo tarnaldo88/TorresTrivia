@@ -140,91 +140,101 @@ export const PlayerSelectScreen: React.FC = () => {
 
     const TeamSelectView = () => {
         return (
-            <ScrollView style={styles.modeContainer}>
-                <View style={styles.customizeTeamsContainer}>
-                    <Text style={styles.sectionTitle}>Customize Team Names</Text>
-                    <TextInput 
-                        value={teamCustOne}
-                        onChangeText={text => setTeamCustOne(text)}
-                        style={styles.teamNameInput}
-                        placeholder="Team 1 Name"
-                        placeholderTextColor="#999"
-                    />
-                    <TextInput 
-                        value={teamCustTwo}
-                        onChangeText={text => setTeamCustTwo(text)}
-                        style={styles.teamNameInput}
-                        placeholder="Team 2 Name"
-                        placeholderTextColor="#999"
-                    />
-                    <TextInput 
-                        value={teamCustThree}
-                        onChangeText={text => setTeamCustThree(text)}
-                        style={styles.teamNameInput}
-                        placeholder="Team 3 Name"
-                        placeholderTextColor="#999"
-                    />
-                </View>                
+            <FlatList
+                data={[{ id: 'content' }]}
+                keyExtractor={(item) => item.id}
+                renderItem={() => (
+                    <View>
+                        <View style={styles.customizeTeamsContainer}>
+                            <Text style={styles.sectionTitle}>Customize Team Names</Text>
+                            <TextInput 
+                                value={teamCustOne}
+                                onChangeText={text => setTeamCustOne(text)}
+                                style={styles.teamNameInput}
+                                placeholder="Team 1 Name"
+                                placeholderTextColor="#999"
+                            />
+                            <TextInput 
+                                value={teamCustTwo}
+                                onChangeText={text => setTeamCustTwo(text)}
+                                style={styles.teamNameInput}
+                                placeholder="Team 2 Name"
+                                placeholderTextColor="#999"
+                            />
+                            <TextInput 
+                                value={teamCustThree}
+                                onChangeText={text => setTeamCustThree(text)}
+                                style={styles.teamNameInput}
+                                placeholder="Team 3 Name"
+                                placeholderTextColor="#999"
+                            />
+                        </View>                
 
-                <View style={styles.teamButtonsContainer}>
-                    <Text style={styles.sectionTitle}>Select Teams to Play</Text>
-                    {teamNames.map(team => (
-                        <Pressable
-                            key={team}
-                            onPress={() => addTeamToList(team)}
-                            style={[
-                                styles.teamButton,
-                                playerList.includes(team) && styles.teamButtonSelected
-                            ]}
-                        >
-                            <Text style={styles.teamButtonText}>{team}</Text>
-                        </Pressable>
-                    ))}
-                </View>
+                        <View style={styles.teamButtonsContainer}>
+                            <Text style={styles.sectionTitle}>Select Teams to Play</Text>
+                            {teamNames.map(team => (
+                                <Pressable
+                                    key={team}
+                                    onPress={() => addTeamToList(team)}
+                                    style={[
+                                        styles.teamButton,
+                                        playerList.includes(team) && styles.teamButtonSelected
+                                    ]}
+                                >
+                                    <Text style={[styles.teamButtonText, playerList.includes(team) && { color: '#fff' }]}>
+                                        {team}
+                                    </Text>
+                                </Pressable>
+                            ))}
+                        </View>
 
-                <View style={styles.selectedListContainer}>
-                    <Text style={styles.sectionTitle}>Selected Teams</Text>
-                    {playerList.length === 0 ? (
-                        <Text style={styles.emptyText}>No teams selected</Text>
-                    ) : (
-                        playerList.map(team => (
-                            <View key={team} style={styles.selectedTeamTag}>
-                                <Text style={styles.selectedTeamText}>{team}</Text>
+                        <View style={styles.selectedListContainer}>
+                            <Text style={styles.sectionTitle}>Selected Teams</Text>
+                            {playerList.length === 0 ? (
+                                <Text style={styles.emptyText}>No teams selected</Text>
+                            ) : (
+                                playerList.map(team => (
+                                    <View key={team} style={styles.selectedTeamTag}>
+                                        <Text style={styles.selectedTeamText}>{team}</Text>
+                                    </View>
+                                ))
+                            )}
+                        </View>
+
+                        <View style={styles.draftingContainer}>
+                            <Text style={styles.sectionTitle}>Draft Players to Team</Text>
+                            <Text style={styles.draftingSubtitle}>Select which team to draft to:</Text>
+                            {teamNames.map((team, index) => (
+                                <RadioButton
+                                    key={team}
+                                    label={team}
+                                    selected={selectedTeam === index}
+                                    onPress={() => setSelectedTeam(index)}
+                                />
+                            ))}
+                        </View>
+
+                        <View style={styles.playersGridContainer}>
+                            <Text style={styles.sectionTitle}>Available Players</Text>
+                            <View style={styles.playerGrid}>
+                                {playas.map(player => (
+                                    <Pressable
+                                        key={player}
+                                        onPress={() => {
+                                            playName(player);
+                                        }}
+                                        style={styles.playerButton}
+                                    >
+                                        <Text style={styles.playerButtonText}>{player}</Text>
+                                    </Pressable>
+                                ))}
                             </View>
-                        ))
-                    )}
-                </View>
-
-                <View style={styles.draftingContainer}>
-                    <Text style={styles.sectionTitle}>Draft Players to Team</Text>
-                    <Text style={styles.draftingSubtitle}>Select which team to draft to:</Text>
-                    {teamNames.map((team, index) => (
-                        <RadioButton
-                            key={team}
-                            label={team}
-                            selected={selectedTeam === index}
-                            onPress={() => setSelectedTeam(index)}
-                        />
-                    ))}
-                </View>
-
-                <View style={styles.playersGridContainer}>
-                    <Text style={styles.sectionTitle}>Available Players</Text>
-                    <View style={styles.playerGrid}>
-                        {playas.map(player => (
-                            <Pressable
-                                key={player}
-                                onPress={() => {
-                                    playName(player);
-                                }}
-                                style={styles.playerButton}
-                            >
-                                <Text style={styles.playerButtonText}>{player}</Text>
-                            </Pressable>
-                        ))}
+                        </View>
                     </View>
-                </View>
-            </ScrollView>
+                )}
+                style={styles.modeContainer}
+                contentContainerStyle={{ paddingBottom: 20 }}
+            />
         );
     };
 
@@ -422,7 +432,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         marginBottom: 12,
         fontSize: 14,
-        backgroundColor: '#f8f9fa',
+        backgroundColor: '#15ffffff',
     },
     teamButtonsContainer: {
         backgroundColor: '#fff',
