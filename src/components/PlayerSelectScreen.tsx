@@ -164,6 +164,22 @@ export const PlayerSelectScreen: React.FC = () => {
                         placeholder="Team 3 Name"
                         placeholderTextColor="#999"
                     />
+                </View>                
+
+                <View style={styles.teamButtonsContainer}>
+                    <Text style={styles.sectionTitle}>Select Teams to Play</Text>
+                    {teamNames.map(team => (
+                        <Pressable
+                            key={team}
+                            onPress={() => addTeamToList(team)}
+                            style={[
+                                styles.teamButton,
+                                playerList.includes(team) && styles.teamButtonSelected
+                            ]}
+                        >
+                            <Text style={styles.teamButtonText}>{team}</Text>
+                        </Pressable>
+                    ))}
                 </View>
 
                 <View style={styles.selectedListContainer}>
@@ -177,22 +193,6 @@ export const PlayerSelectScreen: React.FC = () => {
                             </View>
                         ))
                     )}
-                </View>
-
-                <View style={styles.teamButtonsContainer}>
-                    <Text style={styles.sectionTitle}>Select Teams</Text>
-                    {teamNames.map(team => (
-                        <Pressable
-                            key={team}
-                            onPress={() => addTeamToList(team)}
-                            style={[
-                                styles.teamButton,
-                                playerList.includes(team) && styles.teamButtonSelected
-                            ]}
-                        >
-                            <Text style={styles.teamButtonText}>{team}</Text>
-                        </Pressable>
-                    ))}
                 </View>
 
                 <View style={styles.draftingContainer}>
