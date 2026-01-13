@@ -119,7 +119,7 @@ export class ScoreManager {
       return result ? (result as any).triviaScore : 0;
     } catch (error) {
       console.error('Failed to get trivia score:', error);
-      return 0;
+      return;
     }
   }
 
@@ -159,7 +159,7 @@ export class ScoreManager {
       return result ? (result as any).jeopardyTrivScore : 0;
     } catch (error) {
       console.error('Failed to get jeopardy trivia score:', error);
-      return 0;
+      return;
     }
   }
 

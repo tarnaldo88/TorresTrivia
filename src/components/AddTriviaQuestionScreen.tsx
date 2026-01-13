@@ -9,9 +9,11 @@ import {
     TextInput,
 } from 'react-native';
 import { TriviaDatabase } from '../services/triviaDatabase';
+import { useNavigation } from '@react-navigation/native';
 // import { TriviaQuestion } from '../types/index';
 
 export const AddTriviaQuestionScreen = () => {
+    const navigation = useNavigation();
     const [triviaDb, setTriviaDb] = useState<TriviaDatabase | null>(null);
     const [loading, setLoading] = useState(true);
     const [difficulty, setDifficulty] = useState('');
@@ -123,5 +125,8 @@ const styles = StyleSheet.create({
     form:{
         width: '80%',
         alignItems: 'center',
+    },
+    label:{
+        
     },
 });
