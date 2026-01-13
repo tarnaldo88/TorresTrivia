@@ -278,7 +278,7 @@ export const PlayerSelectScreen: React.FC = () =>  {
                 <Text>Team Select</Text>
             </TouchableOpacity>
         </View>
-        {modeSelect ?  playerSelect : teamSelect}
+        {/* {modeSelect ?  playerSelect : teamSelect} */}
         </ImageBackground>
     )
 };

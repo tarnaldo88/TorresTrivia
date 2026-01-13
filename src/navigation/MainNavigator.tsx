@@ -18,6 +18,9 @@ export type RootStackParamList = {
   Jeopardy: undefined;
   PlayerSelect: undefined;
   TeamSelect: undefined;
+  JeopTriv: undefined;
+  AddQuestion: undefined;
+  AlterQuestion: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

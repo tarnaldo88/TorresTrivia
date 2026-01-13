@@ -157,7 +157,6 @@ export const HomeScreen: React.FC = () => {
             <Text>Add a Trivia Question</Text>
           </TouchableOpacity>
         </View>
-      </View>
     </ImageBackground>
   );
 };
