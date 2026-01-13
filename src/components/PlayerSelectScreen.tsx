@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { 
     View, 
     Text, 
@@ -31,6 +31,11 @@ export const PlayerSelectScreen: React.FC = () => {
     const [teamCustTwo, setTeamCustTwo] = useState<string>("Custom Team 2");
     const [teamCustThree, setTeamCustThree] = useState<string>("Custom Team 3");
     const [selectedTeam, setSelectedTeam] = useState<number | null>(null);
+
+    // Use refs to avoid re-renders while typing
+    const teamOneRef = useRef(teamCustOne);
+    const teamTwoRef = useRef(teamCustTwo);
+    const teamThreeRef = useRef(teamCustThree);
 
     const teamNames = ["Shazam", teamCustOne, teamCustTwo, teamCustThree];
 
@@ -148,22 +153,31 @@ export const PlayerSelectScreen: React.FC = () => {
                         <View style={styles.customizeTeamsContainer}>
                             <Text style={styles.sectionTitle}>Customize Team Names</Text>
                             <TextInput 
-                                value={teamCustOne}
-                                onChangeText={text => setTeamCustOne(text)}
+                                defaultValue={teamCustOne}
+                                onChangeText={text => {
+                                    teamOneRef.current = text;
+                                }}
+                                onBlur={() => setTeamCustOne(teamOneRef.current)}
                                 style={styles.teamNameInput}
                                 placeholder="Team 1 Name"
                                 placeholderTextColor="#999"
                             />
                             <TextInput 
-                                value={teamCustTwo}
-                                onChangeText={text => setTeamCustTwo(text)}
+                                defaultValue={teamCustTwo}
+                                onChangeText={text => {
+                                    teamTwoRef.current = text;
+                                }}
+                                onBlur={() => setTeamCustTwo(teamTwoRef.current)}
                                 style={styles.teamNameInput}
                                 placeholder="Team 2 Name"
                                 placeholderTextColor="#999"
                             />
                             <TextInput 
-                                value={teamCustThree}
-                                onChangeText={text => setTeamCustThree(text)}
+                                defaultValue={teamCustThree}
+                                onChangeText={text => {
+                                    teamThreeRef.current = text;
+                                }}
+                                onBlur={() => setTeamCustThree(teamThreeRef.current)}
                                 style={styles.teamNameInput}
                                 placeholder="Team 3 Name"
                                 placeholderTextColor="#999"
@@ -432,7 +446,10 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         marginBottom: 12,
         fontSize: 14,
-        backgroundColor: '#15ffffff',
+        backgroundColor: '#e0f17cff',
+        color:"#3a3a3aff",
+        borderBottomColor:'rgba(3, 199, 29, 0.8)',
+        fontWeight:'bold',
     },
     teamButtonsContainer: {
         backgroundColor: '#fff',
