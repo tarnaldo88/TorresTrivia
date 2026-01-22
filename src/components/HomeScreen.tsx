@@ -11,6 +11,7 @@ import {
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ScoreManager } from '../services/scoreManager';
+import { useTeams } from '../context/TeamContext';
 import { RootStackParamList } from '../navigation/MainNavigator';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
@@ -21,6 +22,7 @@ type GameMode = 'noTeams' | 'teamMode';
  */
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
+  const { selectedTeams } = useTeams();
   const [lastScore, setLastScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [gameMode, setGameMode] = useState<GameMode>('noTeams');
@@ -97,6 +99,18 @@ export const HomeScreen: React.FC = () => {
         <Text style={styles.scoreTitle}>High Score:</Text>
         <Text style={styles.scoreValue}>{highScore}</Text>
       </View>
+      {selectedTeams.length > 0 && (
+        <View style={styles.selectedTeamsContainer}>
+          <Text style={styles.selectedTeamsTitle}>Selected Teams:</Text>
+          <View style={styles.selectedTeamsList}>
+            {selectedTeams.map((team, index) => (
+              <View key={index} style={styles.selectedTeamBadge}>
+                <Text style={styles.selectedTeamBadgeText}>{team}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      )}
         <View style={styles.buttonGroup}>
           {/* <View style={styles.scoreContainer}>
           <View style={styles.scoreBox}>
@@ -265,5 +279,36 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  selectedTeamsContainer: {
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    borderRadius: 12,
+    padding: 16,
+    marginTop: 16,
+    marginHorizontal: 20,
+    alignItems: "center",
+  },
+  selectedTeamsTitle: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 12,
+  },
+  selectedTeamsList: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    justifyContent: "center",
+  },
+  selectedTeamBadge: {
+    backgroundColor: "#9c03f5ff",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+  },
+  selectedTeamBadgeText: {
+    color: "#fff",
+    fontSize: 12,
+    fontWeight: "600",
   },
 });

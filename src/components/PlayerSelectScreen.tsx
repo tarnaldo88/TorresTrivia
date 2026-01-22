@@ -11,6 +11,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useDynamicSound } from '../services/UseDynamicSound';
+import { useTeams } from '../context/TeamContext';
 import { RootStackParamList } from '../navigation/MainNavigator';
 
 type PlayerSelectNavigationProp = NativeStackNavigationProp<RootStackParamList, 'PlayerSelect'>;
@@ -24,6 +25,7 @@ type RadioButtonProps = {
 export const PlayerSelectScreen: React.FC = () => {
     const navigation = useNavigation<PlayerSelectNavigationProp>();    
     const { play } = useDynamicSound();
+    const { setSelectedTeams } = useTeams();
     const [playerList, setPlayerList] = useState<string[]>([]);
     const [modeSelect, setModeSelect] = useState<boolean>(true);
     const [teamCustOne, setTeamCustOne] = useState<string>("Custom Team 1");
@@ -256,7 +258,13 @@ export const PlayerSelectScreen: React.FC = () => {
             <View style={styles.header}>
                 <TouchableOpacity 
                     style={styles.backButton}
-                    onPress={() => navigation.navigate('Home')}
+                    onPress={() => {
+                        // Save selected teams if in team mode
+                        if (!modeSelect) {
+                            setSelectedTeams(playerList);
+                        }
+                        navigation.navigate('Home');
+                    }}
                 >
                     <Text style={styles.backButtonText}>← Back</Text>
                 </TouchableOpacity>

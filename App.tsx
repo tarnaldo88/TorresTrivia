@@ -5,6 +5,7 @@ import { Database } from './src/services/database';
 import { seedDatabase } from './src/services/databaseSeeder';
 import { ScoreManager } from './src/services/scoreManager';
 import { MainNavigator } from './src/navigation/MainNavigator';
+import { TeamProvider } from './src/context/TeamContext';
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
@@ -36,7 +37,9 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <MainNavigator />
+      <TeamProvider>
+        <MainNavigator />
+      </TeamProvider>
     </NavigationContainer>
   );
 }
