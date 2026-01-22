@@ -120,8 +120,8 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
     return(
         <View style={styles.container}>
             <View style={styles.scoreSection}>
-                <Text style={styles.scoreText}>Score: {totalScore}</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                <Text style={styles.scoreText}>Score: {totalScore}   </Text>
+                <TouchableOpacity style={styles.wrongBtn} onPress={() => navigation.navigate('Home')}>
                     <Text style={styles.endRoundText}>End Round</Text>
                 </TouchableOpacity>
             </View>
@@ -172,12 +172,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 20,  
+        marginBottom: 20,
     },
     scoreText: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#ffffffff',  
+        color: '#19d658ff',  
     },
     questionCounter: {
         fontSize: 18,
@@ -272,6 +272,6 @@ const styles = StyleSheet.create({
     },
     endRoundText: {
         fontSize: 16,
-        color: '#007AFF',
+        color: '#d6e5f7ff',
     },
 });
