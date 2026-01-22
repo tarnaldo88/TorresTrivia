@@ -4,13 +4,16 @@ import {
     Text, 
     StyleSheet, 
     TouchableOpacity, 
-    ImageBackground,
     ActivityIndicator,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TriviaDatabase } from '../services/triviaDatabase';
 import { TriviaQuestion } from '../types/index';
-import { useNavigation } from '@react-navigation/native';
 import { ScoreManager } from '../services/scoreManager';
+import { RootStackParamList } from '../navigation/MainNavigator';
+
+type JeopTriviaNavigationProp = NativeStackNavigationProp<RootStackParamList, 'JeopTriv'>;
 
 interface JeopTriviaScreenProps {
     roundDuration?: number;
@@ -18,7 +21,7 @@ interface JeopTriviaScreenProps {
 }
 
 export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<JeopTriviaNavigationProp>();
     const [showAnswer, setShowAnswer] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState<TriviaQuestion | null>(null);
     const [loading, setLoading] = useState(true);
@@ -118,16 +121,15 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
         <View style={styles.container}>
             <View style={styles.scoreSection}>
                 <Text style={styles.scoreText}>Score: {totalScore}</Text>
-                <TouchableOpacity onPress={() => {navigation.navigate('Home')}}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                     <Text style={styles.endRoundText}>End Round</Text>
                 </TouchableOpacity>
             </View>
-            <Text>in progress</Text>
             <View style={styles.questionSection}>
                 <Text style={styles.questionCounter}>Question {questionsAnswered + 1}</Text>
                 <Text style={styles.categoryText}>{currentQuestion.category}</Text>
                 <Text style={styles.difficultyText}>{questDifficulty()}</Text>
-                <Text style={styles.questionText}>{currentQuestion.answer}</Text>
+                <Text style={styles.questionText}>{currentQuestion.question}</Text>
             </View>
             <TouchableOpacity 
                 style={styles.button}
@@ -138,9 +140,9 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
                 </Text>
             </TouchableOpacity>
             {showAnswer && (
-                <View style={styles.answerSection}>
+                <View style={styles.answerContainer}>
                     <Text style={styles.answerLabel}>Answer: </Text>
-                    <Text style={styles.answerText}>{currentQuestion.question}</Text>
+                    <Text style={styles.answerText}>{currentQuestion.answer}</Text>
                 </View>
             )}
             <View style={styles.rowContainer}>
@@ -151,10 +153,10 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
                     <Text>WRONG!</Text>
                 </TouchableOpacity>
             </View>
-            <View style={styles.container}>
-                    <TouchableOpacity style={styles.button} onPress={() => ScoreManager.saveJeopScore}>
-                        <Text style={styles.buttonText}>Save High Score</Text>
-                    </TouchableOpacity>
+            <View style={styles.buttonSection}>
+                <TouchableOpacity style={styles.button} onPress={() => ScoreManager.saveJeopScore(totalScore)}>
+                    <Text style={styles.buttonText}>Save High Score</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -197,10 +199,9 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
     },
     questionSection: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: 30,
+        marginVertical: 20,
         paddingHorizontal: 10,
     },
     questionText: {
