@@ -129,7 +129,7 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
                 <Text style={styles.questionCounter}>Question {questionsAnswered + 1}</Text>
                 <Text style={styles.categoryText}>{currentQuestion.category}</Text>
                 <Text style={styles.difficultyText}>{questDifficulty()}</Text>
-                <Text style={styles.questionText}>{currentQuestion.question}</Text>
+                <Text style={styles.questionText}>{currentQuestion.answer}</Text>
             </View>
             <TouchableOpacity 
                 style={styles.button}
@@ -142,7 +142,7 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
             {showAnswer && (
                 <View style={styles.answerContainer}>
                     <Text style={styles.answerLabel}>Answer: </Text>
-                    <Text style={styles.answerText}>{currentQuestion.answer}</Text>
+                    <Text style={styles.buttonText}>{currentQuestion.question}</Text>
                 </View>
             )}
             <View style={styles.rowContainer}>
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     questionCounter: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#fdfdfdff',
+        color: '#161111ff',
         marginBottom: 8,
     },
     categoryText: {
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     answerContainer: {
-        backgroundColor: '#a1a3e4ff',
+        backgroundColor: '#6d70c5ff',
         padding: 15,
         borderRadius: 8,
         marginVertical: 10,
