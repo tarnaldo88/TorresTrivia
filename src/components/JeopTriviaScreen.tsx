@@ -90,7 +90,7 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
         }
     };
 
-    const questDifficulty= () => {
+    const questDifficulty = () => {
         if(currentQuestion.difficulty === 'Easy') {
             return '200';
         } else if(currentQuestion.difficulty === 'Medium') {
@@ -147,10 +147,10 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
             )}
             <View style={styles.rowContainer}>
                 <TouchableOpacity style={styles.correctBtn} onPress={() => addScore()}>
-                    <Text>CORRECT!</Text>
+                    <Text style={styles.buttonText}>CORRECT!</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.wrongBtn} onPress={() => subtractScore()}>
-                    <Text>WRONG!</Text>
+                    <Text style={styles.buttonText}>WRONG!</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.buttonSection}>
@@ -163,18 +163,10 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
 }
 
 const styles = StyleSheet.create({
-    background: {
-        flex: 1,
-        resizeMode: 'cover',
-    },
     container: {
         flex: 1,
         padding: 20,
         justifyContent: 'space-between',
-    },
-    headerSection: {
-        marginTop: 20,
-        alignItems: 'center',
     },
     scoreSection: {
         flexDirection: 'row',
@@ -197,6 +189,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#f7f0f0ff',
         fontStyle: 'italic',
+        marginBottom: 8,
     },
     questionSection: {
         justifyContent: 'center',
@@ -207,14 +200,16 @@ const styles = StyleSheet.create({
     questionText: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#ffffffff',
+        color: '#363535ff',
         textAlign: 'center',
         lineHeight: 32,
+        marginTop: 12,
     },
     difficultyText: {
-        color: '#f7f0f0ff',
+        color: '#363535ff',
         fontWeight: 'bold',
         fontSize: 20,
+        marginBottom: 8,
     },
     buttonSection: {
         marginBottom: 30,
@@ -233,7 +228,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     answerContainer: {
-        backgroundColor: '#f0f0f0',
+        backgroundColor: '#a1a3e4ff',
         padding: 15,
         borderRadius: 8,
         marginVertical: 10,
@@ -257,8 +252,10 @@ const styles = StyleSheet.create({
     rowContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        gap: 10,
     },
     correctBtn: {
+        flex: 1,
         backgroundColor: 'green',
         padding: 10,
         borderRadius: 5,
@@ -266,6 +263,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     wrongBtn: {
+        flex: 1,
         backgroundColor: 'red',
         padding: 10,
         borderRadius: 5,
