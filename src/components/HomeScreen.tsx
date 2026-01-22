@@ -78,7 +78,7 @@ export const HomeScreen: React.FC = () => {
       style={styles.background}
     >
       <View style={styles.content}>
-      <View style={styles.scoreBox}>
+      {/* <View style={styles.scoreBox}>
         <Text style={styles.scoreTitle}>Choose Game Mode:</Text>
         <TouchableOpacity
           style={gameMode === 'noTeams' ? styles.button : styles.button}
@@ -92,12 +92,17 @@ export const HomeScreen: React.FC = () => {
         >
           <Text style={gameMode === 'teamMode' ? styles.modeTextSelected : styles.modeText}>Team Mode</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       <View style={styles.scoreContainer}>
         <Text style={styles.scoreTitle}>Last Score:</Text>
         <Text style={styles.scoreValue}>{lastScore}</Text>
         <Text style={styles.scoreTitle}>High Score:</Text>
         <Text style={styles.scoreValue}>{highScore}</Text>
+      </View>
+      <View style={styles.scoreBox}>
+        <TouchableOpacity style ={styles.button} onPress={() => resetScore()}>
+            <Text style= {styles.resetScore}>Reset High Score</Text>
+          </TouchableOpacity>
       </View>
       {selectedTeams.length > 0 && (
         <View style={styles.selectedTeamsContainer}>
@@ -121,10 +126,7 @@ export const HomeScreen: React.FC = () => {
             <Text style={styles.scoreLabel}>High Score</Text>
             <Text style={styles.scoreValue}>{highScore}</Text>
           </View> */}
-        </View>
-          <TouchableOpacity style ={styles.button} onPress={() => resetScore()}>
-            <Text style= {styles.resetScore}>Reset High Score</Text>
-          </TouchableOpacity>
+        </View>          
           <TouchableOpacity 
             style={styles.button} 
             onPress={() => navigation.navigate('PlayerSelect')}
@@ -191,6 +193,7 @@ const styles = StyleSheet.create({
   scoreContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
     width: "100%",
     paddingTop: 40,
     paddingHorizontal: 20,
