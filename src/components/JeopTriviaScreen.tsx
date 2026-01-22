@@ -152,8 +152,8 @@ export const JeopTriviaScreen: React.FC<JeopTriviaScreenProps> = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.container}>
-                    <TouchableOpacity style={styles.playerBtn} onPress={ScoreManager.saveJeopScore}>
-                        <Text>Save High Score</Text>
+                    <TouchableOpacity style={styles.button} onPress={() => ScoreManager.saveJeopScore}>
+                        <Text style={styles.buttonText}>Save High Score</Text>
                     </TouchableOpacity>
             </View>
         </View>
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
         gap: 12,
     },
     button: {
-        backgroundColor: '#007AFF',
+        backgroundColor: '#ea00ffff',
         paddingVertical: 12,
         paddingHorizontal: 20,
         borderRadius: 8,
