@@ -151,7 +151,7 @@ export const HomeScreen: React.FC = () => {
             style={styles.button}
             onPress={() => navigation.navigate('JeopTriv')}
           >
-            <Image source={require('../assets/trivia.png')} style={styles.buttonImage} resizeMode="cover"/>
+            <Image source={require('../assets/jeoptriv.png')} style={styles.buttonImage} resizeMode="cover"/>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('AddQuestion')} style={styles.button}>
             <Text>Add a Trivia Question</Text>
@@ -237,7 +237,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "rgba(173, 214, 198, 0.94)"
+    backgroundColor: "rgba(173, 214, 198, 0.94)",
+    margin:10,
   },
 
   buttonImage: {
