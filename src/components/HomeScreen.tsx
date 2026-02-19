@@ -231,19 +231,22 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    width: 250,
-    height: 120,
+    width: "50%",
+    height: "9%",
     borderRadius: 20,
     overflow: "hidden",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#0002"
+    backgroundColor: "rgba(173, 214, 198, 0.94)"
   },
 
   buttonImage: {
     width: "100%",
     height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 20,
+    backgroundColor:"##03c54dff",
   },
   modeBtn: {
     paddingHorizontal: 20,
