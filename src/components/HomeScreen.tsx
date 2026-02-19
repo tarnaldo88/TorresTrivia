@@ -78,40 +78,27 @@ export const HomeScreen: React.FC = () => {
       style={styles.background}
     >
       <View style={styles.content}>
-      {/* <View style={styles.scoreBox}>
-        <Text style={styles.scoreTitle}>Choose Game Mode:</Text>
-        <TouchableOpacity
-          style={gameMode === 'noTeams' ? styles.button : styles.button}
-          onPress={() => handleGameModeChange('noTeams')}
-        >
-          <Text style={gameMode === 'noTeams' ? styles.modeTextSelected : styles.modeText}>No Teams</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={gameMode === 'teamMode' ? styles.modeBtnSelected : styles.modeBtn}
-          onPress={() => handleGameModeChange('teamMode')}
-        >
-          <Text style={gameMode === 'teamMode' ? styles.modeTextSelected : styles.modeText}>Team Mode</Text>
-        </TouchableOpacity>
-      </View> */}
-      <View style={styles.scoreContainer}>
-        <Text style={styles.scoreTitle}>Last Score:</Text>
-        <Text style={styles.scoreValue}>{lastScore}</Text>
-        <Text style={styles.scoreTitle}>High Score:</Text>
-        <Text style={styles.scoreValue}>{highScore}</Text>
-      </View>
-      
-      {selectedTeams.length > 0 && (
-        <View style={styles.selectedTeamsContainer}>
-          <Text style={styles.selectedTeamsTitle}>Selected Teams:</Text>
-          <View style={styles.selectedTeamsList}>
-            {selectedTeams.map((team, index) => (
-              <View key={index} style={styles.selectedTeamBadge}>
-                <Text style={styles.selectedTeamBadgeText}>{team}</Text>
-              </View>
-            ))}
-          </View>
+        <View style={styles.scoreContainer}>
+          <Text style={styles.scoreTitle}>Last Score:</Text>
+          <Text style={styles.scoreValue}>{lastScore}</Text>
+          <Text style={styles.scoreTitle}>High Score:</Text>
+          <Text style={styles.scoreValue}>{highScore}</Text>
         </View>
-      )}
+        <View style={styles.btnContainer}>
+
+        </View>
+        {selectedTeams.length > 0 && (
+          <View style={styles.selectedTeamsContainer}>
+            <Text style={styles.selectedTeamsTitle}>Selected Teams:</Text>
+            <View style={styles.selectedTeamsList}>
+              {selectedTeams.map((team, index) => (
+                <View key={index} style={styles.selectedTeamBadge}>
+                  <Text style={styles.selectedTeamBadgeText}>{team}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        )}
          
           <TouchableOpacity style ={styles.button} onPress={() => resetScore()}>
               <Text style= {styles.resetScore}>Reset High Score</Text>
@@ -174,6 +161,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
+  btnContainer: {
+    marginTop: 60,
+  },
+
   scoreContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -206,7 +197,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   resetScore: {
-    color: "#df313fff",
+    color: "rgb(250, 75, 171)",
     fontSize: 32,
     fontWeight: "bold",
   },
@@ -237,7 +228,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "rgba(173, 214, 198, 0.94)",
+    backgroundColor: "rgba(230, 230, 230, 0.94)",
     margin:10,
   },
 
