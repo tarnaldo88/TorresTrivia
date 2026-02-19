@@ -99,11 +99,7 @@ export const HomeScreen: React.FC = () => {
         <Text style={styles.scoreTitle}>High Score:</Text>
         <Text style={styles.scoreValue}>{highScore}</Text>
       </View>
-      <View style={styles.scoreBox}>
-        <TouchableOpacity style ={styles.button} onPress={() => resetScore()}>
-            <Text style= {styles.resetScore}>Reset High Score</Text>
-          </TouchableOpacity>
-      </View>
+      
       {selectedTeams.length > 0 && (
         <View style={styles.selectedTeamsContainer}>
           <Text style={styles.selectedTeamsTitle}>Selected Teams:</Text>
@@ -116,29 +112,17 @@ export const HomeScreen: React.FC = () => {
           </View>
         </View>
       )}
-        <View style={styles.buttonGroup}>
-          {/* <View style={styles.scoreContainer}>
-          <View style={styles.scoreBox}>
-            <Text style={styles.scoreLabel}>Last Score</Text>
-            <Text style={styles.scoreValue}>{lastScore}</Text>
-          </View> */}
-          {/* <View style={styles.scoreBox}>
-            <Text style={styles.scoreLabel}>High Score</Text>
-            <Text style={styles.scoreValue}>{highScore}</Text>
-          </View> */}
-        </View>          
+         
+          <TouchableOpacity style ={styles.button} onPress={() => resetScore()}>
+              <Text style= {styles.resetScore}>Reset High Score</Text>
+            </TouchableOpacity>
+               
           <TouchableOpacity 
             style={styles.button} 
             onPress={() => navigation.navigate('PlayerSelect')}
           >            
             <Image source={require('../assets/playSelBtn.png')} style={styles.buttonImage} resizeMode="cover"/>
           </TouchableOpacity>
-          {/* <TouchableOpacity 
-            style={styles.button} 
-            onPress={() => navigation.navigate('TeamSelect')}
-          >            
-            <Text style={styles.teamSelectText}>Team Select</Text>
-          </TouchableOpacity> */}
           <TouchableOpacity 
             style={styles.button} 
             onPress={() => {
@@ -169,7 +153,7 @@ export const HomeScreen: React.FC = () => {
           >
             <Image source={require('../assets/trivia.png')} style={styles.buttonImage} resizeMode="cover"/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('AddQuestion')}>
+          <TouchableOpacity onPress={() => navigation.navigate('AddQuestion')} style={styles.button}>
             <Text>Add a Trivia Question</Text>
           </TouchableOpacity>
         </View>
