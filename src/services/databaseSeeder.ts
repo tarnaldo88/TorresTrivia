@@ -173,6 +173,43 @@ const DEFAULT_TRIVIA_QUESTIONS = [
   { id: 'trivia_148', question: 'How many points is a goal worth in soccer?', answer: '1', category: 'Sports', difficulty: 'Easy' },
   { id: 'trivia_149', question: 'What is the diameter of a golf ball?', answer: '1.68 inches', category: 'Sports', difficulty: 'Hard' },
   { id: 'trivia_150', question: 'How many points is a birdie worth in golf?', answer: '1 under par', category: 'Sports', difficulty: 'Medium' },
+
+  // Mixed bonus set (30 additional questions)
+  { id: 'trivia_151', question: 'What particle has a negative electric charge?', answer: 'Electron', category: 'Science', difficulty: 'Easy' },
+  { id: 'trivia_152', question: 'What is the nearest star to Earth besides the Sun?', answer: 'Proxima Centauri', category: 'Science', difficulty: 'Medium' },
+  { id: 'trivia_153', question: 'What is the hardest tissue in the human body?', answer: 'Tooth enamel', category: 'Science', difficulty: 'Medium' },
+  { id: 'trivia_154', question: 'Which blood type is known as the universal donor?', answer: 'O negative', category: 'Science', difficulty: 'Hard' },
+  { id: 'trivia_155', question: 'What is the process where a liquid turns into a gas?', answer: 'Evaporation', category: 'Science', difficulty: 'Easy' },
+
+  { id: 'trivia_156', question: 'In what year was the United Nations founded?', answer: '1945', category: 'History', difficulty: 'Medium' },
+  { id: 'trivia_157', question: 'Who was known as the Maid of Orleans?', answer: 'Joan of Arc', category: 'History', difficulty: 'Medium' },
+  { id: 'trivia_158', question: 'What year did the U.S. Civil War begin?', answer: '1861', category: 'History', difficulty: 'Easy' },
+  { id: 'trivia_159', question: 'Who was the first woman to fly solo across the Atlantic?', answer: 'Amelia Earhart', category: 'History', difficulty: 'Easy' },
+  { id: 'trivia_160', question: 'Which empire built Machu Picchu?', answer: 'The Inca Empire', category: 'History', difficulty: 'Hard' },
+
+  { id: 'trivia_161', question: 'What is the capital of South Africa (administrative)?', answer: 'Pretoria', category: 'Geography', difficulty: 'Medium' },
+  { id: 'trivia_162', question: 'Which continent has the most countries?', answer: 'Africa', category: 'Geography', difficulty: 'Medium' },
+  { id: 'trivia_163', question: 'What is the largest island in the world?', answer: 'Greenland', category: 'Geography', difficulty: 'Easy' },
+  { id: 'trivia_164', question: 'Which U.S. state has the most active volcanoes?', answer: 'Alaska', category: 'Geography', difficulty: 'Hard' },
+  { id: 'trivia_165', question: 'What is the longest mountain range on land?', answer: 'The Andes', category: 'Geography', difficulty: 'Medium' },
+
+  { id: 'trivia_166', question: 'Who wrote The Grapes of Wrath?', answer: 'John Steinbeck', category: 'Literature', difficulty: 'Medium' },
+  { id: 'trivia_167', question: 'Who is the author of The Alchemist?', answer: 'Paulo Coelho', category: 'Literature', difficulty: 'Easy' },
+  { id: 'trivia_168', question: 'Who wrote Don Quixote?', answer: 'Miguel de Cervantes', category: 'Literature', difficulty: 'Hard' },
+  { id: 'trivia_169', question: 'What is the first book of the Old Testament?', answer: 'Genesis', category: 'Literature', difficulty: 'Easy' },
+  { id: 'trivia_170', question: 'Who wrote Fahrenheit 451?', answer: 'Ray Bradbury', category: 'Literature', difficulty: 'Medium' },
+
+  { id: 'trivia_171', question: 'How many players are on a volleyball team on the court?', answer: '6', category: 'Sports', difficulty: 'Easy' },
+  { id: 'trivia_172', question: 'In baseball, how many strikes make an out?', answer: '3', category: 'Sports', difficulty: 'Easy' },
+  { id: 'trivia_173', question: 'How long is an Olympic marathon (approx.)?', answer: '26.2 miles', category: 'Sports', difficulty: 'Medium' },
+  { id: 'trivia_174', question: 'How many points is a safety worth in American football?', answer: '2', category: 'Sports', difficulty: 'Medium' },
+  { id: 'trivia_175', question: 'What does NBA stand for?', answer: 'National Basketball Association', category: 'Sports', difficulty: 'Easy' },
+
+  { id: 'trivia_176', question: 'What is 9 x 9?', answer: '81', category: 'Math', difficulty: 'Easy' },
+  { id: 'trivia_177', question: 'What is the square root of 144?', answer: '12', category: 'Math', difficulty: 'Easy' },
+  { id: 'trivia_178', question: 'What is the value of pi rounded to two decimals?', answer: '3.14', category: 'Math', difficulty: 'Medium' },
+  { id: 'trivia_179', question: 'What is 15 percent of 200?', answer: '30', category: 'Math', difficulty: 'Medium' },
+  { id: 'trivia_180', question: 'What is 2 to the 5th power?', answer: '32', category: 'Math', difficulty: 'Hard' },
 ];
 
 /**
@@ -380,7 +417,6 @@ export async function seedDatabase(): Promise<void> {
 
     if (itemCount > 0 && triviaCount > 0) {
       console.log(`Database already seeded with ${itemCount} items and ${triviaCount} trivia questions`);
-      return;
     }
 
     // Insert default items if not already present
@@ -394,15 +430,18 @@ export async function seedDatabase(): Promise<void> {
       console.log(`Successfully seeded database with ${DEFAULT_ITEMS.length} items`);
     }
 
-    // Insert default trivia questions if not already present
+    // Insert default trivia questions that are not already present
+    for (const question of DEFAULT_TRIVIA_QUESTIONS) {
+      await db.runAsync(
+        'INSERT OR IGNORE INTO trivia_questions (id, question, answer, category, difficulty) VALUES (?, ?, ?, ?, ?)',
+        [question.id, question.question, question.answer, question.category, question.difficulty]
+      );
+    }
+
     if (triviaCount === 0) {
-      for (const question of DEFAULT_TRIVIA_QUESTIONS) {
-        await db.runAsync(
-          'INSERT INTO trivia_questions (id, question, answer, category, difficulty) VALUES (?, ?, ?, ?, ?)',
-          [question.id, question.question, question.answer, question.category, question.difficulty]
-        );
-      }
       console.log(`Successfully seeded database with ${DEFAULT_TRIVIA_QUESTIONS.length} trivia questions`);
+    } else {
+      console.log(`Ensured default trivia set is present (${DEFAULT_TRIVIA_QUESTIONS.length} total defaults)`);
     }
   } catch (error) {
     console.error('Database seeding failed:', error);
