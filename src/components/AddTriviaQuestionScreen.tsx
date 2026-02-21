@@ -13,13 +13,16 @@ import {
 } from 'react-native';
 import { TriviaDatabase } from '../services/triviaDatabase';
 import { useNavigation } from '@react-navigation/native';
+import { Picker } from '@react-native-picker/picker';
+
+type difficultyOption = "" | "Easy" | "Medium" | "Hard";
 
 export const AddTriviaQuestionScreen = () => {
     const navigation = useNavigation();
     const [triviaDb, setTriviaDb] = useState<TriviaDatabase | null>(null);
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
-    const [difficulty, setDifficulty] = useState('');
+    const [difficulty, setDifficulty] = useState<difficultyOption>("");
     const [question, setQuestion] = useState('');
     const [answer, setAnswer] = useState('');
     const [category, setCategory] = useState('');
@@ -89,14 +92,14 @@ export const AddTriviaQuestionScreen = () => {
                         ) : (
                             <View style={styles.form}>
                                 <Text style={styles.label}>Difficulty</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Easy, Medium, Hard"
-                                    placeholderTextColor="#9ca3af"
-                                    value={difficulty}
-                                    onChangeText={setDifficulty}
-                                />
-
+                                <Picker
+                                    selectedValue={difficulty}
+                                    onValueChange={setDifficulty}
+                                >
+                                    <Picker.Item label='Easy' value={"Easy"}/>
+                                    <Picker.Item label='Medium' value={"Medium"}/>
+                                    <Picker.Item label='Hard' value={"Hard"}/>
+                                </Picker>
                                 <Text style={styles.label}>Question</Text>
                                 <TextInput
                                     style={[styles.input, styles.largeInput]}
