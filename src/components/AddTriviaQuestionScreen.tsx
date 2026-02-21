@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 import { TriviaDatabase } from '../services/triviaDatabase';
 import { useNavigation } from '@react-navigation/native';
-import { Picker } from '@react-native-picker/picker';
 
 type difficultyOption = "" | "Easy" | "Medium" | "Hard";
 
@@ -92,14 +91,28 @@ export const AddTriviaQuestionScreen = () => {
                         ) : (
                             <View style={styles.form}>
                                 <Text style={styles.label}>Difficulty</Text>
-                                <Picker
-                                    selectedValue={difficulty}
-                                    onValueChange={(itemValue) => setDifficulty(itemValue)}
-                                >
-                                    <Picker.Item label='Easy' value={"Easy"}/>
-                                    <Picker.Item label='Medium' value={"Medium"}/>
-                                    <Picker.Item label='Hard' value={"Hard"}/>
-                                </Picker>
+                                <View style={styles.difficultyRow}>
+                                    {(['Easy', 'Medium', 'Hard'] as difficultyOption[]).map((level) => (
+                                        <TouchableOpacity
+                                            key={level}
+                                            style={[
+                                                styles.difficultyChip,
+                                                difficulty === level && styles.difficultyChipSelected,
+                                            ]}
+                                            onPress={() => setDifficulty(level)}
+                                            activeOpacity={0.85}
+                                        >
+                                            <Text
+                                                style={[
+                                                    styles.difficultyChipText,
+                                                    difficulty === level && styles.difficultyChipTextSelected,
+                                                ]}
+                                            >
+                                                {level}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    ))}
+                                </View>
                                 <Text style={styles.label}>Question</Text>
                                 <TextInput
                                     style={[styles.input, styles.largeInput]}
@@ -221,6 +234,32 @@ const styles = StyleSheet.create({
         color: '#334155',
         marginBottom: 8,
         letterSpacing: 0.3,
+    },
+    difficultyRow: {
+        flexDirection: 'row',
+        gap: 10,
+        marginBottom: 14,
+    },
+    difficultyChip: {
+        flex: 1,
+        paddingVertical: 10,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#cbd5e1',
+        backgroundColor: '#f8fafc',
+        alignItems: 'center',
+    },
+    difficultyChipSelected: {
+        borderColor: '#2563eb',
+        backgroundColor: '#dbeafe',
+    },
+    difficultyChipText: {
+        color: '#1e293b',
+        fontSize: 14,
+        fontWeight: '700',
+    },
+    difficultyChipTextSelected: {
+        color: '#1d4ed8',
     },
     input: {
         width: '100%',
