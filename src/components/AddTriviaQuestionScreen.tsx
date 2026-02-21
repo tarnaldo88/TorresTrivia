@@ -94,7 +94,7 @@ export const AddTriviaQuestionScreen = () => {
                                 <Text style={styles.label}>Difficulty</Text>
                                 <Picker
                                     selectedValue={difficulty}
-                                    onValueChange={setDifficulty}
+                                    onValueChange={(itemValue) => setDifficulty(itemValue)}
                                 >
                                     <Picker.Item label='Easy' value={"Easy"}/>
                                     <Picker.Item label='Medium' value={"Medium"}/>
