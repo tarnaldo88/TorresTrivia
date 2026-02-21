@@ -4,7 +4,6 @@
     "slug": "TorresTrivia",
     "version": "1.0.0",
     "orientation": "default",
-    "icon": "./src/assets/torresTrivia.png",
     "scheme": "torrestrivia",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -12,33 +11,15 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./src/assets/torresTrivia.png",
-        "backgroundImage": "./src/assets/torresTrivia.png",
-        "monochromeImage": "./src/assets/torresTrivia.png"
-      },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "output": "static",
-      "favicon": "./src/assets/torresTrivia.png"
+      "output": "static"
     },
     "plugins": [
       "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./src/assets/torresTrivia.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
-          "dark": {
-            "backgroundColor": "#000000"
-          }
-        }
-      ]
+      "expo-splash-screen"
     ],
     "experiments": {
       "typedRoutes": true,
