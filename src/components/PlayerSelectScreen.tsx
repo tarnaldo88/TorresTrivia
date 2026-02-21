@@ -7,6 +7,9 @@ import {
     FlatList,
     TextInput,
     Pressable,
+    SafeAreaView,
+    KeyboardAvoidingView,
+    Platform,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -254,7 +257,11 @@ export const PlayerSelectScreen: React.FC = () => {
     };
 
     return (
-        <View style={styles.screen}>
+        <SafeAreaView style={styles.screen}>
+            <KeyboardAvoidingView
+                style={styles.keyboardContainer}
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            >
             <View style={styles.header}>
                 <TouchableOpacity 
                     style={styles.backButton}
@@ -292,7 +299,8 @@ export const PlayerSelectScreen: React.FC = () => {
             </View>
 
             {modeSelect ? <PlayerSelectView /> : <TeamSelectView />}
-        </View>
+            </KeyboardAvoidingView>
+        </SafeAreaView>
     );
 };
 
