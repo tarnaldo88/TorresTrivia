@@ -271,6 +271,15 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 
   return (
     <View style={styles.container}>
+      <View style={styles.headsUpBackWrap}>
+        <TouchableOpacity
+          style={styles.headsUpBackButton}
+          onPress={() => navigation.navigate('Home')}
+          activeOpacity={0.85}
+        >
+          <Text style={styles.headsUpBackText}>Back</Text>
+        </TouchableOpacity>
+      </View>
       {/* Score Display */}
       <View style={styles.scoreContainer}>
       <TouchableOpacity onPress={() => {handleAction("SKIP")}} style={styles.skipBtn}>
@@ -316,6 +325,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#1a1a1a',
     paddingHorizontal: 30,
     paddingVertical: 20,
+  },
+  headsUpBackWrap: {
+    position: 'absolute',
+    top: 10,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    zIndex: 20,
+  },
+  headsUpBackButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+    borderRadius: 999,
+    paddingVertical: 6,
+    paddingHorizontal: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.18)',
+  },
+  headsUpBackText: {
+    color: '#f8fafc',
+    fontSize: 12,
+    fontWeight: '700',
   },
   skipBtn: {
     backgroundColor:'rgba(245, 7, 67, 0.67)',

@@ -48,6 +48,7 @@ export class GameState {
       currentScore: 0,
       isActive: true,
       itemsUsed: [],
+      teamsScore: this.teams.map(() => 0),
     };
 
     this.roundDuration = roundDuration;
@@ -104,16 +105,21 @@ export class GameState {
    * @param itemId - The ID of the item that was guessed correctly
    * @param team - The name of the team that guessed correctly
    */
-  registerCorrectGuess(itemId: string, team: TeamName): GameRound | null {
+  registerCorrectGuess(itemId: string, team?: TeamName): GameRound | null {
     if (!this.currentRound || !this.currentRound.isActive) {
       return null;
     }
 
-    const teamIndex = this.teams.indexOf(team);
-    if (teamIndex >= 0) {
-      this.currentRound.currentScore += 1;
-      this.currentRound.itemsUsed.push(itemId);
-      this.currentRound.teamsScore[teamIndex] = (this.currentRound.teamsScore[teamIndex] || 0) + 1;
+    // Always increment base round score in non-team and team modes.
+    this.currentRound.currentScore += 1;
+    this.currentRound.itemsUsed.push(itemId);
+
+    // If a valid team is provided, also track per-team score.
+    if (team) {
+      const teamIndex = this.teams.indexOf(team);
+      if (teamIndex >= 0) {
+        this.currentRound.teamsScore[teamIndex] = (this.currentRound.teamsScore[teamIndex] || 0) + 1;
+      }
     }
 
     return this.currentRound;

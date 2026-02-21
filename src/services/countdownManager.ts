@@ -34,6 +34,7 @@ export class CountdownManager {
   private selectedLetsplayClip: any = null;
   private soundObject: Audio.Sound | null = null;
   private isPlaying: boolean = false;
+  private isSequenceRunning: boolean = false;
 
   constructor() {
     // Initialized with audio clips
@@ -86,6 +87,12 @@ export class CountdownManager {
    * 3. Start game after let's play audio finishes
    */
   async startCountdown(): Promise<void> {
+    if (this.isSequenceRunning) {
+      return;
+    }
+
+    this.isSequenceRunning = true;
+
     try {
       // Step 1: Show "Get Ready..." and play countdown audio
       this.triggerCallbacks('Get Ready...');
@@ -110,6 +117,8 @@ export class CountdownManager {
     } catch (error) {
       console.error('CountdownManager: Error during countdown sequence:', error);
       this.triggerCallbacks('START_GAME'); // Start game anyway
+    } finally {
+      this.isSequenceRunning = false;
     }
   }
 
@@ -121,6 +130,7 @@ export class CountdownManager {
       // Clean up previous sound if exists
       if (this.soundObject) {
         try {
+          await this.soundObject.stopAsync();
           await this.soundObject.unloadAsync();
         } catch (e) {
           console.warn('CountdownManager: Error unloading previous audio');
@@ -143,48 +153,53 @@ export class CountdownManager {
       // Set volume to maximum
       await this.soundObject.setVolumeAsync(1.0);
 
-      // Play the audio
-      await this.soundObject.playAsync();
+      // Play the audio and resolve only when playback actually finishes.
       this.isPlaying = true;
+      const loadedStatus = await this.soundObject.getStatusAsync();
+      const fallbackTimeoutMs =
+        loadedStatus && loadedStatus.isLoaded && loadedStatus.durationMillis
+          ? loadedStatus.durationMillis + 400
+          : 10000;
 
-      // Wait for audio to finish playing
-      await this.waitForAudioToFinish();
+      await new Promise<void>(async (resolve) => {
+        if (!this.soundObject) {
+          resolve();
+          return;
+        }
+
+        let resolved = false;
+        const finish = () => {
+          if (resolved) return;
+          resolved = true;
+          this.isPlaying = false;
+          this.soundObject?.setOnPlaybackStatusUpdate(null);
+          resolve();
+        };
+
+        this.soundObject.setOnPlaybackStatusUpdate((status) => {
+          if (!status.isLoaded) {
+            finish();
+            return;
+          }
+          if (status.didJustFinish) {
+            finish();
+          }
+        });
+
+        try {
+          await this.soundObject.playAsync();
+        } catch (playError) {
+          finish();
+          return;
+        }
+
+        setTimeout(finish, fallbackTimeoutMs);
+      });
     } catch (error) {
       console.error('CountdownManager: Failed to play audio:', error);
       this.isPlaying = false;
       this.soundObject = null;
     }
-  }
-
-  /**
-   * Wait for the current audio to finish playing
-   */
-  private async waitForAudioToFinish(): Promise<void> {
-    return new Promise((resolve) => {
-      if (!this.soundObject) {
-        resolve();
-        return;
-      }
-
-      const checkInterval = setInterval(async () => {
-        try {
-          const status = await this.soundObject?.getStatusAsync();
-          if (status && 'isPlaying' in status && !status.isPlaying) {
-            clearInterval(checkInterval);
-            resolve();
-          }
-        } catch (error) {
-          clearInterval(checkInterval);
-          resolve();
-        }
-      }, 100);
-
-      // Timeout after 10 seconds
-      setTimeout(() => {
-        clearInterval(checkInterval);
-        resolve();
-      }, 10000);
-    });
   }
 
   /**
@@ -209,6 +224,8 @@ export class CountdownManager {
   async cleanup(): Promise<void> {
     if (this.soundObject) {
       try {
+        await this.soundObject.stopAsync();
+        this.soundObject.setOnPlaybackStatusUpdate(null);
         await this.soundObject.unloadAsync();
       } catch (error) {
         console.error('CountdownManager: Failed to unload audio:', error);

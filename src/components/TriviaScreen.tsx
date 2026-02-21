@@ -7,8 +7,13 @@ import {
     ImageBackground,
     ActivityIndicator,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TriviaDatabase } from '../services/triviaDatabase';
 import { TriviaQuestion } from '../types/index';
+import { RootStackParamList } from '../navigation/MainNavigator';
+
+type TriviaNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Trivia'>;
 
 interface TriviaScreenProps {
     roundDuration?: number;
@@ -19,6 +24,7 @@ export const TriviaScreen: React.FC<TriviaScreenProps> = ({
     roundDuration = 120,
     onRoundEnd,
 }) => {
+    const navigation = useNavigation<TriviaNavigationProp>();
     const [showAnswer, setShowAnswer] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState<TriviaQuestion | null>(null);
     const [loading, setLoading] = useState(true);
@@ -84,6 +90,15 @@ export const TriviaScreen: React.FC<TriviaScreenProps> = ({
             style={styles.background}
         >
             <View style={styles.container}>
+                <View style={styles.headerRow}>
+                    <TouchableOpacity
+                        style={styles.backButton}
+                        onPress={() => navigation.navigate('Home')}
+                        activeOpacity={0.85}
+                    >
+                        <Text style={styles.backButtonText}>Back</Text>
+                    </TouchableOpacity>
+                </View>
 
                 <View style={styles.questionSection}>
                     <Text style={styles.questionCounter}>Question {questionsAnswered + 1}</Text>
@@ -130,6 +145,23 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         justifyContent: 'space-between',
+    },
+    headerRow: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+    },
+    backButton: {
+        backgroundColor: 'rgba(255, 255, 255, 0.12)',
+        borderRadius: 999,
+        paddingVertical: 9,
+        paddingHorizontal: 16,
+        borderWidth: 1,
+        borderColor: 'rgba(255, 255, 255, 0.15)',
+    },
+    backButtonText: {
+        color: '#f8fafc',
+        fontSize: 14,
+        fontWeight: '700',
     },
     headerSection: {
         marginTop: 20,

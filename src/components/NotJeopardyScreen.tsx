@@ -10,6 +10,10 @@ import {
 } from 'react-native';
 import { ScoreManager } from '../services/scoreManager';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/MainNavigator';
+
+type NotJeopardyNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Jeopardy'>;
 
 interface NotJeopardyScreenProps {
     roundDuration?: number;
@@ -20,7 +24,7 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
     roundDuration = 120,
     onRoundEnd,
 }) => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<NotJeopardyNavigationProp>();
     const [pl1, setpl1] = useState(0);
     const [pl2, setpl2] = useState(0);
     const [pl3, setpl3] = useState(0);
@@ -67,7 +71,13 @@ export const NotJeopardyScreen: React.FC<NotJeopardyScreenProps> = ({
         <ImageBackground source={require('../assets/torresTrivia.png')}>
             <View style={styles.container}>
                 <View style={styles.rowContainer}>
-                    <TouchableOpacity onPress={() => {navigation.navigate('Home')}}><Text>Home</Text></TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.backButton}
+                        onPress={() => {navigation.navigate('Home')}}
+                        activeOpacity={0.85}
+                    >
+                        <Text style={styles.backButtonText}>Back</Text>
+                    </TouchableOpacity>
                 </View>
                 <Text style={styles.title}>Not Jeopardy</Text>
                 <View style={styles.rowContainer}>
@@ -146,6 +156,19 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    backButton: {
+        backgroundColor: 'rgba(255, 255, 255, 0.12)',
+        borderRadius: 999,
+        paddingVertical: 9,
+        paddingHorizontal: 16,
+        borderWidth: 1,
+        borderColor: 'rgba(255, 255, 255, 0.15)',
+    },
+    backButtonText: {
+        color: '#f8fafc',
+        fontSize: 14,
+        fontWeight: '700',
     },
     textInput: {
         
