@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   },
   resetScore: {
     color: "rgb(250, 75, 171)",
-    fontSize: 32,
+    fontSize: 22,
     fontWeight: "bold",
   },
   teamSelectText: {
