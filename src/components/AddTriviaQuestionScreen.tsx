@@ -7,7 +7,7 @@ import {
     ActivityIndicator,
     TextInput,
     ScrollView,
-    SafeAreaView,
+    SafeAreaView,    
     KeyboardAvoidingView,
     Platform,
 } from 'react-native';
