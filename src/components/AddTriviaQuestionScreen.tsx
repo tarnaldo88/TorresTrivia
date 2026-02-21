@@ -131,16 +131,17 @@ export const AddTriviaQuestionScreen = () => {
                                     value={answer}
                                     onChangeText={setAnswer}
                                 />
-
                                 <Text style={styles.label}>Category</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Science, History, Sports..."
-                                    placeholderTextColor="#9ca3af"
-                                    value={category}
-                                    onChangeText={setCategory}
-                                />
-
+                                {(['Science', 'History', 'Sports', 'Literature', 'Geography', 'Math']).map((cat) => (
+                                    <TouchableOpacity
+                                        key={cat}
+                                        style={[styles.difficultyChip, cat === category && styles.difficultyChipSelected]}
+                                    >
+                                        <Text style={[styles.difficultyChipText, cat === category && styles.difficultyChipTextSelected]}>
+                                            {cat}
+                                        </Text>
+                                    </TouchableOpacity>
+                                ))}
                                 <TouchableOpacity
                                     style={[
                                         styles.button,
