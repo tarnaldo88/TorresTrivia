@@ -7,6 +7,7 @@ import {
     TouchableOpacity, 
     Image,
     ImageBackground, 
+    ScrollView
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -77,6 +78,7 @@ export const HomeScreen: React.FC = () => {
       resizeMode='cover' 
       style={styles.background}
     >
+      <ScrollView>
       <View style={styles.content}>
         <View style={styles.scoreContainer}>
           <Text style={styles.scoreTitle}>Last Score:</Text>
@@ -99,10 +101,14 @@ export const HomeScreen: React.FC = () => {
             </View>
           </View>
         )}
-         
-          <TouchableOpacity style ={styles.button} onPress={() => resetScore()}>
-              <Text style= {styles.resetScore}>Reset High Score</Text>
+          <View style={styles.utilityRow}>
+            <TouchableOpacity style={styles.utilityButton} onPress={() => resetScore()}>
+              <Text style={styles.resetScore}>Reset High Score</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('AddQuestion')} style={styles.utilityButton}>
+              <Text style={styles.addQuestionText}>Add a Trivia Question</Text>
+            </TouchableOpacity>
+          </View>
                
           <TouchableOpacity 
             style={styles.button} 
@@ -140,10 +146,8 @@ export const HomeScreen: React.FC = () => {
           >
             <Image source={require('../assets/jeoptriv.png')} style={styles.buttonImage} resizeMode="cover"/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('AddQuestion')} style={styles.button}>
-            <Text>Add a Trivia Question</Text>
-          </TouchableOpacity>
         </View>
+        </ScrollView>
     </ImageBackground>
   );
 };
@@ -198,8 +202,9 @@ const styles = StyleSheet.create({
   },
   resetScore: {
     color: "rgb(250, 75, 171)",
-    fontSize: 22,
+    fontSize: 16,
     fontWeight: "bold",
+    textAlign: "center",
   },
   teamSelectText: {
     color: "#fff",
@@ -223,7 +228,7 @@ const styles = StyleSheet.create({
 
   button: {
     width: "50%",
-    height: "9%",
+    height: 86,
     borderRadius: 20,
     overflow: "hidden",
     alignItems: "center",
@@ -239,6 +244,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 20,
     backgroundColor:"##03c54dff",
+  },
+  utilityRow: {
+    width: "92%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 10,
+    marginTop: 12,
+    marginBottom: 8,
+  },
+  utilityButton: {
+    flex: 1,
+    minHeight: 54,
+    borderRadius: 14,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(230, 230, 230, 0.94)",
+    paddingHorizontal: 10,
   },
   modeBtn: {
     paddingHorizontal: 20,
@@ -292,5 +314,11 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 12,
     fontWeight: "600",
+  },
+  addQuestionText: {
+    color: "#1a1a1a",
+    fontSize: 16,
+    fontWeight: "700",
+    textAlign: "center",
   },
 });
