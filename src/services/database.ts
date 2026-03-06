@@ -64,6 +64,48 @@ export class Database {
         `CREATE INDEX IF NOT EXISTS idx_trivia_category ON trivia_questions(category);`
       );
 
+      // Create question packs table
+      await this.instance.execAsync(
+        `CREATE TABLE IF NOT EXISTS question_packs (
+          id TEXT PRIMARY KEY,
+          name TEXT NOT NULL,
+          description TEXT,
+          author TEXT,
+          category TEXT,
+          difficulty TEXT,
+          question_count INTEGER DEFAULT 0,
+          is_public INTEGER DEFAULT 0,
+          created_at INTEGER NOT NULL,
+          updated_at INTEGER NOT NULL,
+          tags TEXT
+        );`
+      );
+
+      // Create pack questions table
+      await this.instance.execAsync(
+        `CREATE TABLE IF NOT EXISTS pack_questions (
+          id TEXT PRIMARY KEY,
+          pack_id TEXT NOT NULL,
+          question TEXT NOT NULL,
+          answer TEXT NOT NULL,
+          category TEXT,
+          difficulty TEXT,
+          order_index INTEGER NOT NULL,
+          FOREIGN KEY (pack_id) REFERENCES question_packs(id) ON DELETE CASCADE
+        );`
+      );
+
+      // Create indexes for question packs
+      await this.instance.execAsync(
+        `CREATE INDEX IF NOT EXISTS idx_question_packs_category ON question_packs(category);`
+      );
+      await this.instance.execAsync(
+        `CREATE INDEX IF NOT EXISTS idx_question_packs_author ON question_packs(author);`
+      );
+      await this.instance.execAsync(
+        `CREATE INDEX IF NOT EXISTS idx_pack_questions_pack_id ON pack_questions(pack_id);`
+      );
+
       console.log('Database schema created successfully');
     } catch (error) {
       console.error('Schema creation failed:', error);

@@ -49,3 +49,53 @@ export interface TriviaQuestion {
   category?: string;
   difficulty?: string;
 }
+
+/**
+ * QuestionPack represents a collection of custom trivia questions
+ */
+export interface QuestionPack {
+  id: string;
+  name: string;
+  description?: string;
+  author?: string;
+  category?: string;
+  difficulty?: string;
+  questionCount: number;
+  isPublic: boolean;
+  createdAt: number;
+  updatedAt: number;
+  tags?: string[];
+}
+
+/**
+ * PackQuestion represents a question within a question pack
+ */
+export interface PackQuestion {
+  id: string;
+  packId: string;
+  question: string;
+  answer: string;
+  category?: string;
+  difficulty?: string;
+  orderIndex: number;
+}
+
+/**
+ * ExportableQuestionPack represents the structure for import/export
+ */
+export interface ExportableQuestionPack {
+  name: string;
+  description?: string;
+  author?: string;
+  category?: string;
+  difficulty?: string;
+  tags?: string[];
+  questions: {
+    question: string;
+    answer: string;
+    category?: string;
+    difficulty?: string;
+  }[];
+  version: string;
+  exportedAt: number;
+}
