@@ -13,6 +13,7 @@ import { AlterTriviaQuestionScreen } from "../components/AlterTriviaQuestion";
 import { QuestionPackListScreen } from "../components/QuestionPackListScreen";
 import { CreateQuestionPackScreen } from "../components/CreateQuestionPackScreen";
 import { QuestionPackEditorScreen } from "../components/QuestionPackEditorScreen";
+import { ThemeEditorScreen } from "../components/ThemeEditorScreen";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -27,6 +28,7 @@ export type RootStackParamList = {
   QuestionPackList: undefined;
   CreateQuestionPack: undefined;
   QuestionPackEditor: { packId: string };
+  ThemeEditor: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -89,6 +91,10 @@ export const MainNavigator = () => {
       <Stack.Screen
         name="QuestionPackEditor"
         component={QuestionPackEditorScreen}
+      />
+      <Stack.Screen
+        name="ThemeEditor"
+        component={ThemeEditorScreen}
       />
     </Stack.Navigator>
   );
