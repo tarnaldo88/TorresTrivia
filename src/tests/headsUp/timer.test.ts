@@ -15,7 +15,7 @@ describe('TimerManager Tests', () => {
 
   describe('Basic Timer Functionality', () => {
     it('should initialize with default duration', () => {
-      timerManager.initialize();
+      timerManager.initialize(60);
       expect(timerManager.getRemainingTime()).toBe(60000); // 60 seconds in ms
     });
 
@@ -32,21 +32,21 @@ describe('TimerManager Tests', () => {
     it('should start timer in correct state', () => {
       timerManager.initialize(60);
       timerManager.start();
-      expect(timerManager.isTimerRunning()).toBe(true);
+      expect(timerManager.isActive()).toBe(true);
     });
 
     it('should stop timer correctly', () => {
       timerManager.initialize(60);
       timerManager.start();
       timerManager.stop();
-      expect(timerManager.isTimerRunning()).toBe(false);
+      expect(timerManager.isActive()).toBe(false);
     });
 
     it('should pause timer correctly', () => {
       timerManager.initialize(60);
       timerManager.start();
       timerManager.pause();
-      expect(timerManager.isTimerRunning()).toBe(false);
+      expect(timerManager.isActive()).toBe(false);
     });
 
     it('should resume timer correctly', () => {
@@ -54,7 +54,7 @@ describe('TimerManager Tests', () => {
       timerManager.start();
       timerManager.pause();
       timerManager.resume();
-      expect(timerManager.isTimerRunning()).toBe(true);
+      expect(timerManager.isActive()).toBe(true);
     });
   });
 
@@ -76,7 +76,7 @@ describe('TimerManager Tests', () => {
     it('should call round end callback when timer expires', (done) => {
       timerManager.initialize(1); // 1 second for fast test
       timerManager.setOnRoundEnd(() => {
-        expect(timerManager.isTimerRunning()).toBe(false);
+        expect(timerManager.isActive()).toBe(false);
         done();
       });
       
@@ -103,7 +103,7 @@ describe('TimerManager Tests', () => {
       timerManager.start();
       timerManager.start(); // Try to start again
       
-      expect(timerManager.isTimerRunning()).toBe(true);
+      expect(timerManager.isActive()).toBe(true);
     });
 
     it('should handle stop when not running', () => {
