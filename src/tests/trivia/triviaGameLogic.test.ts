@@ -1,5 +1,5 @@
 import { TriviaDatabase } from '../../services/triviaDatabase';
-import { MockTriviaDatabase, MockTriviaQuestionFactory } from '../utils/testUtils';
+import { MockTriviaDatabase, MockTriviaQuestionFactory, MockTriviaQuestion } from '../utils/testUtils';
 import * as fc from 'fast-check';
 
 describe('Trivia Game Logic Tests', () => {
@@ -164,7 +164,7 @@ describe('Trivia Game Logic Tests', () => {
       expect(questions.length).toBe(10);
       
       // Check that we got variety
-      const uniqueQuestions = new Set(questions.map(q => q.id));
+      const uniqueQuestions = new Set(questions.map((q: MockTriviaQuestion) => q.id));
       expect(uniqueQuestions.size).toBeGreaterThan(5); // At least some variety
     });
 
@@ -275,7 +275,7 @@ describe('Trivia Game Logic Tests', () => {
             }
             
             // Should have used all questions at least once
-            expect(freshMockDb.getUsedQuestionIds().size).toBeGreaterThanOrEqual(1);
+            expect(freshMockDb.getUsedQuestionIds().length).toBeGreaterThanOrEqual(indices.length);
           }
         ),
         { numRuns: 30 }
