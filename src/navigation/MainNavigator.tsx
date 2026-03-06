@@ -10,6 +10,9 @@ import { TeamSelectScreen } from "../components/TeamSelectScreen";
 import { JeopTriviaScreen } from "../components/JeopTriviaScreen";
 import { AddTriviaQuestionScreen } from "../components/AddTriviaQuestionScreen";
 import { AlterTriviaQuestionScreen } from "../components/AlterTriviaQuestion";
+import { QuestionPackListScreen } from "../components/QuestionPackListScreen";
+import { CreateQuestionPackScreen } from "../components/CreateQuestionPackScreen";
+import { QuestionPackEditorScreen } from "../components/QuestionPackEditorScreen";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -21,6 +24,9 @@ export type RootStackParamList = {
   JeopTriv: undefined;
   AddQuestion: undefined;
   AlterQuestion: undefined;
+  QuestionPackList: undefined;
+  CreateQuestionPack: undefined;
+  QuestionPackEditor: { packId: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -71,6 +77,18 @@ export const MainNavigator = () => {
       <Stack.Screen
         name="AlterQuestion"
         component={AlterTriviaQuestionScreen}
+      />
+      <Stack.Screen
+        name="QuestionPackList"
+        component={QuestionPackListScreen}
+      />
+      <Stack.Screen
+        name="CreateQuestionPack"
+        component={CreateQuestionPackScreen}
+      />
+      <Stack.Screen
+        name="QuestionPackEditor"
+        component={QuestionPackEditorScreen}
       />
     </Stack.Navigator>
   );
