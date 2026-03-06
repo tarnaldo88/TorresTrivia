@@ -268,14 +268,14 @@ describe('Trivia Game Logic Tests', () => {
               
               if (usedIds.has(question.id)) {
                 // This should only happen after cycling back to beginning
-                expect(freshMockDb.getUsedQuestionIds().size).toBe(20);
+                expect(freshMockDb.getUsedQuestionIds().length).toBe(20);
               }
               
               usedIds.add(question.id);
             }
             
             // Should have used all questions at least once
-            expect(freshMockDb.getUsedQuestionIds().length).toBeGreaterThanOrEqual(indices.length);
+              expect(freshMockDb.getUsedQuestionIds().length).toBeGreaterThanOrEqual(indices.length);
           }
         ),
         { numRuns: 30 }
