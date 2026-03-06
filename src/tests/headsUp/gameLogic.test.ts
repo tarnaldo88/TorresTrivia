@@ -20,8 +20,8 @@ describe('Heads Up Game Logic Tests', () => {
         
         expect(round).toBeDefined();
         expect(round.isActive).toBe(true);
-        expect(round.score).toBe(0);
-        expect(round.usedItemIds).toEqual([]);
+        expect(round.currentScore).toBe(0);
+        expect(round.itemsUsed).toEqual([]);
         expect(gameState.isRoundActive()).toBe(true);
         expect(gameState.getCurrentScore()).toBe(0);
       });
@@ -69,7 +69,7 @@ describe('Heads Up Game Logic Tests', () => {
         const result = gameState.registerCorrectGuess('item1');
         
         expect(result).toBeDefined();
-        expect(result?.score).toBe(1);
+        expect(result?.currentScore).toBe(1);
         expect(gameState.getCurrentScore()).toBe(1);
       });
 
@@ -79,7 +79,7 @@ describe('Heads Up Game Logic Tests', () => {
         const result = gameState.registerSkip('item1');
         
         expect(result).toBeDefined();
-        expect(result?.score).toBe(0);
+        expect(result?.currentScore).toBe(0);
         expect(gameState.getCurrentScore()).toBe(0);
       });
 
@@ -170,8 +170,8 @@ describe('Heads Up Game Logic Tests', () => {
         
         expect(correctResult).toBeDefined();
         expect(skipResult).toBeDefined();
-        expect(correctResult?.action).toBe('CORRECT');
-        expect(skipResult?.action).toBe('SKIP');
+        expect(correctResult?.currentScore).toBe(1);
+        expect(skipResult?.currentScore).toBe(1); // Score should be the same after skip
       });
     });
   });
