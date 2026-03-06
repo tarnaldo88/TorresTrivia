@@ -16,6 +16,14 @@ export interface MockGameItem extends GameItem {
   category: string;
 }
 
+export interface MockTriviaQuestion {
+  id: string;
+  question: string;
+  answer: string;
+  category: string;
+  difficulty: string;
+}
+
 export interface TestGameState {
   score: number;
   isRoundActive: boolean;
@@ -24,6 +32,106 @@ export interface TestGameState {
   usedItems: string[];
   correctGuesses: number;
   skips: number;
+}
+
+/**
+ * Factory for creating mock trivia questions
+ */
+export class MockTriviaQuestionFactory {
+  static createMockQuestions(count: number, difficulty: string = 'Medium'): MockTriviaQuestion[] {
+    return Array.from({ length: count }, (_, index) => ({
+      id: `question-${index}`,
+      question: `Mock Question ${index}`,
+      answer: `Mock Answer ${index}`,
+      category: 'Test Category',
+      difficulty,
+    }));
+  }
+
+  static createMockQuestion(id: string, question: string, answer: string, category: string, difficulty: string): MockTriviaQuestion {
+    return {
+      id,
+      question,
+      answer,
+      category,
+      difficulty,
+    };
+  }
+
+  static createCategorizedQuestions(): MockTriviaQuestion[] {
+    return [
+      {
+        id: 'science-1',
+        question: 'What is the chemical symbol for water?',
+        answer: 'H2O',
+        category: 'Science',
+        difficulty: 'Easy',
+      },
+      {
+        id: 'science-2',
+        question: 'What is the speed of light?',
+        answer: '299,792,458 meters per second',
+        category: 'Science',
+        difficulty: 'Hard',
+      },
+      {
+        id: 'history-1',
+        question: 'Who was the first President of the United States?',
+        answer: 'George Washington',
+        category: 'History',
+        difficulty: 'Easy',
+      },
+      {
+        id: 'history-2',
+        question: 'In which year did World War II end?',
+        answer: '1945',
+        category: 'History',
+        difficulty: 'Medium',
+      },
+      {
+        id: 'geography-1',
+        question: 'What is the capital of France?',
+        answer: 'Paris',
+        category: 'Geography',
+        difficulty: 'Easy',
+      },
+      {
+        id: 'geography-2',
+        question: 'What is the longest river in the world?',
+        answer: 'Nile River',
+        category: 'Geography',
+        difficulty: 'Medium',
+      },
+      {
+        id: 'sports-1',
+        question: 'How many players are on a basketball team?',
+        answer: '5',
+        category: 'Sports',
+        difficulty: 'Easy',
+      },
+      {
+        id: 'sports-2',
+        question: 'In which sport would you perform a slam dunk?',
+        answer: 'Basketball',
+        category: 'Sports',
+        difficulty: 'Easy',
+      },
+      {
+        id: 'entertainment-1',
+        question: 'Who directed the movie "Jaws"?',
+        answer: 'Steven Spielberg',
+        category: 'Entertainment',
+        difficulty: 'Medium',
+      },
+      {
+        id: 'entertainment-2',
+        question: 'Which movie won the Academy Award for Best Picture in 2020?',
+        answer: 'Parasite',
+        category: 'Entertainment',
+        difficulty: 'Hard',
+      },
+    ];
+  }
 }
 
 /**
@@ -59,6 +167,103 @@ export class MockGameItemFactory {
 }
 
 /**
+ * Mock trivia database for testing
+ */
+export class MockTriviaDatabase {
+  private questions: MockTriviaQuestion[] = [];
+  private usedQuestionIds: Set<string> = new Set();
+  private shouldError: boolean = false;
+
+  constructor(questions?: MockTriviaQuestion[], shouldError: boolean = false) {
+    this.questions = questions || MockTriviaQuestionFactory.createMockQuestions(10);
+    this.shouldError = shouldError;
+  }
+
+  async initialize(): Promise<void> {
+    if (this.shouldError) {
+      throw new Error('Mock database initialization error');
+    }
+  }
+
+  async getRandomQuestion(): Promise<MockTriviaQuestion> {
+    if (this.questions.length === 0) {
+      throw new Error('No trivia questions available');
+    }
+
+    // If all questions have been used, reset the used set to cycle back
+    if (this.usedQuestionIds.size >= this.questions.length) {
+      this.usedQuestionIds.clear();
+    }
+
+    // Get list of unused questions
+    const unusedQuestions = this.questions.filter((q) => !this.usedQuestionIds.has(q.id));
+
+    // If no unused questions remain, cycle back
+    if (unusedQuestions.length === 0) {
+      this.usedQuestionIds.clear();
+      unusedQuestions.push(...this.questions);
+    }
+
+    // Select a random unused question
+    const randomIndex = Math.floor(Math.random() * unusedQuestions.length);
+    const selectedQuestion = unusedQuestions[randomIndex];
+    this.usedQuestionIds.add(selectedQuestion.id);
+
+    return selectedQuestion;
+  }
+
+  async getQuestionById(id: string): Promise<MockTriviaQuestion> {
+    const question = this.questions.find((q) => q.id === id);
+    if (!question) {
+      throw new Error(`Question with id ${id} not found`);
+    }
+    return question;
+  }
+
+  async getQuestionsByCategory(category: string): Promise<MockTriviaQuestion[]> {
+    return this.questions.filter((q) => q.category === category);
+  }
+
+  async getAllQuestions(): Promise<MockTriviaQuestion[]> {
+    return [...this.questions];
+  }
+
+  async addQuestion(question: MockTriviaQuestion): Promise<void> {
+    // Validate question
+    if (!question.id || !question.question || !question.answer) {
+      throw new Error('Invalid question: missing required fields');
+    }
+
+    // Check for duplicate ID
+    if (this.questions.some(q => q.id === question.id)) {
+      throw new Error(`Question with id ${question.id} already exists`);
+    }
+
+    this.questions.push(question);
+  }
+
+  getUsedQuestionIds(): string[] {
+    return Array.from(this.usedQuestionIds);
+  }
+
+  resetUsedQuestions(): void {
+    this.usedQuestionIds.clear();
+  }
+
+  getAvailableQuestions(): MockTriviaQuestion[] {
+    return this.questions.filter(q => !this.usedQuestionIds.has(q.id));
+  }
+
+  setQuestions(questions: MockTriviaQuestion[]): void {
+    this.questions = questions;
+    this.usedQuestionIds.clear();
+  }
+
+  setShouldError(shouldError: boolean): void {
+    this.shouldError = shouldError;
+  }
+}
+  /**
  * Factory for creating mock game state
  */
 export class MockGameStateFactory {
@@ -97,6 +302,7 @@ export class MockGameStateFactory {
       skips: 1,
     };
   }
+}
 }
 
 /**
