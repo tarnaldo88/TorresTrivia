@@ -110,21 +110,21 @@ describe('TimerManager Tests', () => {
       timerManager.initialize(60);
       timerManager.stop(); // Stop without starting
       
-      expect(timerManager.isTimerRunning()).toBe(false);
+      expect(timerManager.isActive()).toBe(false);
     });
 
     it('should handle pause when not running', () => {
       timerManager.initialize(60);
       timerManager.pause(); // Pause without starting
       
-      expect(timerManager.isTimerRunning()).toBe(false);
+      expect(timerManager.isActive()).toBe(false);
     });
 
     it('should handle resume when not running', () => {
       timerManager.initialize(60);
       timerManager.resume(); // Resume without starting
       
-      expect(timerManager.isTimerRunning()).toBe(false);
+      expect(timerManager.isActive()).toBe(false);
     });
 
     it('should reset timer state on reinitialize', () => {
@@ -132,7 +132,7 @@ describe('TimerManager Tests', () => {
       timerManager.start();
       timerManager.initialize(30); // Reinitialize
       
-      expect(timerManager.isTimerRunning()).toBe(false);
+      expect(timerManager.isActive()).toBe(false);
       expect(timerManager.getRemainingTime()).toBe(30000);
     });
   });
@@ -266,7 +266,7 @@ describe('TimerManager Tests', () => {
         timerManager.stop();
       }
       
-      expect(timerManager.isTimerRunning()).toBe(false);
+      expect(timerManager.isActive()).toBe(false);
     });
 
     it('should handle callback errors gracefully', () => {
