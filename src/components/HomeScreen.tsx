@@ -146,6 +146,14 @@ export const HomeScreen: React.FC = () => {
           >
             <Image source={require('../assets/jeoptriv.png')} style={styles.buttonImage} resizeMode="cover"/>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('QuestionPackList')}
+          >
+            <View style={styles.questionPacksButton}>
+              <Text style={styles.questionPacksText}>Question Packs</Text>
+            </View>
+          </TouchableOpacity>
         </View>
         </ScrollView>
     </ImageBackground>
@@ -318,6 +326,20 @@ const styles = StyleSheet.create({
   addQuestionText: {
     color: "#1a1a1a",
     fontSize: 16,
+    fontWeight: "700",
+    textAlign: "center",
+  },
+  questionPacksButton: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#8b5cf6",
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  questionPacksText: {
+    color: "#fff",
+    fontSize: 18,
     fontWeight: "700",
     textAlign: "center",
   },
