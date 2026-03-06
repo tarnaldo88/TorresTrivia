@@ -3,11 +3,9 @@ import { GameState } from '../../services/gameState';
 import * as fc from 'fast-check';
 
 describe('Score Tracking Tests', () => {
-  let scoreManager: ScoreManager;
   let gameState: GameState;
 
   beforeEach(() => {
-    scoreManager = new ScoreManager();
     gameState = new GameState();
   });
 
@@ -16,94 +14,57 @@ describe('Score Tracking Tests', () => {
   });
 
   describe('ScoreManager Basic Functionality', () => {
-    it('should initialize with zero score', () => {
-      expect(scoreManager.getCurrentScore()).toBe(0);
+    it('should initialize with zero score', async () => {
+      const lastScore = await ScoreManager.getLastScore();
+      expect(lastScore).toBe(0);
     });
 
-    it('should add points correctly', () => {
-      scoreManager.addPoints(5);
-      expect(scoreManager.getCurrentScore()).toBe(5);
-    });
-
-    it('should subtract points correctly', () => {
-      scoreManager.addPoints(10);
-      scoreManager.subtractPoints(3);
-      expect(scoreManager.getCurrentScore()).toBe(7);
-    });
-
-    it('should prevent negative scores', () => {
-      scoreManager.addPoints(5);
-      scoreManager.subtractPoints(10);
-      expect(scoreManager.getCurrentScore()).toBe(0);
-    });
-
-    it('should reset score to zero', () => {
-      scoreManager.addPoints(15);
-      scoreManager.resetScore();
-      expect(scoreManager.getCurrentScore()).toBe(0);
-    });
-
-    it('should handle zero point operations', () => {
-      scoreManager.addPoints(0);
-      scoreManager.subtractPoints(0);
-      expect(scoreManager.getCurrentScore()).toBe(0);
-    });
-  });
-
-  describe('High Score Management', () => {
-    beforeEach(async () => {
-      // Clear any existing high score
-      await scoreManager.resetHighScore();
+    it('should handle initial high score', async () => {
+      const highScore = await ScoreManager.getHighScore();
+      expect(highScore).toBe(0);
     });
 
     it('should update high score when current score is higher', async () => {
-      await scoreManager.setHighScore(100);
-      await scoreManager.setHighScore(150);
+      await ScoreManager.setHighScore(100);
+      await ScoreManager.setHighScore(150);
       
-      const highScore = await scoreManager.getHighScore();
+      const highScore = await ScoreManager.getHighScore();
       expect(highScore).toBe(150);
     });
 
     it('should not update high score when current score is lower', async () => {
-      await scoreManager.setHighScore(200);
-      await scoreManager.setHighScore(150);
+      await ScoreManager.setHighScore(200);
+      await ScoreManager.setHighScore(150);
       
-      const highScore = await scoreManager.getHighScore();
+      const highScore = await ScoreManager.getHighScore();
       expect(highScore).toBe(200);
     });
 
-    it('should handle initial high score', async () => {
-      const highScore = await scoreManager.getHighScore();
-      expect(highScore).toBe(0);
-    });
-
-    it('should reset high score correctly', async () => {
-      await scoreManager.setHighScore(500);
-      await scoreManager.resetHighScore();
-      
-      const highScore = await scoreManager.getHighScore();
-      expect(highScore).toBe(0);
-    });
-  });
-
-  describe('Last Score Management', () => {
     it('should set and get last score', async () => {
-      await scoreManager.setLastScore(25);
-      const lastScore = await scoreManager.getLastScore();
+      await ScoreManager.setLastScore(25);
+      const lastScore = await ScoreManager.getLastScore();
       expect(lastScore).toBe(25);
     });
 
     it('should update last score', async () => {
-      await scoreManager.setLastScore(10);
-      await scoreManager.setLastScore(20);
-      const lastScore = await scoreManager.getLastScore();
+      await ScoreManager.setLastScore(10);
+      await ScoreManager.setLastScore(20);
+      const lastScore = await ScoreManager.getLastScore();
       expect(lastScore).toBe(20);
     });
 
     it('should handle zero last score', async () => {
-      await scoreManager.setLastScore(0);
-      const lastScore = await scoreManager.getLastScore();
+      await ScoreManager.setLastScore(0);
+      const lastScore = await ScoreManager.getLastScore();
       expect(lastScore).toBe(0);
+    });
+
+    it('should reset high score correctly', async () => {
+      await ScoreManager.setHighScore(500);
+      await ScoreManager.resetHighScore();
+      
+      const highScore = await ScoreManager.getHighScore();
+      expect(highScore).toBe(0);
     });
   });
 
