@@ -152,20 +152,194 @@ src/
 - Indexed queries for performance
 - Transaction support for data integrity
 
-## Testing
+## Testing 🧪
 
-The project includes comprehensive property-based tests using fast-check:
+The project includes comprehensive test suites for both Heads Up and Trivia games using Jest and property-based testing with fast-check.
 
-```bash
-npx jest --run
+### Test Structure
+
+```
+src/tests/
+├── utils/
+│   └── testUtils.ts           # Shared test utilities and mocks
+├── headsUp/
+│   ├── gameLogic.test.ts      # Heads Up game state and logic
+│   ├── gameScreen.test.tsx   # Heads Up UI component tests
+│   ├── timer.test.ts          # Timer functionality tests
+│   ├── scoreTracking.test.ts  # Score management tests
+│   ├── gestureControls.test.ts # Gesture detection tests
+│   ├── soundIntegration.test.ts # Audio and haptic feedback tests
+│   └── databaseIntegration.test.ts # Database operations tests
+├── trivia/
+│   ├── triviaGameLogic.test.ts # Trivia question management
+│   ├── triviaScreen.test.tsx   # Trivia UI component tests
+│   └── triviaIntegration.test.ts # End-to-end trivia tests
+├── gameScreenIntegration.test.ts # Existing integration tests
+└── setup.test.ts              # Test framework validation
 ```
 
-Test coverage includes:
-- Gesture detection accuracy
-- Score increment logic
-- Item deduplication
-- Round state transitions
-- Database operations
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run with coverage report
+npm test -- --coverage
+
+# Run specific test suites
+npm test -- headsUp/
+npm test -- trivia/
+npm test -- gameLogic.test.ts
+
+# Run property-based tests with increased iterations
+FAST_CHECK_RUNS=200 npm test
+
+# Run tests in watch mode
+npm test -- --watch
+
+# Run performance-focused tests
+npm test -- --testNamePattern="Performance"
+```
+
+### Test Coverage
+
+#### Heads Up Game Tests
+- ✅ **Game Logic**: Round lifecycle, score tracking, item management
+- ✅ **UI Components**: Component rendering, user interactions, state management
+- ✅ **Timer Functionality**: Countdown accuracy, pause/resume, callbacks
+- ✅ **Score Tracking**: High scores, persistence, team scoring
+- ✅ **Gesture Controls**: Accelerometer detection, debouncing, error handling
+- ✅ **Sound Integration**: Audio feedback, haptic feedback, event sequences
+- ✅ **Database Integration**: CRUD operations, data integrity, performance
+
+#### Trivia Game Tests
+- ✅ **Question Management**: Random selection, categorization, deduplication
+- ✅ **UI Components**: Question display, answer toggle, navigation
+- ✅ **Database Operations**: Question CRUD, filtering, performance
+- ✅ **Integration**: Complete trivia sessions, score tracking
+- ✅ **Real-World Scenarios**: Tournament mode, difficulty challenges, time-based sessions
+
+### Advanced Testing Features
+
+#### Property-Based Testing
+```typescript
+// Randomized testing with fast-check
+fc.assert(
+  fc.asyncProperty(
+    fc.array(fc.constantFrom('CORRECT', 'SKIP')),
+    async (actions) => {
+      // Test random action sequences
+    }
+  )
+);
+```
+
+#### Mock Classes
+- **MockTimerManager**: Simulates timer with controllable time progression
+- **MockOrientationDetector**: Simulates device orientation changes
+- **MockFeedbackManager**: Tracks audio/haptic feedback calls
+- **MockItemDatabase**: Simulates item database with test data
+- **MockTriviaDatabase**: Simulates trivia question database
+- **MockTriviaQuestionFactory**: Creates categorized and difficulty-based test questions
+
+#### Performance Testing
+```typescript
+// Benchmarking utilities
+const startTime = performance.now();
+for (let i = 0; i < 1000; i++) {
+  await operation();
+}
+const duration = endTime - startTime;
+expect(duration).toBeLessThan(100);
+```
+
+### Test Quality Metrics
+
+#### Coverage Targets
+- **Statements**: > 90%
+- **Branches**: > 85%
+- **Functions**: > 90%
+- **Lines**: > 90%
+
+#### Performance Benchmarks
+- **Timer Operations**: < 50ms for 1000 operations
+- **Score Updates**: < 100ms for bulk operations
+- **Gesture Detection**: < 100ms for 2000 events
+- **Database Queries**: < 1000ms for 100 retrievals
+
+### Real-World Test Scenarios
+
+#### Heads Up Game
+- **Complete Game Flow**: Start to finish 60-second rounds
+- **Gesture Testing**: Tilt detection accuracy and debouncing
+- **Score Persistence**: High score tracking across sessions
+- **Error Recovery**: Database errors, sensor failures
+
+#### Trivia Game
+- **Tournament Mode**: Multi-category competition simulation
+- **Difficulty Progression**: Easy → Medium → Hard question flow
+- **Time Challenge**: Duration-limited trivia sessions
+- **Category Specialization**: Science-only, History-only rounds
+
+### Test Configuration
+
+#### Jest Configuration (`jest.config.js`)
+```javascript
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  roots: ['<rootDir>/src'],
+  testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
+  moduleNameMapper: {
+    'expo-sensors$': '<rootDir>/src/__mocks__/expo-sensors.ts',
+    'expo-av$': '<rootDir>/src/__mocks__/expo-av.ts',
+    'expo-sqlite$': '<rootDir>/src/__mocks__/expo-sqlite.ts',
+  },
+};
+```
+
+### Continuous Integration
+
+#### GitHub Actions
+```yaml
+- name: Run Tests
+  run: npm test -- --coverage
+- name: Upload Coverage
+  uses: codecov/codecov-action@v1
+```
+
+### Debugging Tests
+
+#### Common Issues
+1. **Async Test Timeouts**: Increase with `jest.setTimeout(10000)`
+2. **Mock State**: Ensure mocks are reset in `beforeEach`
+3. **Database Cleanup**: Verify test isolation
+4. **Timer Precision**: Allow small timing tolerances
+
+#### Test Utilities
+```typescript
+// Test helpers
+const { TestHelpers } = require('./utils/testUtils');
+const mockNavigation = TestHelpers.createMockNavigation();
+const mockGameItems = MockGameItemFactory.createMockItems(10);
+```
+
+### Benefits
+
+#### Quality Assurance
+- **Bug Prevention**: Early detection of issues
+- **Regression Testing**: Prevent breaking changes
+- **Performance Monitoring**: Optimization opportunities
+- **Documentation**: Living specification of behavior
+
+#### Development Efficiency
+- **Rapid Feedback**: Immediate test results
+- **Confident Refactoring**: Safe code changes
+- **Clear Requirements**: Test-driven development
+- **Debugging Support**: Isolated issue identification
+
+This comprehensive test suite ensures both Heads Up and Trivia games maintain high quality, reliability, and performance across all components and user interactions.
 
 ## Configuration
 
