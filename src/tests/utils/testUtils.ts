@@ -238,20 +238,25 @@ export class MockFeedbackManager extends FeedbackManager {
   }
 }
 
-export class MockItemDatabase extends ItemDatabase {
+export class MockItemDatabase {
   private items: MockGameItem[] = [];
   private usedItems: Set<string> = new Set();
 
   constructor(items?: MockGameItem[]) {
-    super();
     this.items = items || MockGameItemFactory.createMockItems(10);
   }
 
-  async getRandomItem(): Promise<GameItem | null> {
+  async initialize(): Promise<void> {
+    // Mock initialization
+  }
+
+  async getRandomItem(): Promise<GameItem> {
     const availableItems = this.items.filter(item => !this.usedItems.has(item.id));
     
     if (availableItems.length === 0) {
-      return null;
+      // Return a random item if all have been used (cycle back)
+      const randomIndex = Math.floor(Math.random() * this.items.length);
+      return this.items[randomIndex];
     }
 
     const randomIndex = Math.floor(Math.random() * availableItems.length);
@@ -261,8 +266,12 @@ export class MockItemDatabase extends ItemDatabase {
     return selectedItem;
   }
 
-  async getItemById(id: string): Promise<GameItem | null> {
-    return this.items.find(item => item.id === id) || null;
+  async getItemById(id: string): Promise<GameItem> {
+    const item = this.items.find(item => item.id === id);
+    if (!item) {
+      throw new Error(`Item with id ${id} not found`);
+    }
+    return item;
   }
 
   async getItemsByCategory(category: string): Promise<GameItem[]> {
@@ -300,16 +309,15 @@ export class MockItemDatabase extends ItemDatabase {
   }
 }
 
-export class MockCountdownManager extends CountdownManager {
+export class MockCountdownManager {
   private countdownCallbacks: Array<(message: string) => void> = [];
   private currentMessage = '';
   private isCountingDown = false;
 
-  startCountdown(callback: (message: string) => void): void {
-    this.countdownCallbacks.push(callback);
+  async startCountdown(): Promise<void> {
     this.isCountingDown = true;
     this.currentMessage = 'Get Ready...';
-    callback(this.currentMessage);
+    this.countdownCallbacks.forEach(callback => callback(this.currentMessage));
   }
 
   stopCountdown(): void {
@@ -323,6 +331,10 @@ export class MockCountdownManager extends CountdownManager {
 
   isCountdownActive(): boolean {
     return this.isCountingDown;
+  }
+
+  setCallback(callback: (message: string) => void): void {
+    this.countdownCallbacks.push(callback);
   }
 
   // Test helper methods
