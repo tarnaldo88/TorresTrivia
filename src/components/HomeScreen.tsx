@@ -13,6 +13,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ScoreManager } from '../services/scoreManager';
 import { useTeams } from '../context/TeamContext';
+import { useTheme } from '../context/ThemeContext';
 import { RootStackParamList } from '../navigation/MainNavigator';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
@@ -24,6 +25,7 @@ type GameMode = 'noTeams' | 'teamMode';
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const { selectedTeams } = useTeams();
+  const { currentTheme, setTheme, allThemes } = useTheme();
   const [lastScore, setLastScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [gameMode, setGameMode] = useState<GameMode>('noTeams');
@@ -152,6 +154,14 @@ export const HomeScreen: React.FC = () => {
           >
             <View style={styles.questionPacksButton}>
               <Text style={styles.questionPacksText}>Question Packs</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('ThemeEditor')}
+          >
+            <View style={styles.themeButton}>
+              <Text style={styles.themeButtonText}>Theme Editor</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -338,6 +348,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   questionPacksText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "700",
+    textAlign: "center",
+  },
+  themeButton: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#06b6d4",
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  themeButtonText: {
     color: "#fff",
     fontSize: 18,
     fontWeight: "700",
