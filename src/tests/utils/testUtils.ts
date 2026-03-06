@@ -102,20 +102,25 @@ export class MockGameStateFactory {
 /**
  * Mock service classes for testing
  */
-export class MockTimerManager extends TimerManager {
+export class MockTimerManager {
   private callbacks: Array<(time: number) => void> = [];
   private isRunning = false;
   private currentTime = 60000;
+  private duration = 60;
 
-  start(duration: number, callback: (time: number) => void): void {
+  initialize(duration: number): void {
+    this.duration = duration > 0 ? duration : 60;
+    this.currentTime = duration * 1000;
+    this.isRunning = false;
+  }
+
+  start(): void {
     this.isRunning = true;
-    this.currentTime = duration;
-    this.callbacks.push(callback);
+    this.currentTime = this.duration * 1000;
   }
 
   stop(): void {
     this.isRunning = false;
-    this.callbacks = [];
   }
 
   pause(): void {
@@ -134,6 +139,14 @@ export class MockTimerManager extends TimerManager {
     return this.isRunning;
   }
 
+  setOnTimerUpdate(callback: (remainingMs: number) => void): void {
+    this.callbacks.push(callback);
+  }
+
+  setOnRoundEnd(callback: () => void): void {
+    // Store callback for round end
+  }
+
   // Test helper methods
   simulateTimeElapsed(elapsedMs: number): void {
     this.currentTime = Math.max(0, this.currentTime - elapsedMs);
@@ -147,14 +160,17 @@ export class MockTimerManager extends TimerManager {
   }
 }
 
-export class MockOrientationDetector extends OrientationDetector {
-  private orientationCallbacks: Array<(orientation: string) => void> = [];
+export class MockOrientationDetector {
+  private orientationCallbacks: Array<(action: 'CORRECT' | 'SKIP') => void> = [];
   private currentOrientation = 'FACE_UP';
   private isListening = false;
 
-  startListening(callback: (orientation: string) => void): void {
-    this.orientationCallbacks.push(callback);
+  startListening(): void {
     this.isListening = true;
+  }
+
+  addCallback(callback: (action: 'CORRECT' | 'SKIP') => void): void {
+    this.orientationCallbacks.push(callback);
   }
 
   stopListening(): void {
@@ -173,7 +189,8 @@ export class MockOrientationDetector extends OrientationDetector {
   // Test helper methods
   simulateOrientationChange(orientation: string): void {
     this.currentOrientation = orientation;
-    this.orientationCallbacks.forEach(callback => callback(orientation));
+    const action = orientation === 'FACE_DOWN' ? 'CORRECT' : 'SKIP';
+    this.orientationCallbacks.forEach(callback => callback(action));
   }
 
   simulateUpright(): void {
