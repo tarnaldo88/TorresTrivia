@@ -4,7 +4,46 @@ import { Database } from './database';
  * ScoreManager handles score persistence and retrieval
  */
 export class ScoreManager {
+  private currentScore: number = 0;
   private static readonly TABLE_NAME = 'scores';
+
+  constructor() {
+    this.currentScore = 0;
+  }
+
+  /**
+   * Add points to the current score
+   */
+  addPoints(points: number): void {
+    if (isNaN(points) || !isFinite(points)) {
+      return;
+    }
+    this.currentScore += Math.floor(points);
+  }
+
+  /**
+   * Subtract points from the current score
+   */
+  subtractPoints(points: number): void {
+    if (isNaN(points) || !isFinite(points)) {
+      return;
+    }
+    this.currentScore = Math.max(0, this.currentScore - Math.floor(points));
+  }
+
+  /**
+   * Get the current score
+   */
+  getCurrentScore(): number {
+    return this.currentScore;
+  }
+
+  /**
+   * Reset the current score to zero
+   */
+  resetScore(): void {
+    this.currentScore = 0;
+  }
 
   /**
    * Initialize the scores table
