@@ -515,7 +515,7 @@ describe('TriviaScreen Component Tests', () => {
             fireEvent.press(getByTestId('next-question-button'));
             await waitFor(() => {
               // Wait for next question to load
-            }, 10);
+            }, { timeout: 10 });
             break;
           }
         }
