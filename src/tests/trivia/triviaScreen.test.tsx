@@ -663,7 +663,7 @@ describe('TriviaScreen Component Tests', () => {
         fireEvent.press(getByTestId('show-answer-button'));
         await waitFor(() => {
           // Small wait to allow state to update
-        }, 5);
+        }, { timeout: 5 });
       }
       
       // Should still be functional
