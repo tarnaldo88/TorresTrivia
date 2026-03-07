@@ -185,16 +185,15 @@ describe('Score Tracking Tests', () => {
         fc.asyncProperty(
           fc.array(fc.integer({ min: 0, max: 1000 }), { minLength: 1, maxLength: 50 }),
           async (scores) => {
-            const freshScoreManager = new ScoreManager();
-            await freshScoreManager.resetHighScore();
+            await ScoreManager.resetHighScore();
             
             let expectedHighScore = 0;
             
             for (const score of scores) {
-              await freshScoreManager.setHighScore(score);
+              await ScoreManager.setHighScore(score);
               expectedHighScore = Math.max(expectedHighScore, score);
               
-              const actualHighScore = await freshScoreManager.getHighScore();
+              const actualHighScore = await ScoreManager.getHighScore();
               expect(actualHighScore).toBe(expectedHighScore);
             }
           }
