@@ -153,7 +153,7 @@ describe('Trivia Integration Tests', () => {
       await db.initialize();
       
       const categories = ['Science', 'History', 'Geography'];
-      const sessionResults = {};
+      const sessionResults: Record<string, { available: number; answered: number; correct: number }> = {};
       
       for (const category of categories) {
         const categoryQuestions = await db.getQuestionsByCategory(category);
