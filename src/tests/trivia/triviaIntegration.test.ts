@@ -478,8 +478,8 @@ describe('Trivia Integration Tests', () => {
     });
 
     it('should handle mixed difficulty trivia challenge', async () => {
-      const difficulties = ['Easy', 'Medium', 'Hard'];
-      const challengeResults = {
+      const difficulties = ['Easy', 'Medium', 'Hard'] as const;
+      const challengeResults: Record<string, { correct: number; total: number }> = {
         easy: { correct: 0, total: 0 },
         medium: { correct: 0, total: 0 },
         hard: { correct: 0, total: 0 },
