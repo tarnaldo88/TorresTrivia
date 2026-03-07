@@ -243,7 +243,9 @@ describe('Gesture Controls Tests', () => {
       const endTime = performance.now();
       const duration = endTime - startTime;
       
-      expect(callbacks.every(callback => callback).toHaveBeenCalledWith('CORRECT')).toBe(true);
+      callbacks.forEach(callback => {
+        expect(callback).toHaveBeenCalledWith('CORRECT');
+      });
       expect(duration).toBeLessThan(50); // Should complete in less than 50ms
     });
 
