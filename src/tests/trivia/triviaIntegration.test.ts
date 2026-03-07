@@ -1,6 +1,6 @@
 import { TriviaDatabase } from '../../services/triviaDatabase';
 import { ScoreManager } from '../../services/scoreManager';
-import { MockTriviaDatabase, MockTriviaQuestionFactory } from '../utils/testUtils';
+import { MockTriviaDatabase, MockTriviaQuestionFactory, MockTriviaQuestion } from '../utils/testUtils';
 import * as fc from 'fast-check';
 
 describe('Trivia Integration Tests', () => {
@@ -604,9 +604,9 @@ describe('Trivia Integration Tests', () => {
       await mockTriviaDb.initialize();
       
       const concurrentResults = {
-        randomQuestions: [],
-        allQuestions: [],
-        categoryQuestions: [],
+        randomQuestions: [] as MockTriviaQuestion[],
+        allQuestions: [] as MockTriviaQuestion[][],
+        categoryQuestions: [] as MockTriviaQuestion[][],
         errors: 0,
       };
       
