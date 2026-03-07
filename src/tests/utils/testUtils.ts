@@ -374,8 +374,10 @@ export class MockOrientationDetector {
     this.isListening = true;
   }
 
-  addCallback(callback: (action: 'CORRECT' | 'SKIP') => void): void {
-    this.orientationCallbacks.push(callback);
+  addCallback(callback: (action: 'CORRECT' | 'SKIP') => void | null | undefined): void {
+    if (callback) {
+      this.orientationCallbacks.push(callback);
+    }
   }
 
   stopListening(): void {

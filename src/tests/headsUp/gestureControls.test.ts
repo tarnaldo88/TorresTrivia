@@ -333,7 +333,6 @@ describe('Gesture Controls Tests', () => {
       
       // Should not crash with invalid callbacks
       expect(() => {
-        // @ts-ignore - Testing error handling
         mockOrientationDetector.addCallback(null);
         mockOrientationDetector.addCallback(undefined);
         mockOrientationDetector.simulateTiltedDown();
