@@ -381,7 +381,7 @@ describe('TriviaScreen Component Tests', () => {
         fireEvent.press(getByTestId('next-question-button'));
         await waitFor(() => {
           // Wait for question counter to update
-        }, 10);
+        }, { timeout: 10 });
       }
       
       const endTime = performance.now();
