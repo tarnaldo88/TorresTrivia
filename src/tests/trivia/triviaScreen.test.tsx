@@ -449,13 +449,14 @@ describe('TriviaScreen Component Tests', () => {
           if (action.expected !== 'Show Answer') {
             await waitFor(() => {
               expect(getByText(action.expected)).toBeTruthy();
+            });
           }
-        } else if (action === 'hide-answer') {
+        } else if (action.action === 'hide-answer') {
           fireEvent.press(getByTestId('show-answer-button'));
           
           await waitFor(() => {
             expect(getByText(action.expected)).toBeTruthy();
-          }
+          });
         }
       }
     });
