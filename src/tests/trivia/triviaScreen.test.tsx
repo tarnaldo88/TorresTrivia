@@ -315,7 +315,7 @@ describe('TriviaScreen Component Tests', () => {
       const errorDb = new MockTriviaDatabase([], true);
       (TriviaDatabase as jest.Mock).mockImplementation(() => errorDb);
       
-      const { getByTestId } = renderTriviaScreen();
+      const { getByText, getByTestId } = renderTriviaScreen();
       
       await waitFor(() => {
         expect(getByText('No questions available')).toBeTruthy();
