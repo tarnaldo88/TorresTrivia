@@ -25,8 +25,8 @@ describe('Database Integration Tests', () => {
     });
 
     it('should handle transaction operations', async () => {
-      await database.withTransactionAsync(async () => {
-        await database.runAsync('SELECT 1');
+      await Database.transaction(async (db) => {
+        await db.runAsync('SELECT 1');
       });
       
       // Should not throw
