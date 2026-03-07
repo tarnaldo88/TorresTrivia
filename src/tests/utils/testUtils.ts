@@ -303,7 +303,6 @@ export class MockGameStateFactory {
     };
   }
 }
-}
 
 /**
  * Mock service classes for testing
