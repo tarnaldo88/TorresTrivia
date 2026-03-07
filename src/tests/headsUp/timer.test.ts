@@ -231,7 +231,7 @@ describe('TimerManager Tests', () => {
                   break;
               }
               
-              expect(freshTimer.isTimerRunning()).toBe(isRunning);
+              expect(freshTimer.isActive()).toBe(isRunning);
             }
             
             freshTimer.stop();
