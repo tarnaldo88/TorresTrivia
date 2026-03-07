@@ -105,6 +105,28 @@ export class ItemDatabase {
   }
 
   /**
+   * Get items by category
+   */
+  async getItemsByCategory(category: string): Promise<GameItem[]> {
+    try {
+      const db = Database.getInstance();
+      const rows = await db.getAllAsync(
+        'SELECT id, text, category FROM items WHERE category = ? ORDER BY id',
+        [category]
+      );
+
+      return rows.map((row: any) => ({
+        id: row.id,
+        text: row.text,
+        category: row.category,
+      }));
+    } catch (error) {
+      console.error(`Failed to get items by category ${category}:`, error);
+      throw error;
+    }
+  }
+
+  /**
    * Get the count of items in the collection
    */
   async getItemCount(): Promise<number> {
