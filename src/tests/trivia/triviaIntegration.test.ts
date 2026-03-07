@@ -437,7 +437,7 @@ describe('Trivia Integration Tests', () => {
         rounds: 0,
         totalQuestions: 0,
         totalCorrect: 0,
-        categoryScores: {},
+        categoryScores: {} as Record<string, number>,
       };
       
       for (const category of categories) {
