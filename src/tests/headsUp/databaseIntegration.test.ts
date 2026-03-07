@@ -20,13 +20,13 @@ describe('Database Integration Tests', () => {
     });
 
     it('should execute basic SQL operations', async () => {
-      const result = await database.getFirstAsync('SELECT 1 as test');
+      const result = await Database.executeSql('SELECT 1 as test');
       expect(result).toBeDefined();
     });
 
     it('should handle transaction operations', async () => {
       await Database.transaction(async (db) => {
-        await db.runAsync('SELECT 1');
+        await db.execAsync('SELECT 1');
       });
       
       // Should not throw
@@ -294,7 +294,7 @@ describe('Database Integration Tests', () => {
   describe('Database Error Handling', () => {
     it('should handle invalid SQL gracefully', async () => {
       try {
-        await database.runAsync('INVALID SQL');
+        await Database.executeSql('INVALID SQL');
         fail('Should have thrown error');
       } catch (error) {
         expect(error).toBeDefined();
