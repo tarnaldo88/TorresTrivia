@@ -199,7 +199,7 @@ describe('TriviaScreen Component Tests', () => {
     });
 
     it('should increment question counter', async () => {
-      const { getByText } = renderTriviaScreen();
+      const { getByText, getByTestId } = renderTriviaScreen();
       
       await waitFor(() => {
         expect(getByText('Question 1')).toBeTruthy();
@@ -224,7 +224,7 @@ describe('TriviaScreen Component Tests', () => {
       
       await db.initialize();
       
-      const { getByText } = renderTriviaScreen();
+      const { getByText, getByTestId } = renderTriviaScreen();
       
       // Go through all questions
       await waitFor(() => {
@@ -242,7 +242,7 @@ describe('TriviaScreen Component Tests', () => {
       });
       
       // Should cycle back to first question
-      fireEvent.press(getByTestId('next-question'));
+      fireEvent.press(getByTestId('next-question-button'));
       await waitFor(() => {
         expect(getByText('Question 4')).toBeTruthy();
       });
@@ -473,7 +473,7 @@ describe('TriviaScreen Component Tests', () => {
       
       await db.initialize();
       
-      const { getByText } = renderTriviaScreen();
+      const { getByText, getByTestId } = renderTriviaScreen();
       
       // Go through questions to check difficulty
       for (let i = 0; i < 9; i++) {
@@ -498,7 +498,7 @@ describe('TriviaScreen Component Tests', () => {
       
       await db.initialize();
       
-      const { getByText } = renderTriviaScreen();
+      const { getByText, getByTestId } = renderTriviaScreen();
       
       // Navigate through questions to check categories
       const categories = ['Science', 'History', 'Geography'];
@@ -512,7 +512,7 @@ describe('TriviaScreen Component Tests', () => {
           if (question.category === category) {
             foundCategory = true;
             expect(getByText(question.category)).toBeTruthy();
-            fireEvent.press(getByTestId('next-question'));
+            fireEvent.press(getByTestId('next-question-button'));
             await waitFor(() => {
               // Wait for next question to load
             }, 10);
@@ -562,7 +562,7 @@ describe('TriviaScreen Component Tests', () => {
       
       await db.initialize();
       
-      const { getByText } = renderTriviaScreen();
+      const { getByText, getByTestId } = renderTriviaScreen();
       
       // Get 3 questions
       for (let i = 0; i < 3; i++) {
@@ -610,20 +610,20 @@ describe('TriviaScreen Component Tests', () => {
       
       await db.initialize();
       
-      const { getByText } = renderTriviaScreen();
+      const { getByText, getByTestId } = renderTriviaScreen();
       
       // Use all questions
       await waitFor(() => {
         expect(getByText('Question 1')).toBeTruthy();
       });
       
-      fireEvent.press(getByTestId('next-question'));
+      fireEvent.press(getByTestId('next-question-button'));
       await waitFor(() => {
         expect(getByText('Question 2')).toBeTruthy();
       });
       
       // Cycle back to first question
-      fireEvent.press(getByTestId('next-question'));
+      fireEvent.press(getByTestId('next-question-button'));
       
       await waitFor(() => {
         expect(getByText('Question 3')).toBeTruthy();
@@ -639,7 +639,7 @@ describe('TriviaScreen Component Tests', () => {
       const emptyDb = new MockTriviaDatabase([]);
       (TriviaDatabase as jest.Mock).mockImplementation(() => emptyDb);
       
-      const { getByText } = renderTriviaScreen();
+      const { getByText, getByTestId } = renderTriviaScreen();
       
       await waitFor(() => {
         expect(getByText('No questions available')).toBeTruthy();
@@ -647,7 +647,7 @@ describe('TriviaScreen Component Tests', () => {
       
       // Should not crash when trying to get next question
       expect(() => {
-        fireEvent.press(getByTestId('next-question'));
+        fireEvent.press(getByTestId('next-question-button'));
       }).not.toThrow();
     });
 
