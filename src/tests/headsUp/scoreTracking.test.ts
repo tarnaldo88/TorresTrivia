@@ -6,6 +6,12 @@ import * as fc from 'fast-check';
 describe('Score Tracking Tests', () => {
   let gameState: GameState;
 
+  beforeAll(async () => {
+    // Initialize database for all tests
+    await Database.initialize();
+    await ScoreManager.initialize();
+  });
+
   beforeEach(() => {
     gameState = new GameState();
   });
