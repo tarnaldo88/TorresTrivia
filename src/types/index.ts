@@ -1,4 +1,9 @@
 /**
+ * TeamName represents a team name
+ */
+export type TeamName = string;
+
+/**
  * GameRound represents a single gameplay session
  */
 export interface GameRound {

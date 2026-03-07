@@ -1,5 +1,6 @@
 import { ScoreManager } from '../../services/scoreManager';
 import { GameState } from '../../services/gameState';
+import { Database } from '../../services/database';
 import * as fc from 'fast-check';
 
 describe('Score Tracking Tests', () => {
