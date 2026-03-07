@@ -397,16 +397,17 @@ describe('Score Tracking Tests', () => {
 
   describe('Error Handling', () => {
     it('should handle invalid score values gracefully', () => {
+      const freshScoreManager = new ScoreManager();
       expect(() => {
-        scoreManager.addPoints(NaN);
+        freshScoreManager.addPoints(NaN);
       }).not.toThrow();
       
       expect(() => {
-        scoreManager.addPoints(Infinity);
+        freshScoreManager.addPoints(Infinity);
       }).not.toThrow();
       
       expect(() => {
-        scoreManager.subtractPoints(NaN);
+        freshScoreManager.subtractPoints(NaN);
       }).not.toThrow();
     });
 
