@@ -1,20 +1,9 @@
 import { ScoreManager } from '../../services/scoreManager';
 import { GameState } from '../../services/gameState';
-import { Database } from '../../services/database';
 import * as fc from 'fast-check';
-
-// Mock the database
-jest.mock('../../services/database');
-jest.mock('expo-sqlite');
 
 describe('Score Tracking Tests', () => {
   let gameState: GameState;
-
-  beforeAll(async () => {
-    // Initialize database for all tests
-    await Database.initialize();
-    await ScoreManager.initialize();
-  });
 
   beforeEach(() => {
     gameState = new GameState();
