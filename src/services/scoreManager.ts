@@ -110,7 +110,7 @@ export class ScoreManager {
     }
   }
 
-  static async getTriviaScore(): Promise<void> {
+  static async getTriviaScore(): Promise<number> {
     try {
       const db = Database.getInstance();
       const result = await db.getFirstAsync(
@@ -119,7 +119,7 @@ export class ScoreManager {
       return result ? (result as any).triviaScore : 0;
     } catch (error) {
       console.error('Failed to get trivia score:', error);
-      return;
+      return 0;
     }
   }
 
@@ -150,7 +150,7 @@ export class ScoreManager {
     }
   }
 
-  static async getJeopardyTriviaScore(): Promise<void> {
+  static async getJeopardyTriviaScore(): Promise<number> {
     try {
       const db = Database.getInstance();
       const result = await db.getFirstAsync(
@@ -159,7 +159,7 @@ export class ScoreManager {
       return result ? (result as any).jeopardyTrivScore : 0;
     } catch (error) {
       console.error('Failed to get jeopardy trivia score:', error);
-      return;
+      return 0;
     }
   }
 
@@ -186,6 +186,41 @@ export class ScoreManager {
       );
     } catch (error) {
       console.error('Failed to reset jeopardy trivia score:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Set the last game score
+   */
+  static async setLastScore(score: number): Promise<void> {
+    try {
+      const db = Database.getInstance();
+      await db.runAsync(
+        `UPDATE ${this.TABLE_NAME} SET lastScore = ? WHERE id = 'scores'`,
+        [score]
+      );
+    } catch (error) {
+      console.error('Failed to set last score:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Set the high score (only if higher than current)
+   */
+  static async setHighScore(score: number): Promise<void> {
+    try {
+      const db = Database.getInstance();
+      const currentHighScore = await this.getHighScore();
+      const newHighScore = Math.max(score, currentHighScore);
+
+      await db.runAsync(
+        `UPDATE ${this.TABLE_NAME} SET highScore = ? WHERE id = 'scores'`,
+        [newHighScore]
+      );
+    } catch (error) {
+      console.error('Failed to set high score:', error);
       throw error;
     }
   }

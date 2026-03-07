@@ -206,59 +206,66 @@ describe('Score Tracking Tests', () => {
 
   describe('Edge Cases', () => {
     it('should handle very large scores', () => {
-      scoreManager.addPoints(Number.MAX_SAFE_INTEGER);
-      expect(scoreManager.getCurrentScore()).toBe(Number.MAX_SAFE_INTEGER);
+      const freshScoreManager = new ScoreManager();
+      freshScoreManager.addPoints(Number.MAX_SAFE_INTEGER);
+      expect(freshScoreManager.getCurrentScore()).toBe(Number.MAX_SAFE_INTEGER);
     });
 
     it('should handle negative point additions', () => {
-      scoreManager.addPoints(10);
-      scoreManager.addPoints(-5);
-      expect(scoreManager.getCurrentScore()).toBe(5);
+      const freshScoreManager = new ScoreManager();
+      freshScoreManager.addPoints(10);
+      freshScoreManager.addPoints(-5);
+      expect(freshScoreManager.getCurrentScore()).toBe(5);
     });
 
     it('should handle negative point subtractions', () => {
-      scoreManager.addPoints(10);
-      scoreManager.subtractPoints(-5);
-      expect(scoreManager.getCurrentScore()).toBe(15);
+      const freshScoreManager = new ScoreManager();
+      freshScoreManager.addPoints(10);
+      freshScoreManager.subtractPoints(-5);
+      expect(freshScoreManager.getCurrentScore()).toBe(15);
     });
 
     it('should handle decimal point values', () => {
-      scoreManager.addPoints(5.5);
-      expect(scoreManager.getCurrentScore()).toBe(5);
+      const freshScoreManager = new ScoreManager();
+      freshScoreManager.addPoints(5.5);
+      expect(freshScoreManager.getCurrentScore()).toBe(5);
     });
 
     it('should handle concurrent score operations', () => {
       // Simulate concurrent operations
+      const freshScoreManager = new ScoreManager();
       for (let i = 0; i < 100; i++) {
-        scoreManager.addPoints(1);
+        freshScoreManager.addPoints(1);
       }
       
-      expect(scoreManager.getCurrentScore()).toBe(100);
+      expect(freshScoreManager.getCurrentScore()).toBe(100);
     });
 
     it('should handle rapid reset operations', () => {
-      scoreManager.addPoints(50);
-      scoreManager.resetScore();
-      scoreManager.addPoints(25);
-      scoreManager.resetScore();
-      scoreManager.addPoints(10);
+      const freshScoreManager = new ScoreManager();
+      freshScoreManager.addPoints(50);
+      freshScoreManager.resetScore();
+      freshScoreManager.addPoints(25);
+      freshScoreManager.resetScore();
+      freshScoreManager.addPoints(10);
       
-      expect(scoreManager.getCurrentScore()).toBe(10);
+      expect(freshScoreManager.getCurrentScore()).toBe(10);
     });
   });
 
   describe('Performance Tests', () => {
     it('should handle many score operations efficiently', () => {
       const startTime = performance.now();
+      const freshScoreManager = new ScoreManager();
       
       for (let i = 0; i < 10000; i++) {
-        scoreManager.addPoints(1);
+        freshScoreManager.addPoints(1);
       }
       
       const endTime = performance.now();
       const duration = endTime - startTime;
       
-      expect(scoreManager.getCurrentScore()).toBe(10000);
+      expect(freshScoreManager.getCurrentScore()).toBe(10000);
       expect(duration).toBeLessThan(100); // Should complete in less than 100ms
     });
 
@@ -266,13 +273,13 @@ describe('Score Tracking Tests', () => {
       const startTime = performance.now();
       
       for (let i = 0; i < 100; i++) {
-        await scoreManager.setHighScore(i);
+        await ScoreManager.setHighScore(i);
       }
       
       const endTime = performance.now();
       const duration = endTime - startTime;
       
-      const highScore = await scoreManager.getHighScore();
+      const highScore = await ScoreManager.getHighScore();
       expect(highScore).toBe(99);
       expect(duration).toBeLessThan(1000); // Should complete in less than 1 second
     });
@@ -308,11 +315,11 @@ describe('Score Tracking Tests', () => {
       expect(finalScore).toBe(3);
       
       // Save to ScoreManager
-      await scoreManager.setLastScore(finalScore);
-      await scoreManager.setHighScore(finalScore);
+      await ScoreManager.setLastScore(finalScore);
+      await ScoreManager.setHighScore(finalScore);
       
-      const lastScore = await scoreManager.getLastScore();
-      const highScore = await scoreManager.getHighScore();
+      const lastScore = await ScoreManager.getLastScore();
+      const highScore = await ScoreManager.getHighScore();
       
       expect(lastScore).toBe(3);
       expect(highScore).toBe(3);
@@ -342,12 +349,12 @@ describe('Score Tracking Tests', () => {
       expect(gameState.getCurrentScore()).toBe(expectedScore);
       
       // Save to ScoreManager
-      await scoreManager.setLastScore(gameState.getCurrentScore());
-      await scoreManager.setHighScore(gameState.getCurrentScore());
+      await ScoreManager.setLastScore(gameState.getCurrentScore());
+      await ScoreManager.setHighScore(gameState.getCurrentScore());
       
       // Verify persistence
-      const lastScore = await scoreManager.getLastScore();
-      const highScore = await scoreManager.getHighScore();
+      const lastScore = await ScoreManager.getLastScore();
+      const highScore = await ScoreManager.getHighScore();
       
       expect(lastScore).toBe(expectedScore);
       expect(highScore).toBeGreaterThanOrEqual(expectedScore);
@@ -372,19 +379,19 @@ describe('Score Tracking Tests', () => {
         expect(gameState.getCurrentScore()).toBe(roundScore);
         
         // Save to ScoreManager
-        await scoreManager.setLastScore(roundScore);
-        await scoreManager.setHighScore(roundScore);
+        await ScoreManager.setLastScore(roundScore);
+        await ScoreManager.setHighScore(roundScore);
         
         // Reset for next round
         gameState.reset();
       }
       
       // Verify final high score
-      const finalHighScore = await scoreManager.getHighScore();
+      const finalHighScore = await ScoreManager.getHighScore();
       expect(finalHighScore).toBe(Math.max(...roundScores));
       
       // Verify last score
-      const finalLastScore = await scoreManager.getLastScore();
+      const finalLastScore = await ScoreManager.getLastScore();
       expect(finalLastScore).toBe(roundScores[roundScores.length - 1]);
     });
   });
@@ -409,7 +416,7 @@ describe('Score Tracking Tests', () => {
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
       
       // This would normally test storage errors, but for now we'll just verify no crashes
-      await scoreManager.setHighScore(100);
+      await ScoreManager.setHighScore(100);
       
       expect(consoleSpy).not.toHaveBeenCalled();
       consoleSpy.mockRestore();
@@ -418,22 +425,24 @@ describe('Score Tracking Tests', () => {
 
   describe('Score Validation', () => {
     it('should validate score ranges', () => {
+      const freshScoreManager = new ScoreManager();
       // Test minimum bounds
-      scoreManager.addPoints(0);
-      expect(scoreManager.getCurrentScore()).toBe(0);
+      freshScoreManager.addPoints(0);
+      expect(freshScoreManager.getCurrentScore()).toBe(0);
       
-      scoreManager.subtractPoints(1000);
-      expect(scoreManager.getCurrentScore()).toBe(0);
+      freshScoreManager.subtractPoints(1000);
+      expect(freshScoreManager.getCurrentScore()).toBe(0);
       
       // Test reasonable upper bounds
-      scoreManager.addPoints(1000000);
-      expect(scoreManager.getCurrentScore()).toBe(1000000);
+      freshScoreManager.addPoints(1000000);
+      expect(freshScoreManager.getCurrentScore()).toBe(1000000);
     });
 
     it('should maintain score type consistency', () => {
-      scoreManager.addPoints(5.5);
-      expect(typeof scoreManager.getCurrentScore()).toBe('number');
-      expect(Number.isInteger(scoreManager.getCurrentScore())).toBe(true);
+      const freshScoreManager = new ScoreManager();
+      freshScoreManager.addPoints(5.5);
+      expect(typeof freshScoreManager.getCurrentScore()).toBe('number');
+      expect(Number.isInteger(freshScoreManager.getCurrentScore())).toBe(true);
     });
   });
 });
