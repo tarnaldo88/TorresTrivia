@@ -45,6 +45,36 @@ My family's parties and holidays we always play games, including trivia and head
 - Literature (30)
 - Sports (30)
 
+**Custom Content Features:**
+- **Question Pack Creator**: Build custom trivia packs with questions, answers, categories, and difficulty levels
+- **Import/Export**: Share question packs via JSON or CSV formats
+- **Question Editor**: Add, modify, and organize custom trivia questions
+- **Pack Management**: Browse, edit, and delete custom question packs
+- **Metadata Support**: Author information, tags, descriptions, and pack categories
+
+## New Features ✨
+
+### Player & Team Management
+- **Player Profiles**: Select from predefined players (Megan, Emilio, Amaya, Kai, Nathan) with personalized audio greetings
+- **Custom Teams**: Create and manage custom teams with unique names
+- **Team Selection**: Choose between predefined teams (Shazam) or custom teams for competitive gameplay
+
+### Advanced Customization
+- **Theme Editor**: Create custom visual themes with personalized colors, fonts, and styling
+- **Theme Management**: Save, load, and switch between multiple custom themes
+- **Color Customization**: Fine-tune every aspect of the app's appearance with preset colors or custom hex values
+
+### Content Creation & Sharing
+- **Question Pack Creator**: Build comprehensive trivia packs with metadata
+- **Question Editor**: Add, edit, and organize individual trivia questions
+- **Import/Export System**: Share packs via JSON or CSV formats
+- **Pack Browser**: Browse and manage your custom question pack library
+
+### Enhanced Game Modes
+- **Jeopardy Mode**: Full Jeopardy experience with dollar amounts, Double Jeopardy, and Daily Doubles
+- **JeopTrivia**: Question-based trivia with customizable point values and scoring
+- **Dynamic Audio**: Context-aware sound effects and family voice recordings
+
 ## Future Features
 - Player Select (Plays their recorded voice- "This is ___")
 - Team Select (Some set premade teams and feature to create custom team)
