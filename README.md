@@ -496,6 +496,9 @@ Accelerometer.setUpdateInterval(100); // 100ms
 - **Database Indexing**: Indexed queries for fast item/question retrieval
 - **Lazy Loading**: Items and questions loaded on-demand
 - **Memory Efficient**: Used items tracked in Set for O(1) lookup
+- **Theme Optimization**: Efficient theme switching with minimal re-renders
+- **Sound Caching**: Preloaded audio files for responsive feedback
+- **Question Pack Optimization**: Efficient pack loading and caching
 
 ## Known Limitations
 
