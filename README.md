@@ -8,6 +8,8 @@ My family's parties and holidays we always play games, including trivia and head
 
 - **Heads Up Game**: Classic word/phrase guessing game with 155+ items across 9 categories
 - **Trivia Mode**: Answer 75+ trivia questions across 5 difficulty levels and categories
+- **Jeopardy Mode**: Jeopardy-style trivia game with dollar amounts and player scoring
+- **JeopTrivia**: Question-based trivia with customizable point values
 - **Gesture Controls**: Intuitive accelerometer-based tilt detection for natural gameplay
 
 ### Game Mechanics
@@ -18,6 +20,10 @@ My family's parties and holidays we always play games, including trivia and head
 - **Customizable Round Duration**: Default 60 seconds, adjustable per game
 - **Debounced Gesture Detection**: 800ms debounce prevents accidental triggers
 - **Offline-First**: All data stored locally with SQLite, no internet required
+- **Player Profiles**: Personalized player selection with custom audio greetings
+- **Team Management**: Create and manage custom teams for competitive play
+- **Dynamic Sound Effects**: Context-aware audio feedback using family voice recordings
+- **Theme Customization**: Create and apply custom visual themes throughout the app
 
 ### Content
 
