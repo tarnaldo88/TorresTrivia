@@ -37,7 +37,7 @@ describe('NotJeopardyScreen', () => {
   });
 
   const renderComponent = (props = {}) => {
-    return render(
+    const utils = render(
       <NavigationContainer>
         <NotJeopardyScreen
           roundDuration={120}
@@ -59,6 +59,8 @@ describe('NotJeopardyScreen', () => {
         },
       }
     );
+    
+    return utils;
   };
 
   describe('Initial State', () => {
