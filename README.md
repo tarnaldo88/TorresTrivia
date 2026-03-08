@@ -238,6 +238,24 @@ src/
 - Indexed queries for performance
 - Transaction support for data integrity
 
+**QuestionPackManager**
+- Manages custom question packs
+- Supports pack creation, editing, and deletion
+- Handles import/export functionality
+- Metadata management for packs
+
+**ThemeService**
+- Theme persistence and management
+- Custom theme creation and storage
+- Theme switching and application
+- Color scheme management
+
+**ScoreManager**
+- High score tracking across all game modes
+- Player-specific score history
+- Persistent score storage
+- Score comparison and statistics
+
 ## Testing 🧪
 
 The project includes comprehensive test suites for both Heads Up and Trivia games using Jest and property-based testing with fast-check.
@@ -469,6 +487,8 @@ Accelerometer.setUpdateInterval(100); // 100ms
 - `jest`: Testing framework
 - `fast-check`: Property-based testing
 - `ts-jest`: TypeScript support for Jest
+- `@testing-library/react-native`: Component testing
+- `@testing-library/jest-native`: Additional Jest matchers
 
 ## Performance Considerations
 
