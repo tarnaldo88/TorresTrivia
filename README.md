@@ -118,23 +118,43 @@ My family's parties and holidays we always play games, including trivia and head
 ```
 src/
 ├── components/
-│   ├── GameScreen.tsx          # Main Heads Up game screen
-│   ├── TriviaScreen.tsx        # Trivia question screen
-│   ├── HomeScreen.tsx          # Game mode selection
-│   └── NotJeopardyScreen.tsx   # Additional game mode
+│   ├── GameScreen.tsx              # Main Heads Up game screen
+│   ├── TriviaScreen.tsx            # Trivia question screen
+│   ├── NotJeopardyScreen.tsx      # Jeopardy-style game screen
+│   ├── JeopTriviaScreen.tsx        # Question-based trivia with points
+│   ├── HomeScreen.tsx              # Game mode selection
+│   ├── PlayerSelectScreen.tsx      # Player profile selection
+│   ├── TeamSelectScreen.tsx        # Team creation and selection
+│   ├── ThemeEditorScreen.tsx       # Custom theme creation
+│   ├── CreateQuestionPackScreen.tsx # Custom question pack creator
+│   ├── QuestionPackListScreen.tsx  # Browse question packs
+│   ├── QuestionPackEditorScreen.tsx # Edit question packs
+│   ├── AddTriviaQuestionScreen.tsx # Add individual questions
+│   └── AlterTriviaQuestion.tsx    # Modify existing questions
 ├── services/
-│   ├── database.ts             # SQLite database initialization
-│   ├── databaseSeeder.ts       # Database seeding with default content
-│   ├── itemDatabase.ts         # Item selection and deduplication
-│   ├── triviaDatabase.ts       # Trivia question management
-│   ├── orientationDetector.ts  # Accelerometer gesture detection
-│   ├── gameState.ts            # Game state management
-│   ├── timerManager.ts         # Round timer management
-│   └── feedbackManager.ts      # Visual/audio feedback
+│   ├── database.ts                 # SQLite database initialization
+│   ├── databaseSeeder.ts           # Database seeding with default content
+│   ├── itemDatabase.ts             # Item selection and deduplication
+│   ├── triviaDatabase.ts           # Trivia question management
+│   ├── questionPackManager.ts      # Custom question pack management
+│   ├── packImportExport.ts         # Import/export functionality
+│   ├── themeService.ts             # Theme persistence and management
+│   ├── orientationDetector.ts      # Accelerometer gesture detection
+│   ├── gameState.ts                # Game state management
+│   ├── timerManager.ts             # Round timer management
+│   ├── feedbackManager.ts          # Visual/audio feedback
+│   ├── scoreManager.ts             # Score tracking and persistence
+│   ├── countdownManager.ts         # Countdown timer functionality
+│   ├── gameManager.ts              # Game flow coordination
+│   └── UseDynamicSound.ts          # Dynamic sound effect management
+├── context/
+│   ├── ThemeContext.tsx            # Theme state management
+│   └── TeamContext.tsx             # Team state management
 ├── types/
-│   └── index.ts                # TypeScript interfaces
+│   ├── index.ts                    # Core TypeScript interfaces
+│   └── theme.ts                    # Theme-related type definitions
 └── navigation/
-    └── MainNavigator.tsx       # Navigation setup
+    └── MainNavigator.tsx           # Navigation setup
 ```
 
 ## How to Play
@@ -157,6 +177,32 @@ src/
 3. Tap "Show Answer" to reveal the answer
 4. Tap "Next Question" to move to the next question
 5. Questions are randomly selected without repetition within a round
+
+### Jeopardy Mode
+
+1. Select "Jeopardy" from the home screen
+2. Choose a dollar amount from the grid ($200-$1000)
+3. Select which player is answering the question
+4. Read the question and determine if the answer is correct
+5. Press "CORRECT!" to add points or "WRONG!" to subtract points
+6. Enable "Double Jeopardy" for round 2 with doubled point values
+7. Use "Daily Double" feature for custom wager amounts
+
+### JeopTrivia Mode
+
+1. Select "JeopTrivia" from the home screen
+2. Choose a dollar amount for the current question
+3. Answer the trivia question
+4. Points are awarded based on the selected amount
+5. Continue with questions until the round ends
+
+### Player & Team Setup
+
+1. Access "Player Select" to choose from predefined players
+2. Each player has personalized audio greetings
+3. Access "Team Select" to create custom teams
+4. Choose between predefined teams or create your own
+5. Teams are used for competitive gameplay modes
 
 ## Architecture
 
