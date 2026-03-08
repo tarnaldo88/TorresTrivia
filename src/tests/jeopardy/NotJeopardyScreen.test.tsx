@@ -141,33 +141,33 @@ describe('NotJeopardyScreen', () => {
 
   describe('Daily Double Feature', () => {
     it('should show input field when daily double is enabled', () => {
-      const { getByText, getByPlaceholderText } = renderComponent();
+      const utils = renderComponent();
       
-      fireEvent.press(getByText('Is it a Daily Double?'));
-      expect(getByPlaceholderText('Enter Daily Double Question $ Amount')).toBeTruthy();
+      fireEvent.press(utils.getByText('Is it a Daily Double?'));
+      expect(utils.getByPlaceholderText('Enter Daily Double Question $ Amount')).toBeTruthy();
     });
 
     it('should hide input field when daily double is disabled', () => {
-      const { getByText, queryByPlaceholderText } = renderComponent();
+      const utils = renderComponent();
       
       // Enable daily double
-      fireEvent.press(getByText('Is it a Daily Double?'));
-      expect(queryByPlaceholderText('Enter Daily Double Question $ Amount')).toBeTruthy();
+      fireEvent.press(utils.getByText('Is it a Daily Double?'));
+      expect(utils.queryByPlaceholderText('Enter Daily Double Question $ Amount')).toBeTruthy();
       
       // Disable daily double
-      fireEvent.press(getByText('Is it a Daily Double?'));
-      expect(queryByPlaceholderText('Enter Daily Double Question $ Amount')).toBeFalsy();
+      fireEvent.press(utils.getByText('Is it a Daily Double?'));
+      expect(utils.queryByPlaceholderText('Enter Daily Double Question $ Amount')).toBeFalsy();
     });
 
     it('should allow custom amount input for daily double', () => {
-      const { getByText, getByPlaceholderText } = renderComponent();
+      const utils = renderComponent();
       
-      fireEvent.press(getByText('Is it a Daily Double?'));
+      fireEvent.press(utils.getByText('Is it a Daily Double?'));
       
-      const textInput = getByPlaceholderText('Enter Daily Double Question $ Amount');
+      const textInput = utils.getByPlaceholderText('Enter Daily Double Question $ Amount');
       fireEvent.changeText(textInput, '1500');
       
-      expect(getByText('Question Selected: $1500')).toBeTruthy();
+      expect(utils.getByText('Question Selected: $1500')).toBeTruthy();
     });
   });
 
@@ -351,44 +351,44 @@ describe('NotJeopardyScreen', () => {
 
   describe('Edge Cases', () => {
     it('should handle zero amount selection', () => {
-      const { getByText } = renderComponent();
+      const utils = renderComponent();
       
       // Enable daily double and set amount to 0
-      fireEvent.press(getByText('Is it a Daily Double?'));
-      const textInput = getByPlaceholderText('Enter Daily Double Question $ Amount');
+      fireEvent.press(utils.getByText('Is it a Daily Double?'));
+      const textInput = utils.getByPlaceholderText('Enter Daily Double Question $ Amount');
       fireEvent.changeText(textInput, '0');
       
-      fireEvent.press(getByText('Player 1'));
-      fireEvent.press(getByText('CORRECT!'));
+      fireEvent.press(utils.getByText('Player 1'));
+      fireEvent.press(utils.getByText('CORRECT!'));
       
-      expect(getByText('Player 1: $0')).toBeTruthy();
+      expect(utils.getByText('Player 1: $0')).toBeTruthy();
     });
 
     it('should handle very large amounts in double jeopardy', () => {
-      const { getByText } = renderComponent();
+      const utils = renderComponent();
       
       // Enable double jeopardy
-      fireEvent.press(getByText('No'));
+      fireEvent.press(utils.getByText('No'));
       
       // Enable daily double and set large amount
-      fireEvent.press(getByText('Is it a Daily Double?'));
-      const textInput = getByPlaceholderText('Enter Daily Double Question $ Amount');
+      fireEvent.press(utils.getByText('Is it a Daily Double?'));
+      const textInput = utils.getByPlaceholderText('Enter Daily Double Question $ Amount');
       fireEvent.changeText(textInput, '2000');
       
-      fireEvent.press(getByText('Player 1'));
-      fireEvent.press(getByText('CORRECT!'));
+      fireEvent.press(utils.getByText('Player 1'));
+      fireEvent.press(utils.getByText('CORRECT!'));
       
-      expect(getByText('Player 1: $4000')).toBeTruthy(); // 2000 * 2
+      expect(utils.getByText('Player 1: $4000')).toBeTruthy(); // 2000 * 2
     });
 
     it('should handle negative amounts in daily double input', () => {
-      const { getByText } = renderComponent();
+      const utils = renderComponent();
       
-      fireEvent.press(getByText('Is it a Daily Double?'));
-      const textInput = getByPlaceholderText('Enter Daily Double Question $ Amount');
+      fireEvent.press(utils.getByText('Is it a Daily Double?'));
+      const textInput = utils.getByPlaceholderText('Enter Daily Double Question $ Amount');
       fireEvent.changeText(textInput, '-100');
       
-      expect(getByText('Question Selected: $-100')).toBeTruthy();
+      expect(utils.getByText('Question Selected: $-100')).toBeTruthy();
     });
 
     it('should not change scores when no player is selected', () => {
