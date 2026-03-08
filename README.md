@@ -76,8 +76,12 @@ My family's parties and holidays we always play games, including trivia and head
 - **Dynamic Audio**: Context-aware sound effects and family voice recordings
 
 ## Future Features
-- Player Select (Plays their recorded voice- "This is ___")
-- Team Select (Some set premade teams and feature to create custom team)
+- Multiplayer support with real-time score synchronization
+- Cloud sync for question packs and themes across devices
+- Advanced analytics and gameplay statistics
+- Voice recognition for hands-free gameplay
+- Augmented reality features for enhanced gameplay
+- Social features for sharing high scores and custom content
 
 ### Prerequisites
 
