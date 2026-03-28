@@ -38,7 +38,7 @@ describe('Power-Up System Property-Based Tests', () => {
           
           for (const usage of usageSequence) {
             const context = {
-              question: usage.hasQuestion ? TriviaQuestion.createMock() : undefined,
+              question: usage.hasQuestion ? createMockTriviaQuestion() : undefined,
               currentScore: usage.hasScore ? Math.floor(Math.random() * 1000) : undefined,
               timeRemaining: usage.hasTimeRemaining ? Math.floor(Math.random() * 120) + 1 : undefined,
             };
@@ -86,7 +86,7 @@ describe('Power-Up System Property-Based Tests', () => {
           
           for (let i = 0; i < config.maxUses + 2; i++) {
             lastResult = customManager.usePowerUp(config.playerId, config.powerUpType, {
-              question: TriviaQuestion.createMock(),
+              question: createMockTriviaQuestion(),
             });
             
             if (lastResult.success) {
@@ -124,7 +124,7 @@ describe('Power-Up System Property-Based Tests', () => {
             switch (op.operation) {
               case 'use':
                 powerUpManager.usePowerUp(testPlayerId, op.powerUpType, {
-                  question: TriviaQuestion.createMock(),
+                  question: createMockTriviaQuestion(),
                 });
                 break;
                 
