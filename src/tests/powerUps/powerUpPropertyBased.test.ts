@@ -176,7 +176,7 @@ describe('Power-Up System Property-Based Tests', () => {
           powerUpManager.resetPlayerInventory(testPlayerId);
           
           const context = {
-            question: config.hasQuestion ? TriviaQuestion.createMock() : undefined,
+            question: config.hasQuestion ? createMockTriviaQuestion() : undefined,
             currentScore: config.hasScore ? Math.floor(Math.random() * 1000) : undefined,
             timeRemaining: config.hasTimeRemaining ? Math.floor(Math.random() * 120) + 1 : undefined,
           };
@@ -275,7 +275,7 @@ describe('Power-Up System Property-Based Tests', () => {
           
           for (const powerUpType of powerUpSequence) {
             const result = powerUpManager.usePowerUp(testPlayerId, powerUpType, {
-              question: TriviaQuestion.createMock(),
+              question: createMockTriviaQuestion(),
             });
             
             if (result.success) {
@@ -315,7 +315,7 @@ describe('Power-Up System Property-Based Tests', () => {
           const activeIds: string[] = [];
           for (const powerUpType of powerUpSequence) {
             const result = powerUpManager.usePowerUp(testPlayerId, powerUpType, {
-              question: TriviaQuestion.createMock(),
+              question: createMockTriviaQuestion(),
             });
             
             if (result.success) {
@@ -370,7 +370,7 @@ describe('Power-Up System Property-Based Tests', () => {
             if (operation < 0.6) {
               // Use power-up
               powerUpManager.usePowerUp(testPlayerId, powerUpType, {
-                question: TriviaQuestion.createMock(),
+                question: createMockTriviaQuestion(),
               });
             } else if (operation < 0.8) {
               // Check active power-ups
@@ -410,7 +410,7 @@ describe('Power-Up System Property-Based Tests', () => {
             for (let i = 0; i < 10; i++) {
               const powerUpType = Object.values(PowerUpType)[i % Object.values(PowerUpType).length];
               const result = powerUpManager.usePowerUp(playerId, powerUpType, {
-                question: TriviaQuestion.createMock(),
+                question: createMockTriviaQuestion(),
               });
               results.push(result);
             }
@@ -458,7 +458,7 @@ describe('Power-Up System Property-Based Tests', () => {
             // Simulate success/failure by managing uses
             if (usage.success) {
               const result = powerUpManager.usePowerUp(testPlayerId, usage.powerUpType, {
-                question: TriviaQuestion.createMock(),
+                question: createMockTriviaQuestion(),
               });
               
               if (result.success) {
