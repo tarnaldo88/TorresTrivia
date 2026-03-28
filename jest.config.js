@@ -10,11 +10,14 @@ module.exports = {
     '!src/**/*.test.{ts,tsx}',
   ],
   transformIgnorePatterns: [
-    'node_modules/(?!(expo-sensors|expo-av|expo-sqlite)/)',
+    'node_modules/(?!(expo-sensors|expo-av|expo-sqlite|@react-navigation|@react-native)/)',
   ],
   moduleNameMapper: {
     '^expo-sensors$': '<rootDir>/src/__mocks__/expo-sensors.ts',
     '^expo-av$': '<rootDir>/src/__mocks__/expo-av.ts',
     '^expo-sqlite$': '<rootDir>/src/__mocks__/expo-sqlite.ts',
+    '^@react-navigation/native$': '<rootDir>/src/__mocks__/react-navigation.ts',
+    '^@react-navigation/bottom-tabs$': '<rootDir>/src/__mocks__/react-navigation.ts',
   },
+  setupFilesAfterEnv: ['<rootDir>/src/tests/setup.ts'],
 };
